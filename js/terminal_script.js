@@ -376,7 +376,7 @@ function start() {
     about.appendChild(p);
 
     var img = document.createElement("img")
-    img.src = "/me.png";
+    img.src = "images/photoOfMe.png";
     img.style.width = "100px";
     about.appendChild(img);
 
@@ -386,10 +386,10 @@ function start() {
 
     var ul = document.createElement("ul");
     var li = document.createElement("li")
-    li.innerText = "I'm a Informatics Engineering student at Barcelona School of Informatics (FIB), Polythecnic University of Catalonia";
+    li.innerText = "I'm a Informatics Engineering student at Barcelona School of Informatics (FIB), UPC";
     ul.appendChild(li);
     li = document.createElement("li")
-    li.innerText = "Add something here!";
+    li.innerText = "A part from programming, I love cooking and hiking!";
     ul.appendChild(li);
     about.appendChild(ul)
 
