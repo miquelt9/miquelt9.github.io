@@ -1,43 +1,147 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html data-lt-installed="true"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="canonical" href="https://html5-templates.com/" />
-	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-	<script src="script.js"></script>
-	<link rel="stylesheet" type="text/css" href="style.css" />
-	<title>Windows Template</title>
+	<meta name="viewport" content="width=device-width">
+	<title>Miquel's PC</title>
+	<link rel="icon" href="https://stephanie-flower.github.io/favicon.png">
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+	<link href="css/css2.css" rel="stylesheet">	
+	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <body>
-	<div id="desktop">
-		<div class="window" data-title="First">
-			Window content
-		</div>
-		<div class="window" data-title="Second">
-			Second Window
-		</div>
-		<div class="window closed" data-title="Third">
-			Third window starts closed
-		</div>
-		<div class="window" data-title="Welcome">
-			<h1>Hi there!</h1>
-			<p>I am Miquel.</p>
+<!-- why isnt this updating on the web? -->
+	<div class="mainbox" id="mainbox" style="display: none;"><div class="topbar" id="mainboxheader">System Properties
+		<div class="buttons"><div class="topbarButton" onclick="minimise('mainbox')">_</div>
+		<div class="topbarButton">□</div>
+		<div class="topbarButton" onclick="hideWindow('mainbox')">X</div></div></div>	
+		
+		<div class="content">
+			<div class="properties">
+				<img src="images/pc.png">
+				<div class="txt">
+					System: <br>
+					&nbsp; Miquel Torner Viñals <br>
+					&nbsp; 27.03.2002 <br>
+					<br>
+					Registered to: <br>
+					&nbsp; Barcelona School of Informatics, Polythecnic University of Catalonia <br>
+					&nbsp; Bachelor’s degree in Informatics Engineering (major in computing)<br>
+					<br>
+					Hi, I'm Miquel! I love programming, cooking, hiking and photography. <br>
+					Thanks for checking out my website :)
+				</div>
+			</div>
 		</div>
 
-		<div id="taskbar">
+	</div>
+
+	<div class="mainbox" id="skillsbox" style="display: none;"><div class="topbar" id="skillsboxheader">Skills
+		<div class="buttons"><div class="topbarButton" onclick="minimise('skillsbox')">_</div>
+		<div class="topbarButton">□</div>
+		<div class="topbarButton" onclick="hideWindow('skillsbox')">X</div></div></div>	
+		
+		<div class="content">
+			Languages:<br>
+			• C++ <br>
+			• Java <br>
+			• Python <br>
+			 <br>
+			Tech:<br>
+			• Android development in Android Studio <br>
+			• Git & Mercurial <br>
+			 <br> <br>
 		</div>
 
-		<div id="icons">
-			<a class="openWindow" data-id="0">Open first</a>
-			<a class="openWindow" data-id="1">Open second</a>
-			<a class="openWindow" data-id="2">Open third</a>
-			<a class="openWindow" data-id="3">Welcome screen</a>
+	</div>
+
+	<div class="mainbox" id="projectsbox" style="display: none;"><div class="topbar" id="projectsboxheader">Projects
+		<div class="buttons"><div class="topbarButton" onclick="minimise('projectsbox')">_</div>
+		<div class="topbarButton">□</div>
+		<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
+		
+		<div class="content">
+			• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/swordle"> <u>Link</u> </a> <br>
+			&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
+
+			• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Link</u> </a> <br>
+			&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC2021) <br> <br>
+
+			More comming soon!
+
+		</div>
+
+	</div>
+
+	<div class="mainbox" id="contactmebox"><div class="topbar" id="mainboxheader">Contact
+		<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
+		<div class="topbarButton">□</div>
+		<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
+		
+		<div class="windowContainer">
+			<div class="content">
+				<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
+				<a href="https://www.linkedin.com/in/miqueltv/" target="_blank"> LinkedIn </a> <br>
+				<a href="https://github.com/miquelt9" target="_blank"> GitHub </a>
+			</div>
 		</div>
 	</div>
-</body>
 
-</html>
+	<div class="terminalbox" id="terminalbox"><div class="terminaltopbar" id="terminalboxheader">>.
+		<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('terminalbox')">_</div>
+		<div class="terminaltopbarButton">□</div>
+		<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
+		
+		<div class="terminalcontent">
+			<h1>Hi, I'm Miquel!</h1>
+			<p>Welcome to my website. Here you can find out a bit of information about me!</p>
+			<p></p>
+			<p>You can navigate around and learn about me using the terminal below. Try `help` to get started.</p>
+			<noscript>
+				<p>This website requires javascript to function.</p>
+			</noscript>
+			<p>
+				If you're on mobile here are some links to simulate text input;
+			</p>
+			<ul>
+				<li><a href="#" class="text-link" data-text="cat about" tabindex="-1">cat about</a></li>
+				<li><a href="#" class="text-link" data-text="cat email" tabindex="-1">cat email</a></li>
+				<li><a href="#" class="text-link" data-text="cd github" tabindex="-1">cd github</a></li>
+			</ul>
+			<pre id="term-contents">&gt; <span class="cursor"></span></pre>
+		</div>
+
+	</div>
+
+	<script type="application/javascript" src="js/terminal_script.js"></script>
+
+
+	<div class="desktop">
+	<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
+	<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
+	<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
+	<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
+	<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
+	</div>
+
+	<div class="startmenu" id="startMenu" style="display: none;">
+		<a href="https://ibb.co/rtXhjbs" target="_blank"><div class="startmenuItem">
+			Have a nice day!
+		</div></a>
+	</div>
+
+	<div class="taskbar">
+		<div class="startButton" onclick="startMenu()"> <img src="images/start.png"> Start </div>
+		<div class="taskbarWindow" id="mainboxTaskbar" onclick="maximise('mainbox')" style="display: none;">Properties</div>
+		<div class="taskbarWindow" id="skillsboxTaskbar" onclick="maximise('skillsbox')" style="display: none;">Skills</div>
+		<div class="taskbarWindow" id="projectsboxTaskbar" onclick="maximise('projectsbox')" style="display: none;">Projects</div>
+		<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="maximise('contactmebox')">Contact</div>
+		<div class="taskbarWindow" id="terminalboxTaskbar" onclick="maximise('terminalbox')">Terminal</div>
+		<div class="clock" id="clock">16:25</div>
+	</div>
+
+
+
+</body></html>
