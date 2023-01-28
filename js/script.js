@@ -18,7 +18,8 @@ function hideWindow(window) {
 }
 
 function closeWindow(window) {
-  document.getElementById(window).style.display = "block";
+  document.getElementById("spaceshootergame").style.display = "block";
+  document.getElementById(window).style.display = "none";
   document.getElementById(window + "Taskbar").style.display = "none";
 }
 
