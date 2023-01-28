@@ -1,6 +1,6 @@
 body {
-	background: rgb(213,203,255);
-	background: linear-gradient(90deg, rgba(213,203,255,1) 0%, rgba(179,255,255,1) 44%, rgba(240,255,145,1) 87%, rgba(255,215,200,1) 100%);
+	background: rgb(177,255,255);
+	background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%);
 	background: gradien;
 	max-width: 100%;
     overflow-x: hidden;
