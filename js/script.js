@@ -18,7 +18,12 @@ function hideWindow(window) {
 }
 
 function closeWindow(window) {
+  // var iframe = document.getElementById("spaceshootergame");
+  // var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+
   document.getElementById("spaceshootergame").style.display = "block";
+
+
   document.getElementById(window).style.display = "none";
   document.getElementById(window + "Taskbar").style.display = "none";
 }
