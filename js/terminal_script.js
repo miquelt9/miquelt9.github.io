@@ -312,8 +312,8 @@ function start() {
 
     function cmd_pwd() {
         var link = document.createElement("a");
-        link.innerText = "https://www.website.com\n";
-        link.href = "https://www.website.com";
+        link.innerText = "https://miquelt9.github.io\n";
+        link.href = "https://miquelt9.github.io";
         link.tabIndex = -1;
         output_html(link);
     }
