@@ -18,8 +18,10 @@ function hideWindow(window) {
 }
 
 function closeWindow(window) {
-  // var iframe = document.getElementById("spaceshootergame");
-  // var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+  var iframe = document.getElementById("spaceshootergame");
+  var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
+  var MediaSource = innerDoc.getElementById('mediaElem');
+  MediaSource.muted=true;
 
   document.getElementById("spaceshootergame").style.display = "block";
 
