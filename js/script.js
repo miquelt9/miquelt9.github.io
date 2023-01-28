@@ -1,4 +1,4 @@
-const draggableElements = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox"]
+const draggableElements = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox"]
 
 document.addEventListener("DOMContentLoaded", function(event) {
     for(let i=0; i<draggableElements.length; i++) {

@@ -117,6 +117,20 @@
 
 	<script type="application/javascript" src="js/terminal_script.js"></script>
 
+	<div class="terminalbox" id="spaceshooterbox"><div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
+		<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('spaceshooterbox')">_</div>
+		<div class="terminaltopbarButton">□</div>
+		<div class="terminaltopbarButton" onclick="hideWindow('spaceshooterbox')">X</div></div></div>	
+		
+		<div class="terminalcontent">
+			<h2!>SpaceShooter!</h2>
+			<iframe mozallowfullscreen="true" allow="autoplay; fullscreen"  src="/static/spaceshooter/index.html" style="border:0px #000000 none;" name="Pong: Star Wars Remix" scrolling="no" msallowfullscreen="true" allowfullscreen="true" webkitallowfullscreen="true" allowtransparency="true" frameborder="0" marginheight="px" marginwidth="320px" height="450px" width="800px"></iframe>
+		</div>
+
+	</div>
+
+
+
 
 	<div class="desktop">
 	<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
@@ -124,6 +138,8 @@
 	<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
 	<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
 	<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
+	<div class="desktopicon" id="terminal" onclick="showWindow('spaceshooterbox')"><img src="images/terminal.png">SpaceShooter</div>
+
 	</div>
 
 	<div class="startmenu" id="startMenu" style="display: none;">
@@ -139,6 +155,7 @@
 		<div class="taskbarWindow" id="projectsboxTaskbar" onclick="maximise('projectsbox')" style="display: none;">Projects</div>
 		<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="maximise('contactmebox')">Contact</div>
 		<div class="taskbarWindow" id="terminalboxTaskbar" onclick="maximise('terminalbox')">Terminal</div>
+		<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="maximise('spaceshooterbox')">SpaceShooter</div>
 		<div class="clock" id="clock">16:25</div>
 	</div>
 
