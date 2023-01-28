@@ -17,6 +17,15 @@ function hideWindow(window) {
   document.getElementById(window + "Taskbar").style.display = "none";
 }
 
+function closeWindow(window) {
+  document.getElementById(window).style.display = "none";
+  document.getElementById(window + "Taskbar").style.display = "none";
+  var iframe = document.querySelector('iframe[src="/static/spaceshooter/index.html"]');
+  iframe.contentDocument.getElementById("muted").checked = true;
+  iframe.contentWindow.speaker[0].muted = true
+  iframe.contentWindow.speaker[1].muted = true
+}
+
 function minimise(window) {
   document.getElementById(window).style.display = "none";
 }
