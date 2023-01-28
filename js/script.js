@@ -18,12 +18,8 @@ function hideWindow(window) {
 }
 
 function closeWindow(window) {
-  document.getElementById(window).style.display = "none";
+  document.getElementById(window).style.display = "block";
   document.getElementById(window + "Taskbar").style.display = "none";
-  var iframe = document.querySelector('iframe[src="/static/spaceshooter/index.html"]');
-  iframe.contentDocument.getElementById("muted").checked = true;
-  iframe.contentWindow.speaker[0].muted = true
-  iframe.contentWindow.speaker[1].muted = true
 }
 
 function minimise(window) {
