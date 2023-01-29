@@ -13,7 +13,7 @@ a {
 }
 
 .windowslink {	
-	color: #572191;
+	color: #0907ec;
 	padding: 0.2rem 1rem;
 	text-align: center;
 	text-decoration: underline;
@@ -27,6 +27,11 @@ a {
 .windowslink:active {
 	color: red;
 	display: inline-block;	
+}
+
+.windowslink:visited {
+	cursor: pointer;
+	color: #572191;
 }
 
 .mainbox {
