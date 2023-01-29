@@ -23,7 +23,7 @@ function closeWindow(window) {
   iframe.setAttribute("src", "blank")
 
   
-  // document.getElementById(window).style.display = "none";
+  document.getElementById(window).style.display = "none";
   // document.getElementById(window + "Taskbar").style.display = "none";
 }
 
