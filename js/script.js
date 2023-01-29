@@ -45,7 +45,7 @@ function openWindow(window) {
   ifrm.marginwidth="320px";
   ifrm.height="780px";
   ifrm.width="1280px"
-  ifrm.src = "https://www.youtube.com/embed/tgbNymZ7vqY";
+  ifrm.src = "/static/spaceshooter/index.html";
 }
 
 function minimise(window) {
