@@ -19,8 +19,8 @@ function hideWindow(window) {
 
 function closeWindow(window) {
 
-  var iframe = document.getElementById("spaceshootergame");
-  iframe.src = "https://www.youtube.com/embed/tgbNymZ7vqY";
+  var iframe = document.getElementById("spaceshootergame")[0];
+  iframe.src = iframe.src;
   // document.getElementById(window).style.display = "none";
   // document.getElementById(window + "Taskbar").style.display = "none";
 }
