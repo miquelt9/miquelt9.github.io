@@ -20,7 +20,7 @@ function hideWindow(window) {
 function closeWindow(window) {
 
   var iframe = document.getElementById("spaceshootergame");
-  iframe.remove();
+  iframe.src = iframe.src;
 
   
   //document.getElementById(window).style.display = "none";
