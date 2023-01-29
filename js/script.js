@@ -1,11 +1,14 @@
-const draggableElements = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox"]
+const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox"]
+
+const pos_boxes = [81, 82, 83, 84, 85, 86]
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    for(let i=0; i<draggableElements.length; i++) {
-      dragElement(document.getElementById(draggableElements[i]));
+    for(let i=0; i<boxes.length; i++) {
+      dragElement(document.getElementById(boxes[i]));
     }
     setInterval(getCurrentTime, 1000);
 });
+
 
 function showWindow(window) {
   document.getElementById(window).style.display = "block";
@@ -68,6 +71,8 @@ function startMenu() {
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+  
+  elmnt.onmousedown = activeWindow;
   if (document.getElementById(elmnt.id + "header")) {
     document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
   } else {
@@ -97,6 +102,31 @@ function dragElement(elmnt) {
   function closeDragElement() {
     document.onmouseup = null;
     document.onmousemove = null;
+  }
+
+  function activeWindow(e) {
+    e = e || window.event;
+    
+    var position = elementPos();
+
+    if (position != 100) {
+      for(let i=0; i<boxes.length; i++) {
+        if (boxes[i] == elmnt.id) {
+          pos_boxes[i] == 100;
+          document.getElementById(boxes[i]).style.zIndex = 100;
+        } else {
+          if (document.getElementById(boxes[i]).style.zIndex > 1) {
+            document.getElementById(boxes[i]).style.zIndex = --pos_boxes[i];
+          }
+        }
+      }
+    }
+  }
+
+  function elementPos() {
+    for(let i=0; i<boxes.length; i++) {
+      if (boxes[i] == elmnt.id) return i;
+    }
   }
 }
 
