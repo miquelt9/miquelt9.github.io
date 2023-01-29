@@ -12,6 +12,23 @@ a {
 	text-decoration: none;
 }
 
+.windowslink {	
+	color: #572191;
+	padding: 0.2rem 1rem;
+	text-align: center;
+	text-decoration: underline;
+	display: inline-block;	
+}
+
+.windowslink:hover {
+	cursor: pointer;
+}
+
+.windowslink:active {
+	color: red;
+	display: inline-block;	
+}
+
 .mainbox {
 	display: none;
 	position: absolute;
