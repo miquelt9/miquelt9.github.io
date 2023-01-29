@@ -19,13 +19,10 @@ function hideWindow(window) {
 
 function closeWindow(window) {
 
-  var iframe = document.getElementById(window);
+  var iframe = document.getElementById(window + "game");
   iframe.remove();
   document.getElementById(window + "box").style.display = "none";
   document.getElementById(window + "box" + "Taskbar").style.display = "none";
-
-  // var iframe = document.getElementById(window + "game");
-  // iframe.remove();
 }
 
 function openWindow(window) {
@@ -48,7 +45,7 @@ function openWindow(window) {
   ifrm.marginwidth="320px";
   ifrm.height="780px";
   ifrm.width="1280px"
-  ifrm.src = "/static/spaceshooter/index.html";
+  ifrm.src = "https://www.youtube.com/embed/tgbNymZ7vqY";
 }
 
 function minimise(window) {
