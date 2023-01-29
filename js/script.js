@@ -19,10 +19,36 @@ function hideWindow(window) {
 
 function closeWindow(window) {
 
-  var iframe = document.getElementById("spaceshootergame")[0];
-  iframe.src = iframe.src;
-  document.getElementById(window).style.display = "none";
-  document.getElementById(window + "Taskbar").style.display = "none";
+  var iframe = document.getElementById(window);
+  iframe.remove();
+  document.getElementById(window + "box").style.display = "none";
+  document.getElementById(window + "box" + "Taskbar").style.display = "none";
+
+  // var iframe = document.getElementById(window + "game");
+  // iframe.remove();
+}
+
+function openWindow(window) {
+  document.getElementById(window + "box").style.display = "block";
+  document.getElementById(window + "box" + "Taskbar").style.display = "block";
+
+  var ifrm = document.createElement("iframe");
+  document.getElementById(window).appendChild(ifrm);
+
+  ifrm.id = window + "game";
+  ifrm.mozallowfullscreen = "true";
+  ifrm.allow = "autoplay; fullscreen";
+  ifrm.style = "border:0px #000000 none;";
+  ifrm.msallowfullscreen = "true";
+  ifrm.allowfullscreen = "true";
+  ifrm.webkitallowfullscreen = "true";
+  ifrm.allowtransparency = "true";
+  ifrm.frameborder = "0";
+  ifrm.marginheight="px";
+  ifrm.marginwidth="320px";
+  ifrm.height="780px";
+  ifrm.width="1280px"
+  ifrm.src = "/static/spaceshooter/index.html";
 }
 
 function minimise(window) {
