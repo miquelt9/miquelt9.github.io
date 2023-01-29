@@ -23,8 +23,8 @@ function closeWindow(window) {
   iframe.src = iframe.src;
 
   
-  //document.getElementById(window).style.display = "none";
-  //document.getElementById(window + "Taskbar").style.display = "none";
+  document.getElementById(window).style.display = "none";
+  document.getElementById(window + "Taskbar").style.display = "none";
 }
 
 function minimise(window) {
