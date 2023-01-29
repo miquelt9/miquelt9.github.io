@@ -19,12 +19,11 @@ function hideWindow(window) {
 
 function closeWindow(window) {
 
-  var iframe = document.getElementById("spaceshootergame");
-  iframe.setAttribute("src", "blank")
-
-  
   document.getElementById(window).style.display = "none";
-  // document.getElementById(window + "Taskbar").style.display = "none";
+  document.getElementById(window + "Taskbar").style.display = "none";
+
+  var iframe = document.getElementById("spaceshootergame");
+  iframe.remove();  
 }
 
 function minimise(window) {
