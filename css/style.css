@@ -75,7 +75,7 @@ a {
 	border-left: solid 2px #5E5C64;
 	box-shadow: 2px 2px #010101;
 	width: fit-content;
-	height: fit-content;
+	height: min-content;
 }
 
 .terminalcontent {
