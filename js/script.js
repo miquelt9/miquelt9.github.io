@@ -18,15 +18,12 @@ function hideWindow(window) {
 }
 
 function closeWindow(window) {
-  // var iframe = document.getElementById("spaceshooterbox");
+  var iframe = document.getElementById("spaceshootergame");
+  iframe.volume = 0;
   // var innerDoc = iframe.contentDocument || iframe.contentWindow.document;
   // var MediaSource = innerDoc.getElementById('spaceshootergame');
   // MediaSource.muted=true;
-  //document.getElementById("spaceshootergame").style.display = "block";
-
-  var element = document.getElementById("spaceshooterbox");
-  element.parentNode.removeChild(element);
-
+  
   document.getElementById(window).style.display = "none";
   document.getElementById(window + "Taskbar").style.display = "none";
 }
