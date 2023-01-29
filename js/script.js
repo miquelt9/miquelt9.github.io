@@ -24,7 +24,7 @@ function closeWindow(window) {
   // MediaSource.muted=true;
   //document.getElementById("spaceshootergame").style.display = "block";
 
-  var element = document.getElementById("spaceshootergame");
+  var element = document.getElementById("spaceshooterbox");
   element.parentNode.removeChild(element);
 
   document.getElementById(window).style.display = "none";
