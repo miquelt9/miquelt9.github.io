@@ -20,7 +20,7 @@ function hideWindow(window) {
 function closeWindow(window) {
 
   var iframe = document.getElementById("spaceshootergame");
-  iframe.src = iframe.src;
+  iframe.src = "https://www.youtube.com/embed/tgbNymZ7vqY";
   // document.getElementById(window).style.display = "none";
   // document.getElementById(window + "Taskbar").style.display = "none";
 }
