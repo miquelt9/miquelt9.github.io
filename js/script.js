@@ -1,16 +1,17 @@
 const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox"]
 
-const pos_boxes = [81, 82, 83, 84, 85, 86]
+const pos_boxes = [1, 2, 3, 4, 5, 6]
 
 document.addEventListener("DOMContentLoaded", function(event) {
     for(let i=0; i<boxes.length; i++) {
       dragElement(document.getElementById(boxes[i]));
+      document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
     }
     setInterval(getCurrentTime, 1000);
 });
 
-
 function showWindow(window) {
+  bringToFront(window);
   document.getElementById(window).style.display = "block";
   document.getElementById(window + "Taskbar").style.display = "block";
 }
@@ -20,15 +21,17 @@ function hideWindow(window) {
   document.getElementById(window + "Taskbar").style.display = "none";
 }
 
+// Just used for spaceshootergame box
 function closeWindow(window) {
-
   var iframe = document.getElementById(window + "game");
   iframe.remove();
   document.getElementById(window + "box").style.display = "none";
   document.getElementById(window + "box" + "Taskbar").style.display = "none";
 }
 
+// Just used for spaceshootergame box
 function openWindow(window) {
+  bringToFront(window + "box");
   document.getElementById(window + "box").style.display = "block";
   document.getElementById(window + "box" + "Taskbar").style.display = "block";
 
@@ -108,16 +111,15 @@ function dragElement(elmnt) {
     e = e || window.event;
     
     var position = elementPos();
-
-    if (position != 100) {
+    var pos_value = pos_boxes[position];
+    if (pos_value != 6) {
       for(let i=0; i<boxes.length; i++) {
         if (boxes[i] == elmnt.id) {
-          pos_boxes[i] == 100;
-          document.getElementById(boxes[i]).style.zIndex = 100;
-        } else {
-          if (document.getElementById(boxes[i]).style.zIndex > 1) {
-            document.getElementById(boxes[i]).style.zIndex = --pos_boxes[i];
-          }
+          pos_boxes[i] = 6;
+          document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
+        } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
+          pos_boxes[i] -= 1;
+          document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
         }
       }
     }
@@ -134,4 +136,26 @@ function getCurrentTime() {
   var now = new Date();
   var time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, 0);
   document.getElementById('clock').innerHTML = time;
+}
+
+function elementPos(elmnt_id) {
+  for(let i=0; i<boxes.length; i++) {
+    if (boxes[i] == elmnt_id) return i;
+  }
+}
+
+function bringToFront(window) {
+  var position = elementPos(window);
+  var pos_value = pos_boxes[position];
+
+  if (pos_value != boxes.length) {
+    for(let i=0; i<boxes.length; i++) {
+      if (boxes[i] == window) {
+        pos_boxes[i] = boxes.length;
+        document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
+      } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
+        document.getElementById(boxes[i]).style.zIndex = --pos_boxes[i];
+      }
+    }
+  }
 }
