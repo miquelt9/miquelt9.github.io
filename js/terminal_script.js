@@ -223,10 +223,6 @@ function start() {
             "cmd": cmd_cowsay,
             "complete": null,
         },
-        "lolcat": {
-            "cmd": cmd_lolcat,
-            "complete": null,
-        },
         "cat": {
             "cmd": cmd_cat,
             "complete": complete_cat,
@@ -324,18 +320,6 @@ function start() {
 
     function cmd_echo(args) {
         print_output(args.join(" ") + "\n");
-    }
-
-    function cmd_lolcat(args) {
-        if (args.length === 0) {
-            print_output("Usage: lolcat [message]\n");
-            return;
-        }
-        var span = document.createElement("span");
-        span.className = "loltext";
-        span.innerText = args.join(" ");
-        output_html(span);
-        print_output("\n");
     }
 
     function cmd_cowsay(args) {

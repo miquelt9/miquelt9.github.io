@@ -46,7 +46,7 @@ a {
 	box-shadow: 2px 2px #010101;
 	max-width: 70%;
 	min-width: 20%;
-	z-index: 80;
+	z-index: 1;
 }
 
 .terminalbox {
@@ -67,7 +67,7 @@ a {
     flex-direction: column;
 	flex-shrink: 1;
     flex-grow: 1;
-	z-index: 80;
+	z-index: 1;
 }
 
 .gamebox {
