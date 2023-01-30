@@ -70,6 +70,21 @@ a {
 	z-index: 1;
 }
 
+div.terminalbox a:link {
+	color: white;
+	text-decoration: underline;
+}
+
+div.terminalbox a:visited {
+	color: white;
+	text-decoration: underline;
+}
+
+div.terminalbox a:active {
+	color: #0907ec;
+	text-decoration: underline;
+}
+
 .gamebox {
 	display: none;
 	position: absolute;
@@ -109,8 +124,7 @@ a {
 .topbar {
 	display: flex;
 	flex-direction: row;
-	background: rgb(78,150,241);
-	background: linear-gradient(90deg, rgba(78,150,241,1) 0%, rgba(197,227,255,1) 100%);
+	background: rgb(106, 166, 240);
 	padding: 5px;
 	font-size: 1.5rem;
 	color: white;
