@@ -58,8 +58,14 @@ function minimise(window) {
   document.getElementById(window).style.display = "none";
 }
 
-function maximise(window) {
-  document.getElementById(window).style.display = "block";
+function toggle(window) {
+  var current = document.getElementById(window).style.display;
+  if (current == "none") {
+    document.getElementById(window).style.display = "block"; 
+  }
+  else {
+    document.getElementById(window).style.display = "none";  
+  }
 }
 
 function startMenu() {

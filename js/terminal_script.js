@@ -331,6 +331,7 @@ function start() {
     }
 
     var FILES = {};
+    var HIDEN_FILES = {};
 
     var link = document.createElement("a");
     link.innerText = "miqueltorner9@gmail.com\n";
@@ -352,6 +353,16 @@ function start() {
     link.target = "_blank";
     link.tabIndex = -1;
     FILES["linkedin"] = link;
+
+    var link = document.createElement("a");
+    link.innerText = "devpost.com/miqueltorner9\n";
+    link.href = "https://www.devpost.com/miqueltorner9";
+    link.target = "_blank";
+    link.tabIndex = -1;
+    FILES["devpost"] = link;
+
+    var game = document.createElement("a");
+    HIDEN_FILES["snake"] = game
 
     var about = document.createElement("div");
 
@@ -394,8 +405,16 @@ function start() {
     about.appendChild(ul);
     FILES["about"] = about;
 
-    function cmd_ls() {
-        print_output(Object.keys(FILES).join("\t") + "\n");
+    function cmd_ls(args) {
+        if (args.length < 1) {
+            print_output(Object.keys(FILES).join("\t") + "\n");
+        }
+        else if (args.length == 1 && args[0] == "-a") {
+            print_output(Object.keys(FILES).join("\t") + "\t" + Object.keys(HIDEN_FILES).join("\t") + "\n");
+        }
+        else {
+            print_output("Usage: ls\n");
+        }
     }
 
     function cmd_cat(args) {
@@ -416,6 +435,7 @@ function start() {
     var LINKS = {
         "github": "https://github.com/miquelt9",
         "linkedin": "https://www.linkedin.com/in/miqueltv/",
+        "devpost": "https://devpost.com/miqueltorner9",
     }
 
     function cmd_cd(args) {
@@ -439,7 +459,7 @@ function start() {
         }
     }
 
-    function cmd_rm(args) {
+    async function cmd_rm(args) {
         if (args.length < 1) {
             print_output("Usage: rm [file]\n");
         } else {
@@ -447,11 +467,101 @@ function start() {
                 print_output("rm: No such file to be removed\n");
             } else {
                 if (args[1] === "/" || args[1] === "./") {
-                    print_output("Luckly this is not a real terminal\n");
+                    print_output("Ooops!\n");
+
+                    for (let i = 0; i < 3; i++) { 
+                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
+                        await delay(getRandomInt(750, 1500));
+                    }
+                    for (let i = 0; i < 10; i++) { 
+                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
+                        await delay(getRandomInt(200, 300));
+                    }
+                    for (let i = 0; i < 20; i++) { 
+                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
+                        await delay(getRandomInt(100, 150));
+                    }
+                    for (let i = 0; i < 50; i++) { 
+                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
+                        await delay(getRandomInt(40, 80));
+                    }
+                    for (let i = 0; i < 150; i++) { 
+                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
+                        await delay(getRandomInt(10, 30));
+                    }
+
+                    for (let i = 0; i < 7; i++) { 
+                        var x_off = getRandomInt(0,1), x = getRandomInt(1, 80);
+                        var y_off = getRandomInt(0,1), y = getRandomInt(5, 85);
+                        if (x_off == 0) x_off = -1;
+                        if (y_off == 0) y_off = -1;
+                        var it = getRandomInt(50, 150);
+                        for (let i = 0; i < it; i++) { 
+                            if (y < 5 || y > 85) y_off *= -1;
+                            if (x < 1 || x > 80) x_off *= -1;
+                            createErrorBox(x, y);
+                            await delay(getRandomInt(5, 20));
+                            y += y_off*1.5;
+                            x += x_off;
+                        }
+                    }
+                    
+                    await delay(700);
+
+                    createBlueWindow();
+                    
+                    
                 } else {
                     print_output("rm: Cannot be removed\n");
                 }
             }
         }
     }
+}
+
+errorBoxContent =   '<div class="topbar" id="mainboxheader">SystemError'+
+                    '<div class="buttons"><div class="topbarButton">_</div>'+
+                    '<div class="topbarButton">□</div>'+
+                    '<div class="topbarButton"">X</div></div></div>	'+
+                    '<div class="content">An unexpected error ocurred!</div>';
+
+
+function createErrorBox(x, y) {
+    var elem = document.createElement('div');
+    elem.style.cssText = 'position: absolute; background-color: #EEF2F5; padding: 4px; border-bottom: solid 2px #808080; border-right: solid 2px #808080; border-top: solid 2px #FEFFFF; border-left: solid 2px #FEFFFF; box-shadow: 2px 2px #010101; min-width: 18%; min-height: 13%; z-index: 100;';
+    elem.style.left = x + "vw";
+    elem.style.bottom = y + "vh";
+
+    elem.innerHTML += errorBoxContent;
+    
+    document.body.appendChild(elem);
+}
+
+
+function createBlueWindow() {
+    var elem = document.createElement('div');
+
+    var content = document.createTextNode("Error 404: PC not found.");
+    elem.style.background = "#357EC7";
+    elem.style.color = "white";
+    elem.style.fontSize = "2vmax";
+    elem.style.width = "100vw";
+    elem.style.height = "100vh";
+    elem.style.padding = "2vmax"
+    elem.appendChild(content);
+
+    document.body.innerHTML = "";
+    document.body.style.background = "#357EC7";
+    document.body.style.overflow = "hidden";
+    document.body.appendChild(elem);
+}
+
+function delay(time) {
+    return new Promise(resolve => setTimeout(resolve, time));
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }

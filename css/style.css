@@ -1,6 +1,6 @@
 body {
-	background: rgb(177,255,255);
-	background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%);
+	background: rgb(177, 255, 190);
+	/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 	background: gradien;
 	max-width: 100%;
     overflow-x: hidden;
@@ -211,7 +211,7 @@ div.terminalbox a:active {
 .startmenu {
 	display: none;
 	background-color: #EEF2F5;
-	height: 40%;
+	height: 30%;
 	width: 20%;
 	bottom: 0;
 	left: 0;
