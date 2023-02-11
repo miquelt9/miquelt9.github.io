@@ -467,8 +467,12 @@ function start() {
                 print_output("rm: No such file to be removed\n");
             } else {
                 if (args[1] === "/" || args[1] === "./") {
-                    print_output("Ooops!\n");
 
+                    var audio = new Audio('https://github.com/miquelt9/miquelt9.github.io/blob/main/sounds/error_sound.mp3');
+                    //var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
+                    print_output("Ooops!\n");
+                    audio.play();
+                    
                     for (let i = 0; i < 3; i++) { 
                         createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
                         await delay(getRandomInt(750, 1500));
