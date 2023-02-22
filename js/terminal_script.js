@@ -235,6 +235,10 @@ function start() {
             "cmd": cmd_rm,
             "complete": null,
         },
+        "./snake.exe": {
+            "cmd": cmd_snake,
+            "complete": null,
+        },
     };
 
     function tab_complete(cmd) {
@@ -362,7 +366,7 @@ function start() {
     FILES["devpost"] = link;
 
     var game = document.createElement("a");
-    HIDEN_FILES["snake"] = game
+    HIDEN_FILES["snake.exe"] = game
 
     var about = document.createElement("div");
 
@@ -409,7 +413,7 @@ function start() {
         if (args.length < 1) {
             print_output(Object.keys(FILES).join("\t") + "\n");
         }
-        else if (args.length == 1 && args[0] == "-a") {
+        else if (args.length == 1 && (args[0] == "-a" || args[0] == "-la")) {
             print_output(Object.keys(FILES).join("\t") + "\t" + Object.keys(HIDEN_FILES).join("\t") + "\n");
         }
         else {
@@ -451,6 +455,19 @@ function start() {
         }
     }
 
+    function cmd_snake(args) {
+        if (args.length !== 0) {
+            print_output("Invalid argument\n");
+        } else {
+            print_output("Starting game...\n");
+            openSnakeGame();
+        }
+    }
+
+    function openSnakeGame() {
+        showWindow("snakebox");
+    }
+
     function complete_cd(args) {
         if (args.length < 2) {
             return Object.keys(LINKS);
@@ -466,7 +483,7 @@ function start() {
             if (args[0] !== "-rf") {                        
                 print_output("rm: No such file to be removed\n");
             } else {
-                if (args[1] === "/" || args[1] === "./") {
+                if (args[1] === "/" || args[1] === "./" || args[1] === "~/"  || args[1] === "~" ) {
 
                     var audio = new Audio('https://github.com/miquelt9/miquelt9.github.io/blob/main/sounds/error_sound.mp3');
                     //var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
@@ -569,3 +586,4 @@ function getRandomInt(min, max) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+

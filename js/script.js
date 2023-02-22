@@ -1,6 +1,6 @@
-const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox"]
+const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox"]
 
-const pos_boxes = [1, 2, 3, 4, 5, 6]
+const pos_boxes = [1, 2, 3, 4, 5, 6, 7]
 
 document.addEventListener("DOMContentLoaded", function(event) {
     for(let i=0; i<boxes.length; i++) {

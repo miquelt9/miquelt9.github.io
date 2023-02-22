@@ -63,10 +63,16 @@
 		<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
 		
 		<div class="content">
-			• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Link</u> </a> <br>
+			• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
+			&nbsp; A 2D interactive simulator which uses  (RoyalHackaway 2023)  <br> <br>
+
+			• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
+			&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
+
+			• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
 			&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
 
-			• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Link</u> </a> <div class="windowslink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
+			• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="windowslink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
 			&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC2021) <br> <br>
 
 			More comming soon!
@@ -126,7 +132,16 @@
 
 	</div>
 
-
+	<div class="gamebox" id="snakebox"><div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
+		<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
+		<div class="terminaltopbarButton">□</div>
+		<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
+		
+		<div class="gamecontent"  id="snake"> 
+			<canvas id="snake" width="608" height="608"></canvas>
+		</div>
+	</div>
+	<script src="/js/snake.js"></script>
 
 
 	<div class="desktop">
@@ -135,6 +150,7 @@
 	<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
 	<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
 	<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
+
 	</div>
 
 	<div class="startmenu" id="startMenu" style="display: none;">
@@ -151,6 +167,7 @@
 		<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
 		<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
 		<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
+		<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake🐍</div>
 		<div class="clock" id="clock">17:14</div>
 	</div>
 
