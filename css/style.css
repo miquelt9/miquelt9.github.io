@@ -304,7 +304,46 @@ div.terminalbox a:active {
 	padding: 20px;
 }
 
-@media (max-width: 768px){
+.mobile_device_380 {
+	display: none;
+}
+
+.mobile_device_480 {
+	display: none;
+}
+
+@media screen and (max-width: 380px){
+	.mobile_device_380 {display: none;}   
+	.mobile_device_480 {display: block;}           
+	.desktop_device {display: none;}
+
+}
+
+@media screen and (max-width: 480px){
+	.mobile_device_380 {display: none;}   
+	.mobile_device_480 {display: block;}           
+	.desktop_device {display: none;}
+
+	.mainbox {
+		display: block;
+		position: relative;
+		margin: 20px;
+		left: 5%;
+		min-width: 80%;
+		font-size: 10vw;
+	}
+
+	.topbar {
+		display: flex;
+		flex-direction: row;
+		background: rgb(106, 166, 240);
+		font-size: 0%;
+		color: white;
+	}
+}
+
+@media screen and (max-width: 768px){
+
 	.mainbox {
 		display: block;
 		position: relative;
