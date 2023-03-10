@@ -1,9 +1,14 @@
 const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox"]
 
-const pos_boxes = [1, 2, 3, 4, 5, 6, 7]
+const pos_boxes = []
 
 document.addEventListener("DOMContentLoaded", function(event) {
-    for(let i=0; i<boxes.length; i++) {
+    //Load pos boxes (used for keeping the z-index of each box)
+    for (let i = 0; i < boxes.length; i++) {
+      pos_boxes.push(i);
+    }
+    // window.alert(boxes);
+    for (let i = 0; i < boxes.length; i++) {
       dragElement(document.getElementById(boxes[i]));
       document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
     }
@@ -61,6 +66,7 @@ function minimise(window) {
 function toggle(window) {
   var current = document.getElementById(window).style.display;
   if (current == "none") {
+    bringToFront(window);
     document.getElementById(window).style.display = "block"; 
   }
   else {
@@ -80,7 +86,7 @@ function startMenu() {
 
 function dragElement(elmnt) {
   var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  
+  // alert("inside dragElement " + elmnt.id)
   elmnt.onmousedown = activeWindow;
   if (document.getElementById(elmnt.id + "header")) {
     document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
@@ -89,6 +95,7 @@ function dragElement(elmnt) {
   }
 
   function dragMouseDown(e) {
+    bringToFront(elmnt.id);
     e = e || window.event;
     e.preventDefault();
     pos3 = e.clientX;
@@ -118,10 +125,11 @@ function dragElement(elmnt) {
     
     var position = elementPos();
     var pos_value = pos_boxes[position];
-    if (pos_value != 6) {
-      for(let i=0; i<boxes.length; i++) {
+    // window.alert("element: " + elmnt.id);
+    if (pos_value != boxes.length) {
+      for(let i = 0; i < boxes.length; i++) {
         if (boxes[i] == elmnt.id) {
-          pos_boxes[i] = 6;
+          pos_boxes[i] = boxes.length;
           document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
         } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
           pos_boxes[i] -= 1;
@@ -160,8 +168,8 @@ function bringToFront(window) {
         pos_boxes[i] = boxes.length;
         document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
       } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
-        document.getElementById(boxes[i]).style.zIndex = --pos_boxes[i];
-      }
+        pos_boxes[i] -= 1;
+        document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];      }
     }
   }
 }
