@@ -488,11 +488,11 @@ function start() {
                     var audio = new Audio('/sounds/error_sound.mp3');
                     //var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
                     print_output("Ooops!\n");
-                    await delay(500);
+                    await delay(200);
                     
                     for (let i = 0; i < 3; i++) { 
                         createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        audio.play();
+                        //audio.play();
                         await delay(getRandomInt(750, 1500));
                     }
                     for (let i = 0; i < 10; i++) { 
