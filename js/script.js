@@ -63,6 +63,13 @@ function minimise(window) {
   document.getElementById(window).style.display = "none";
 }
 
+// idk, but not really working + not worth since all the content 
+// is already displayed when showing any window 
+function maximise(window) {
+  document.getElementById(window).style.width = "97vw";
+  document.getElementById(window).style.height = "97vh";
+}
+
 function toggle(window) {
   var current = document.getElementById(window).style.display;
   if (current == "none") {
