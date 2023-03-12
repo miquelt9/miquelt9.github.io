@@ -327,8 +327,8 @@ div.terminalbox a:active {
 	.mainbox {
 		display: block;
 		position: relative;
-		margin: 20px;
-		left: 5%;
+		margin: 10px;
+		left: 3%;
 		min-width: 80%;
 		font-size: 10vw;
 	}
