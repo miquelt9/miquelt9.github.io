@@ -345,6 +345,14 @@ function start() {
     FILES["email"] = link;
 
     var link = document.createElement("a");
+    link.innerText = "Miquel_Torner_CV.pdf\n";
+    link.href = "./docs/Miquel_Torner_CV.pdf";
+    // link.onclick="showWindow('cvbox')" TODO: make the cv window appear
+    link.target = "_blank";
+    link.tabIndex = -1;
+    FILES["cv"] = link;
+
+    var link = document.createElement("a");
     link.innerText = "github.com/miquelt9\n";
     link.href = "https://github.com/miquelt9";
     link.target = "_blank";
@@ -440,6 +448,7 @@ function start() {
         "github": "https://github.com/miquelt9",
         "linkedin": "https://www.linkedin.com/in/miqueltv/",
         "devpost": "https://devpost.com/miqueltorner9",
+        "cv": "./docs/Miquel_Torner_CV.pdf",
     }
 
     function cmd_cd(args) {
