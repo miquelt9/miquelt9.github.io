@@ -13,7 +13,8 @@
 </head>
 <body>
 	<div class="desktop_device">
-		<div class="mainbox" id="mainbox" style="display: none;"><div class="topbar" id="mainboxheader">System Properties
+		<div class="mainbox" id="mainbox" style="display: none;">
+			<div class="topbar" id="mainboxheader">System Properties
 			<div class="buttons"><div class="topbarButton" onclick="minimise('mainbox')">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton" onclick="hideWindow('mainbox')">X</div></div></div>	
@@ -38,7 +39,8 @@
 
 		</div>
 
-		<div class="mainbox" id="skillsbox" style="display: none;"><div class="topbar" id="skillsboxheader">Skills
+		<div class="mainbox" id="skillsbox" style="display: none;">
+			<div class="topbar" id="skillsboxheader">Skills
 			<div class="buttons"><div class="topbarButton" onclick="minimise('skillsbox')">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton" onclick="hideWindow('skillsbox')">X</div></div></div>	
@@ -57,7 +59,8 @@
 
 		</div>
 
-		<div class="mainbox" id="projectsbox" style="display: none;"><div class="topbar" id="projectsboxheader">Projects
+		<div class="mainbox" id="projectsbox" style="display: none;">
+			<div class="topbar" id="projectsboxheader">Projects
 			<div class="buttons"><div class="topbarButton" onclick="minimise('projectsbox')">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
@@ -72,7 +75,7 @@
 				• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
 				&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
 
-				• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="windowslink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
+				• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="gamelink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
 				&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
 
 				More comming soon!
@@ -81,7 +84,8 @@
 
 		</div>
 
-		<div class="mainbox" id="contactmebox"style="display: none;"><div class="topbar" id="contactmeboxheader">Contact
+		<div class="mainbox" id="contactmebox"style="display: none;">
+			<div class="topbar" id="contactmeboxheader">Contact
 			<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
@@ -89,12 +93,14 @@
 			<div class="content">
 				<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
 				<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
-				<a href="https://github.com/miquelt9"> GitHub </a>
-				<a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a>
+				<a href="https://github.com/miquelt9"> GitHub </a> <br>
+				<a class="windowslink" onclick="showWindow('cvbox')" style="padding-left: 0%;">Check my CV!</a>
+				<!-- <a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a> -->
 			</div>
 		</div>
 
-		<div class="terminalbox" id="terminalbox"><div class="terminaltopbar" id="terminalboxheader">>.
+		<div class="terminalbox" id="terminalbox">
+			<div class="terminaltopbar" id="terminalboxheader">>.
 			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('terminalbox')">_</div>
 			<div class="terminaltopbarButton">□</div>
 			<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
@@ -122,7 +128,8 @@
 
 		<script type="application/javascript" src="js/terminal_script.js"></script>
 
-		<div class="gamebox" id="spaceshooterbox"><div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
+		<div class="gamebox" id="spaceshooterbox">
+			<div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
 			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('spaceshooterbox')">_</div>
 			<div class="terminaltopbarButton">□</div>
 			<div class="terminaltopbarButton" onclick="closeWindow('spaceshooter')">X</div></div></div>	
@@ -133,7 +140,8 @@
 
 		</div>
 
-		<div class="gamebox" id="snakebox"><div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
+		<div class="gamebox" id="snakebox">
+			<div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
 			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
 			<div class="terminaltopbarButton">□</div>
 			<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
@@ -144,6 +152,14 @@
 		</div>
 		<script src="/js/snake.js"></script>
 
+		<div class="cvbox" id="cvbox"style="display: none;">
+			<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
+			<div class="buttons"><div class="topbarButton" onclick="minimise('cvbox')">_</div>
+			<div class="topbarButton">□</div>
+			<div class="topbarButton" onclick="hideWindow('cvbox')">X</div></div></div>	
+			<iframe id="iframepdf" style="width: 900px; height: 500px" src="./docs/Miquel_Torner_CV.pdf"></iframe>
+			</div>
+		</div>
 
 		<div class="desktop">
 		<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
@@ -151,7 +167,6 @@
 		<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
 		<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
 		<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
-
 		</div>
 
 		<div class="startmenu" id="startMenu" style="display: none;">
@@ -169,6 +184,7 @@
 			<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
 			<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
 			<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake🐍</div>
+			<div class="taskbarWindow" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
 			<div class="clock" id="clock">17:14</div>
 		</div>
 	</div>
@@ -189,7 +205,8 @@
 
 	<div class="mobile_device_480">
 
-		<div class="mainbox" id="mainbox" style="display: block;"><div class="topbar" id="mainboxheader">System Properties
+		<div class="mainbox" id="mainbox" style="display: block;">
+			<div class="topbar" id="mainboxheader" style="font-size: 1rem;">System Properties
 			<div class="buttons"><div class="topbarButton">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton">X</div></div></div>	
@@ -216,7 +233,8 @@
 
 		</div>
 
-		<div class="mainbox" id="projectsbox" style="display: block;"><div class="topbar" id="projectsboxheader">Projects
+		<div class="mainbox" id="projectsbox" style="display: block; ">
+			<div class="topbar" id="projectsboxheader" style="font-size: 1rem;">Projects
 			<div class="buttons"><div class="topbarButton">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton">X</div></div></div>	
@@ -240,7 +258,8 @@
 
 		</div>
 
-		<div class="mainbox" id="contactmebox"style="display: block;"><div class="topbar" id="contactmeboxheader">Contact
+		<div class="mainbox" id="contactmebox"style="display: block;">
+			<div class="topbar" id="contactmeboxheader" style="font-size: 1rem;">Contact
 			<div class="buttons"><div class="topbarButton">_</div>
 			<div class="topbarButton">□</div>
 			<div class="topbarButton">X</div></div></div>	
