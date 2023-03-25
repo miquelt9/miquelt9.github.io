@@ -11,270 +11,284 @@
 	<link href="css/css2.css" rel="stylesheet">	
 	<script type="text/javascript" src="js/script.js"></script>
 </head>
+
+
 <body>
-	<div class="desktop_device">
-		<div class="mainbox" id="mainbox" style="display: none;">
-			<div class="topbar" id="mainboxheader">System Properties
-			<div class="buttons"><div class="topbarButton" onclick="minimise('mainbox')">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton" onclick="hideWindow('mainbox')">X</div></div></div>	
-			
-			<div class="content">
-				<div class="properties">
-					<img src="images/meOnPC.png">
-					<div class="txt">
-						System: <br>
-						&nbsp; Miquel Torner Viñals <br>
-						&nbsp; 27.03.2002 <br>
-						<br>
-						Registered to: <br>
-						&nbsp; Barcelona School of Informatics, Polythecnic University of Catalonia <br>
-						&nbsp; Bachelor's degree in Informatics Engineering (major in computing)<br>
-						<br>
-						Hi, I'm Miquel! I love programming, cooking, hiking and traveling. <br>
-						Thanks for checking out my website :)
+	<div class="background">
+		
+		<div class="desktop_device">
+			<div class="mainbox" id="mainbox" style="display: none;">
+				<div class="topbar" id="mainboxheader">System Properties
+				<div class="buttons"><div class="topbarButton" onclick="minimise('mainbox')">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton" onclick="hideWindow('mainbox')">X</div></div></div>	
+				
+				<div class="content">
+					<div class="properties">
+						<img src="images/meOnPC.png">
+						<div class="txt">
+							System: <br>
+							&nbsp; Miquel Torner Viñals <br>
+							&nbsp; 27.03.2002 <br>
+							<br>
+							Registered to: <br>
+							&nbsp; Barcelona School of Informatics, Polythecnic University of Catalonia <br>
+							&nbsp; Bachelor's degree in Informatics Engineering (major in computing)<br>
+							<br>
+							Hi, I'm Miquel! I love programming, cooking, hiking and traveling. <br>
+							Thanks for checking out my website :)
+						</div>
 					</div>
 				</div>
-			</div>
-
-		</div>
-
-		<div class="mainbox" id="skillsbox" style="display: none;">
-			<div class="topbar" id="skillsboxheader">Skills
-			<div class="buttons"><div class="topbarButton" onclick="minimise('skillsbox')">_</div>
-			<div class="topbarButton" >□</div>
-			<div class="topbarButton" onclick="hideWindow('skillsbox')">X</div></div></div>	
-			
-			<div class="content">
-				Languages:<br>
-				• C++ <br>
-				• Java <br>
-				• Python <br>
-				<br>
-				Tech:<br>
-				• Android development in Android Studio <br>
-				• Git & Mercurial <br>
-				<br> <br>
-			</div>
-
-		</div>
-
-		<div class="mainbox" id="projectsbox" style="display: none;">
-			<div class="topbar" id="projectsboxheader">Projects
-			<div class="buttons"><div class="topbarButton" onclick="minimise('projectsbox')">_</div>
-			<div class="topbarButton" >□</div>
-			<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
-			
-			<div class="content">
-				• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
-				&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
-
-				• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
-				&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
-
-				• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
-				&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
-
-				• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="gamelink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
-				&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
-
-				More comming soon!
 
 			</div>
 
-		</div>
-
-		<div class="mainbox" id="contactmebox"style="display: none;">
-			<div class="topbar" id="contactmeboxheader">Contact
-			<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
-			<div class="topbarButton" >□</div>
-			<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
-			
-			<div class="content">
-				<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
-				<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
-				<a href="https://github.com/miquelt9"> GitHub </a> <br>
-				<a class="windowslink" onclick="showWindow('cvbox')" style="padding-left: 0%;">Check my CV!</a>
-				<!-- <a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a> -->
-			</div>
-		</div>
-
-		<div class="terminalbox" id="terminalbox">
-			<div class="terminaltopbar" id="terminalboxheader">>.
-			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('terminalbox')">_</div>
-			<div class="terminaltopbarButton">□</div>
-			<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
-			
-			<div class="terminalcontent">
-				<h1>Hi, I'm Miquel!</h1>
-				<p>Welcome to my website. Here you can find out a bit of information about me!</p>
-				<p></p>
-				<p>You can navigate around and learn about me using the terminal below. Try `help` to get started.</p>
-				<noscript>
-					<p>This website requires javascript to function.</p>
-				</noscript>
-				<p>
-					If you're on mobile here are some links to simulate text input;
-				</p>
-				<ul>
-					<li><a href="#" class="text-link" data-text="cat about" tabindex="-1">cat about</a></li>
-					<li><a href="#" class="text-link" data-text="cat email" tabindex="-1">cat email</a></li>
-					<li><a href="#" class="text-link" data-text="cd github" tabindex="-1">cd github</a></li>
-				</ul>
-				<pre id="term-contents">&gt; <span class="cursor"></span></pre>
-			</div>
-
-		</div>
-
-		<script type="application/javascript" src="js/terminal_script.js"></script>
-
-		<div class="gamebox" id="spaceshooterbox">
-			<div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
-			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('spaceshooterbox')">_</div>
-			<div class="terminaltopbarButton">□</div>
-			<div class="terminaltopbarButton" onclick="closeWindow('spaceshooter')">X</div></div></div>	
-			
-			<div class="gamecontent"  id="spaceshooter"> 
+			<div class="mainbox" id="skillsbox" style="display: none;">
+				<div class="topbar" id="skillsboxheader">Skills
+				<div class="buttons"><div class="topbarButton" onclick="minimise('skillsbox')">_</div>
+				<div class="topbarButton" >□</div>
+				<div class="topbarButton" onclick="hideWindow('skillsbox')">X</div></div></div>	
 				
+				<div class="content">
+					Languages:<br>
+					• C++ <br>
+					• Java <br>
+					• Python <br>
+					<br>
+					Tech:<br>
+					• Android development in Android Studio <br>
+					• Git & Mercurial <br>
+					<br> <br>
+				</div>
+
 			</div>
 
-		</div>
+			<div class="mainbox" id="projectsbox" style="display: none;">
+				<div class="topbar" id="projectsboxheader">Projects
+				<div class="buttons"><div class="topbarButton" onclick="minimise('projectsbox')">_</div>
+				<div class="topbarButton" >□</div>
+				<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
+				
+				<div class="content">
+					• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
+					&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
 
-		<div class="gamebox" id="snakebox">
-			<div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
-			<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
-			<div class="terminaltopbarButton">□</div>
-			<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
-			
-			<div class="gamecontent"  id="snake"> 
-				<canvas id="snake" width="608" height="608"></canvas>
+					• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
+					&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
+
+					• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
+					&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
+
+					• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="gamelink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
+					&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
+
+					More comming soon!
+
+				</div>
+
 			</div>
-		</div>
-		<script src="/js/snake.js"></script>
 
-		<div class="cvbox" id="cvbox"style="display: none;">
-			<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
-			<div class="buttons"><div class="topbarButton" onclick="minimise('cvbox')">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton" onclick="hideWindow('cvbox')">X</div></div></div>	
-			<iframe id="iframepdf" style="width: 900px; height: 500px" src="./docs/Miquel_Torner_CV.pdf"></iframe>
-			</div>
-		</div>
-
-		<div class="desktop">
-		<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
-		<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
-		<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
-		<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
-		<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
-		</div>
-
-		<div class="startmenu" id="startMenu" style="display: none;">
-			<a href="https://ibb.co/rtXhjbs" target="_blank"><div class="startmenuItem">
-				&MediumSpace; Have a nice day!
-			</div></a>
-			<a target="_blank"><div class="startmenuItem">
-				&MediumSpace; Something coming soon...
-			</div></a>
-		</div>
-
-		<div class="taskbar">
-			<div class="startButton" onclick="startMenu()"> <img src="images/start.png"> Start </div>
-			<div class="taskbarWindow" id="mainboxTaskbar" onclick="toggle('mainbox')" style="display: none;">Properties</div>
-			<div class="taskbarWindow" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
-			<div class="taskbarWindow" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
-			<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
-			<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
-			<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
-			<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake🐍</div>
-			<div class="taskbarWindow" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
-			<div class="clock" id="clock">17:14</div>
-		</div>
-	</div>
-	<div class="mobile_device_380">
-		<!-- Css activates always the 480, to improve -->
-		<!-- <div class="mainbox" id="contactmebox"style="display: block;"><div class="topbar" id="contactmeboxheader">Contact
-			<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
-			
-			<div class="content">
-				<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
-				<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
-				<a href="https://github.com/miquelt9"> GitHub </a>
-			</div>
-		</div> -->
-	</div>
-
-	<div class="mobile_device_480">
-
-		<div class="mainbox" id="mainbox" style="display: block;">
-			<div class="topbar" id="mainboxheader" style="font-size: 1rem;">System Properties
-			<div class="buttons"><div class="topbarButton">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton">X</div></div></div>	
-			<!-- <div style="text-align: center;"> Not sure if display my photo in the phone so better not to do so I think
-				<br> 
-				<img src="images/meOnPC.png" style="width: 80%; margin-right: auto; margin-left: auto;">
-			</div> -->
-			<div class="content">
-				<div class="properties" style="padding: 10px; text-align: justify;">
-						System: <br>
-						&nbsp; Miquel Torner Viñals <br>
-						&nbsp; 27.03.2002 <br>
-						&nbsp;<br>
-						Registered to: <br>
-						&nbsp; · FIB, Polythecnic University of Catalonia <br>
-						&nbsp; · Bachelor's degree in Informatics Engineering (major in computing)<br>
-						<br>
-						&nbsp;<br>
-						Hi, I'm Miquel! I love programming, cooking, hiking and traveling. <br>
-						Thanks for checking out my website! <br>
-						&nbsp;<br>(Use a desktop/laptop for the full interactive experience)
+			<div class="mainbox" id="contactmebox"style="display: none;">
+				<div class="topbar" id="contactmeboxheader">Contact
+				<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
+				<div class="topbarButton" >□</div>
+				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
+				
+				<div class="content">
+					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
+					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
+					<a href="https://github.com/miquelt9"> GitHub </a> <br>
+					<a class="windowslink" onclick="showWindow('cvbox')" style="padding-left: 0%;">Check my CV!</a>
+					<!-- <a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a> -->
 				</div>
 			</div>
 
-		</div>
-
-		<div class="mainbox" id="projectsbox" style="display: block; ">
-			<div class="topbar" id="projectsboxheader" style="font-size: 1rem;">Projects
-			<div class="buttons"><div class="topbarButton">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton">X</div></div></div>	
-			
-			<div class="content" style="text-align: justify;">
-				• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
-				&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
-
-				• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
-				&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
-
-				• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
-				&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
-
-				• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a>  <br>
-				&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
-
-				More comming soon!
+			<div class="terminalbox" id="terminalbox">
+				<div class="terminaltopbar" id="terminalboxheader">>.
+				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('terminalbox')">_</div>
+				<div class="terminaltopbarButton">□</div>
+				<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
+				
+				<div class="terminalcontent">
+					<h1>Hi, I'm Miquel!</h1>
+					<p>Welcome to my website. Here you can find out a bit of information about me!</p>
+					<p></p>
+					<p>You can navigate around and learn about me using the terminal below. Try `help` to get started.</p>
+					<noscript>
+						<p>This website requires javascript to function.</p>
+					</noscript>
+					<p>
+						If you're on mobile here are some links to simulate text input;
+					</p>
+					<ul>
+						<li><a href="#" class="text-link" data-text="cat about" tabindex="-1">cat about</a></li>
+						<li><a href="#" class="text-link" data-text="cat email" tabindex="-1">cat email</a></li>
+						<li><a href="#" class="text-link" data-text="cd github" tabindex="-1">cd github</a></li>
+					</ul>
+					<pre id="term-contents">&gt; <span class="cursor"></span></pre>
+				</div>
 
 			</div>
 
+			<script type="application/javascript" src="js/terminal_script.js"></script>
+
+			<div class="gamebox" id="spaceshooterbox">
+				<div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
+				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('spaceshooterbox')">_</div>
+				<div class="terminaltopbarButton">□</div>
+				<div class="terminaltopbarButton" onclick="closeWindow('spaceshooter')">X</div></div></div>	
+				
+				<div class="gamecontent"  id="spaceshooter"> 
+					
+				</div>
+
+			</div>
+
+			<div class="gamebox" id="snakebox">
+				<div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
+				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
+				<div class="terminaltopbarButton">□</div>
+				<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
+				
+				<div class="gamecontent"  id="snake"> 
+					<canvas id="snake" width="608" height="608"></canvas>
+				</div>
+			</div>
+			<script src="/js/snake.js"></script>
+
+			<div class="cvbox" id="cvbox"style="display: none;">
+				<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
+				<div class="buttons"><div class="topbarButton" onclick="minimise('cvbox')">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton" onclick="hideWindow('cvbox')">X</div></div></div>	
+				<iframe id="iframepdf" style="width: 1280px; height: 780px" src="./docs/Miquel_Torner_CV.pdf"></iframe>
+			</div>
+
+			<div class="cvbox" id="canbox" style="display: none;" width="400" height="400">
+				<div class="topbar" id="canboxheader">&nbsp;CANVAS!
+				<div class="buttons"><div class="topbarButton" onclick="minimise('canbox')">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton" onclick="hideWindow('canbox')">X</div></div></div>	
+				<!-- <canvas id="can" width="700" height="200" style="position:absolute;top:15%;left:5%;border:2px solid;"></canvas> -->
+
+			</div>
+			<script src="/js/draw.js"></script>
+
+			<div class="desktop">
+			<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
+			<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
+			<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
+			<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
+			<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
+			<!-- <div class="desktopicon" id="terminal" onclick="showWindow('canbox')" onclick="initcanvas()"><img src="images/terminal.png">Terminal</div> -->
+
+			</div>
+
+			<div class="startmenu" id="startMenu" style="display: none;">
+				<a href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem">
+					&MediumSpace; Have a nice day!
+				</div></a>
+				<a target="_blank"><div class="startmenuItem">
+					&MediumSpace; Something coming soon...
+				</div></a>
+			</div>
+
+			<div class="taskbar">
+				<div class="startButton" onclick="startMenu()"> <img src="images/start.png"> Start </div>
+				<div class="taskbarWindow" id="mainboxTaskbar" onclick="toggle('mainbox')" style="display: none;">Properties</div>
+				<div class="taskbarWindow" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
+				<div class="taskbarWindow" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
+				<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
+				<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
+				<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
+				<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake🐍</div>
+				<div class="taskbarWindow" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
+				<div class="clock" id="clock">17:14</div>
+			</div>
+		</div>
+		<div class="mobile_device_380">
+			<!-- Css activates always the 480, to improve -->
+			<!-- <div class="mainbox" id="contactmebox"style="display: block;"><div class="topbar" id="contactmeboxheader">Contact
+				<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
+				
+				<div class="content">
+					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
+					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
+					<a href="https://github.com/miquelt9"> GitHub </a>
+				</div>
+			</div> -->
 		</div>
 
-		<div class="mainbox" id="contactmebox"style="display: block;">
-			<div class="topbar" id="contactmeboxheader" style="font-size: 1rem;">Contact
-			<div class="buttons"><div class="topbarButton">_</div>
-			<div class="topbarButton">□</div>
-			<div class="topbarButton">X</div></div></div>	
-			
-			<div class="content" >
-				<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
-				<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
-				<a href="https://github.com/miquelt9"> GitHub </a> <br>
-				<a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a>
+		<div class="mobile_device_480">
+
+			<div class="mainbox" id="mainbox" style="display: block;">
+				<div class="topbar" id="mainboxheader" style="font-size: 1rem;">System Properties
+				<div class="buttons"><div class="topbarButton">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton">X</div></div></div>	
+				<!-- <div style="text-align: center;"> Not sure if display my photo in the phone so better not to do so I think
+					<br> 
+					<img src="images/meOnPC.png" style="width: 80%; margin-right: auto; margin-left: auto;">
+				</div> -->
+				<div class="content">
+					<div class="properties" style="padding: 10px; text-align: justify;">
+							System: <br>
+							&nbsp; Miquel Torner Viñals <br>
+							&nbsp; 27.03.2002 <br>
+							&nbsp;<br>
+							Registered to: <br>
+							&nbsp; · FIB, Polythecnic University of Catalonia <br>
+							&nbsp; · Bachelor's degree in Informatics Engineering (major in computing)<br>
+							<br>
+							&nbsp;<br>
+							Hi, I'm Miquel! I love programming, cooking, hiking and traveling. <br>
+							Thanks for checking out my website! <br>
+							&nbsp;<br>(Use a desktop/laptop for the full interactive experience)
+					</div>
+				</div>
+
+			</div>
+
+			<div class="mainbox" id="projectsbox" style="display: block; ">
+				<div class="topbar" id="projectsboxheader" style="font-size: 1rem;">Projects
+				<div class="buttons"><div class="topbarButton">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton">X</div></div></div>	
+				
+				<div class="content" style="text-align: justify;">
+					• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
+					&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
+
+					• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
+					&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
+
+					• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
+					&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
+
+					• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a>  <br>
+					&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
+
+					More comming soon!
+
+				</div>
+
+			</div>
+
+			<div class="mainbox" id="contactmebox"style="display: block;">
+				<div class="topbar" id="contactmeboxheader" style="font-size: 1rem;">Contact
+				<div class="buttons"><div class="topbarButton">_</div>
+				<div class="topbarButton">□</div>
+				<div class="topbarButton">X</div></div></div>	
+				
+				<div class="content" >
+					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
+					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
+					<a href="https://github.com/miquelt9"> GitHub </a> <br>
+					<a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a>
+				</div>
 			</div>
 		</div>
 	</div>
-
-
 </body></html>

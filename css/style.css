@@ -3,9 +3,9 @@ body {
 	/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 	background: gradien;
 	max-width: 100%;
-    overflow-x: hidden;
-    font-family: 'Source Code Pro', monospace;
-    font-weight: 400;
+	overflow-x: hidden;
+	font-family: 'Source Code Pro', monospace;
+	font-weight: 400;
 	/* overflow: hidden; */
 }
 
@@ -58,6 +58,12 @@ a {
 	color: #572191;
 }
 
+.background {
+	display: block;
+	max-width: 90vw;
+	max-height: 90vh;
+}
+
 .mainbox {
 	display: none;
 	position: absolute;
@@ -95,7 +101,7 @@ a {
 }
 
 .cvbox {
-	display: none;
+	display: block;
 	position: absolute;
 	background-color: #EEF2F5;
 	padding: 4px;
@@ -104,7 +110,6 @@ a {
 	border-top: solid 2px #FEFFFF;
 	border-left: solid 2px #FEFFFF;
 	box-shadow: 2px 2px #010101;
-	max-width: 70%;
 	min-width: 40%;
 	min-height: 40%;
 	z-index: 1;
@@ -356,12 +361,33 @@ div.terminalbox a:active {
 	.mobile_device_480 {display: block;}           
 	.desktop_device {display: none;}
 
+	body {
+		background: rgb(177, 255, 190);
+		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
+		background: gradien;
+		max-width: 100%;
+		overflow-x: auto;
+		font-family: 'Source Code Pro', monospace;
+		font-weight: 400;
+		/* overflow: hidden; */
+	}
 }
 
 @media screen and (max-width: 480px){
 	.mobile_device_380 {display: none;}   
 	.mobile_device_480 {display: block;}           
 	.desktop_device {display: none;}
+
+	body {
+		background: rgb(177, 255, 190);
+		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
+		background: gradien;
+		max-width: 100%;
+		overflow-x: auto;
+		font-family: 'Source Code Pro', monospace;
+		font-weight: 400;
+		/* overflow: hidden; */
+	}
 
 	.mainbox {
 		display: block;
