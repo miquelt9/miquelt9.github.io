@@ -82,6 +82,7 @@ function showGoose(goose) {
 async function nevergonna() {
   var audio = new Audio('/sounds/nevergonna.mp3');
   audio.play();
+  await delay(700);
   document.getElementById("rick").style.display = "block";
   await delay(18000);
   document.getElementById("rick").style.display = "none";
