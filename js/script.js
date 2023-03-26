@@ -84,7 +84,7 @@ async function nevergonna() {
   audio.play();
   await delay(1000);
   document.getElementById("rick").style.display = "block";
-  await delay(15000);
+  await delay(15500);
   document.getElementById("rick").style.display = "none";
 }
 
