@@ -14,7 +14,17 @@
 
 
 <body>
-	<div class="background">
+	<div class="goose" id="goose1" style="display: none">
+		<div class="goose" id="goose_neck1" style="rotate: 90deg; left: 25px; bottom: 10px; width: 40px; height: 25px;"></div>
+		<div class="goose" id="goose_head1" style="rotate: 90deg; left: 33px; bottom: 30px; width: 30px; height: 30px;"></div>
+		<div class="goose_nose" id="goose_nose1">
+			<div class="goose_eye" id="goose_leye1"></div>
+			<div class="goose_eye" id="goose_meye1" style="background-color: transparent;"></div>
+			<div class="goose_eye" id="goose_reye1"></div>
+		</div>
+	</div>
+
+	<div class="the_background">
 		
 		<div class="desktop_device">
 			<div class="mainbox" id="mainbox" style="display: none;">
@@ -174,6 +184,8 @@
 			</div>
 			<script src="/js/draw.js"></script>
 
+			<img class="rick" id="rick" style="display: none;" src="images/nevergonna.gif"></img>
+
 			<div class="desktop">
 			<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
 			<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
@@ -188,7 +200,10 @@
 				<a href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem">
 					&MediumSpace; Have a nice day!
 				</div></a>
-				<a target="_blank"><div class="startmenuItem">
+				<!-- <a target="_blank" onclick="showGoose('goose1')"><div class="startmenuItem">
+					&MediumSpace; Something coming soon...
+				</div></a> -->
+				<a target="_blank" onclick="nevergonna()"><div class="startmenuItem">
 					&MediumSpace; Something coming soon...
 				</div></a>
 			</div>
