@@ -420,7 +420,7 @@ div.terminalbox a:active {
 	.desktop_device {display: none;}
 
 	body {
-		background: rgb(177, 255, 190);
+		background: rgb(146, 246, 251);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 		background: gradien;
 		max-width: 100%;
@@ -437,7 +437,7 @@ div.terminalbox a:active {
 	.desktop_device {display: none;}
 
 	body {
-		background: rgb(177, 255, 190);
+		background: rgb(146, 246, 251);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 		background: gradien;
 		max-width: 100%;
