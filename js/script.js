@@ -83,7 +83,7 @@ function showGoose(goose) {
 
 async function nevergonna() {
   rickCount += 1;
-  if (rickCount > 5) {
+  if (rickCount >= 3) {
     var audio = new Audio('/sounds/nevergonna.mp3');
     audio.play();
     await delay(1000);
