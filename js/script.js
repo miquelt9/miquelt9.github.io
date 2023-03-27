@@ -2,6 +2,8 @@ const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalb
 
 const pos_boxes = []
 
+var rickCount = 0;
+
 // document.addEventListener('mousemove', function(e) {
 //   let body = document.querySelector('body');
 //   let circle = document.getElementById('circle');
@@ -80,12 +82,15 @@ function showGoose(goose) {
 }
 
 async function nevergonna() {
-  var audio = new Audio('/sounds/nevergonna.mp3');
-  audio.play();
-  await delay(1000);
-  document.getElementById("rick").style.display = "block";
-  await delay(15500);
-  document.getElementById("rick").style.display = "none";
+  rickCount += 1;
+  if (rickCount > 5) {
+    var audio = new Audio('/sounds/nevergonna.mp3');
+    audio.play();
+    await delay(1000);
+    document.getElementById("rick").style.display = "block";
+    await delay(15500);
+    document.getElementById("rick").style.display = "none";
+  }
 }
 
 function showWindow(window) {
