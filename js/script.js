@@ -141,7 +141,7 @@ function openWindow(window) {
   if (window == 'snake') {
     // var jgame = document.createElement("canvas")
     // document.getElementById(window).appendChild(jgame);
-    document.getElementById(window).innerHTML += '<canvas width="800" height="600" id="sgame"></canvas>';
+    document.getElementById(window).innerHTML = '<canvas width="800" height="600" id="sgame"></canvas>';
     document.getElementById(window).outerHTML += '<script src="/js/snake.js"></script>';
 
   }
