@@ -1,3 +1,5 @@
+var current_directory = "";
+
 window.addEventListener("load", start);
 
 function cowsay_say(text) {
@@ -117,7 +119,7 @@ function start() {
             handle_cmd(cmd_buffer);
         }
         cmd_buffer = "";
-        print_output("> ");
+        print_output("~"+ current_directory +"$ ");
     }
 
     function handle_char(key) {
@@ -163,7 +165,7 @@ function start() {
             if (evt.altKey === false && evt.ctrlKey === false && evt.metaKey === false) {
                 handle_char(evt.key);
             } else if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
-                print_output("^C\n> ");
+                print_output("^C\n~$ ");
                 cmd_buffer = "";
             }
         } else if (evt.key === "Backspace") {
@@ -235,6 +237,9 @@ function start() {
             "cmd": cmd_rm,
             "complete": null,
         },
+    };
+
+    var HIDEN_COMMANDS = {
         "./snake.exe": {
             "cmd": cmd_snake,
             "complete": null,
@@ -309,6 +314,9 @@ function start() {
         var cmd_parts = split_cmd(cmd);
         if (COMMANDS[cmd_parts[0]]) {
             COMMANDS[cmd_parts[0]]["cmd"](cmd_parts.slice(1));
+        }
+        else if (HIDEN_COMMANDS[cmd_parts[0]]) {
+            HIDEN_COMMANDS[cmd_parts[0]]["cmd"](cmd_parts.slice(1));
         } else {
             print_output("Unknown command\n");
         }
@@ -377,8 +385,19 @@ function start() {
     link.tabIndex = -1;
     FILES["devpost"] = link;
 
-    var game = document.createElement("a");
-    HIDEN_FILES["snake.exe"] = game
+    var secret_link = document.createElement("a");
+    HIDEN_FILES["."] = secret_link
+
+    var secret_link = document.createElement("a");
+    HIDEN_FILES[".."] = secret_link
+
+    var secret_link = document.createElement("a");
+    HIDEN_FILES["snake.exe"] = secret_link
+
+    var secret_link = document.createElement("a");
+    HIDEN_FILES["goose.exe"] = secret_link
+
+
 
     var about = document.createElement("div");
 
@@ -426,7 +445,7 @@ function start() {
             print_output(Object.keys(FILES).join("\t") + "\n");
         }
         else if (args.length == 1 && (args[0] == "-a" || args[0] == "-la")) {
-            print_output(Object.keys(FILES).join("\t") + "\t" + Object.keys(HIDEN_FILES).join("\t") + "\n");
+            print_output(Object.keys(HIDEN_FILES).join("\t") + "\n" + Object.keys(FILES).join("\t") + "\n");
         }
         else {
             print_output("Usage: ls\n");
@@ -461,7 +480,9 @@ function start() {
         } else {
             if (LINKS[args[0]]) {
                 print_output("Navigating to " + LINKS[args[0]] + "\n");
-                window.location = LINKS[args[0]];
+                window.open(LINKS[args[0]], '_blank');
+            } else if (args[0] == '.') {
+                
             } else {
                 print_output("cd: No such directory\n");
             }
