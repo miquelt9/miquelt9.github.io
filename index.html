@@ -154,17 +154,19 @@
 
 			</div>
 
+
 			<div class="gamebox" id="snakebox">
-				<div class="terminaltopbar" id="snakeboxheader">Snake🐍 (WIP :P)
+				<div class="terminaltopbar" id="snakeboxheader">Snake 🐍 (WIP :P)
 				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
 				<div class="terminaltopbarButton">□</div>
 				<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
 				
 				<div class="gamecontent"  id="snake"> 
-					<canvas id="snake" width="608" height="608"></canvas>
+
 				</div>
 			</div>
-			<script src="/js/snake.js"></script>
+			<!-- <script src="/js/snake.js"></script> -->
+
 
 			<div class="cvbox" id="cvbox"style="display: none;">
 				<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
@@ -173,6 +175,7 @@
 				<div class="topbarButton" onclick="hideWindow('cvbox')">X</div></div></div>	
 				<iframe id="iframepdf" style="width: 1280px; height: 780px" src="./docs/Miquel_Torner_CV.pdf"></iframe>
 			</div>
+
 
 			<div class="cvbox" id="canbox" style="display: none;" width="400" height="400">
 				<div class="topbar" id="canboxheader">&nbsp;CANVAS!
@@ -216,7 +219,7 @@
 				<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
 				<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
 				<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
-				<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake🐍</div>
+				<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake 🐍</div>
 				<div class="taskbarWindow" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
 				<div class="clock" id="clock">17:14</div>
 			</div>

@@ -469,12 +469,8 @@ function start() {
             print_output("Invalid argument\n");
         } else {
             print_output("Starting game...\n");
-            openSnakeGame();
+            openWindow("snake");
         }
-    }
-
-    function openSnakeGame() {
-        showWindow("snakebox");
     }
 
     function complete_cd(args) {

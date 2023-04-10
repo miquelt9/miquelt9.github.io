@@ -1,4 +1,6 @@
-var canvas = document.getElementById('sgame');
+"""
+<script>
+var canvas = document.getElementById('game');
 var context = canvas.getContext('2d');
 
 // the canvas width & height, snake x & y, and the apple x & y, all need to be a multiples of the grid size in order for collision detection to work
@@ -141,3 +143,4 @@ document.addEventListener('keydown', function(e) {
 
 // start the game
 requestAnimationFrame(loop);
+</script>
