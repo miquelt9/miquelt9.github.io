@@ -239,6 +239,10 @@ function start() {
             "cmd": cmd_snake,
             "complete": null,
         },
+        "./goose.exe": {
+            "cmd": cmd_goose,
+            "complete": null,
+        },
     };
 
     function tab_complete(cmd) {
@@ -470,6 +474,15 @@ function start() {
         } else {
             print_output("Starting game...\n");
             openWindow("snake");
+        }
+    }
+
+    function cmd_goose(args) {
+        if (args.length !== 0) {
+            print_output("Invalid argument\n");
+        } else {
+            print_output("Goose mode is still not available :(\n");
+            // showGoose('goose1')
         }
     }
 
