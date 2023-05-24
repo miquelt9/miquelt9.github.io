@@ -1,4 +1,4 @@
-const boxes = ["mainbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox", "cvbox", "canbox"]
+const boxes = ["aboutbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox", "cvbox", "canbox"]
 
 const pos_boxes = []
 
@@ -84,28 +84,37 @@ function showGoose(goose) {
 async function nevergonna() {
   rickCount += 1;
   if (rickCount >= 3) {
+    populate_process("rick_astley");
     var audio = new Audio('/sounds/nevergonna.mp3');
     audio.play();
     await delay(1000);
     document.getElementById("rick").style.display = "block";
     await delay(15500);
     document.getElementById("rick").style.display = "none";
+    kill_process_named("rick_astley");
   }
 }
 
 function showWindow(window) {
+  var ps_window = window
+  if (window === "terminalbox") ps_window = "bash";
+  kill_process_named(ps_window);
+  populate_process(ps_window);
+  
   bringToFront(window);
   document.getElementById(window).style.display = "block";
   document.getElementById(window + "Taskbar").style.display = "block";
 }
 
 function hideWindow(window) {
+  kill_process_named(window);
   document.getElementById(window).style.display = "none";
   document.getElementById(window + "Taskbar").style.display = "none";
 }
 
 // Just used for games box
 function closeWindow(window) {
+  kill_process_named(window);
   var iframe = document.getElementById(window + "game");
   iframe.remove();
   document.getElementById(window + "box").style.display = "none";
@@ -114,6 +123,8 @@ function closeWindow(window) {
 
 // Just used for games box
 function openWindow(window) {
+  kill_process_named(window);
+  populate_process(window);
   bringToFront(window + "box");
   document.getElementById(window + "box").style.display = "block";
   document.getElementById(window + "box" + "Taskbar").style.display = "block";
@@ -170,7 +181,7 @@ function toggle(window) {
 }
 
 function startMenu() {
-  var element = document.getElementById('startMenu');
+  var element = document.getElementById('startbutton');
   if (element.style.display == "none"){
     element.style.display = "block";
   } else {

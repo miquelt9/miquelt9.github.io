@@ -27,11 +27,11 @@
 	<div class="the_background">
 		
 		<div class="desktop_device">
-			<div class="mainbox" id="mainbox" style="display: none;">
-				<div class="topbar" id="mainboxheader">System Properties
-				<div class="buttons"><div class="topbarButton" onclick="minimise('mainbox')">_</div>
+			<div class="mainbox" id="aboutbox" style="display: none;">
+				<div class="topbar" id="aboutboxheader">System Properties
+				<div class="buttons"><div class="topbarButton" onclick="minimise('aboutbox')">_</div>
 				<div class="topbarButton">□</div>
-				<div class="topbarButton" onclick="hideWindow('mainbox')">X</div></div></div>	
+				<div class="topbarButton" onclick="hideWindow('aboutbox')">X</div></div></div>	
 				
 				<div class="content">
 					<div class="properties">
@@ -119,7 +119,7 @@
 				<div class="terminaltopbarButton">□</div>
 				<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
 				
-				<div class="terminalcontent">
+				<div class="terminalcontent" id="terminalcontent">
 					<h1>Hi, I'm Miquel!</h1>
 					<p>Welcome to my website. Here you can find out a bit of information about me!</p>
 					<p></p>
@@ -190,7 +190,7 @@
 			<img class="rick" id="rick" style="display: none;" src="images/nevergonna.gif"></img>
 
 			<div class="desktop">
-			<div class="desktopicon" id="aboutme" onclick="showWindow('mainbox')"><img src="images/about.png">About me</div>
+			<div class="desktopicon" id="aboutme" onclick="showWindow('aboutbox')"><img src="images/about.png">About me</div>
 			<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
 			<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
 			<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
@@ -199,7 +199,7 @@
 
 			</div>
 
-			<div class="startmenu" id="startMenu" style="display: none;">
+			<div class="startmenu" id="startbutton" style="display: none;">
 				<a href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem">
 					&MediumSpace; Have a nice day!
 				</div></a>
@@ -211,9 +211,9 @@
 				</div></a>
 			</div>
 
-			<div class="taskbar">
-				<div class="startButton" onclick="startMenu()"> <img src="images/start.png"> Start </div>
-				<div class="taskbarWindow" id="mainboxTaskbar" onclick="toggle('mainbox')" style="display: none;">Properties</div>
+			<div class="taskbar" id="taskbar">
+				<div class="startButton" onclick="startMenu()" id="startmenu"> <img src="images/start.png"> Start </div>
+				<div class="taskbarWindow" id="mainboxTaskbar" onclick="toggle('aboutbox')" style="display: none;">Properties</div>
 				<div class="taskbarWindow" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
 				<div class="taskbarWindow" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
 				<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
@@ -241,8 +241,8 @@
 
 		<div class="mobile_device_480">
 
-			<div class="mainbox" id="mainbox" style="display: block;">
-				<div class="topbar" id="mainboxheader" style="font-size: 1rem;">System Properties
+			<div class="mainbox" id="aboutbox" style="display: block;">
+				<div class="topbar" id="aboutboxheader" style="font-size: 1rem;">System Properties
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	

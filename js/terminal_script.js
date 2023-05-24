@@ -1,5 +1,74 @@
 var current_directory = "";
 
+var processes = {};
+populate_process("bash");
+populate_process("desktop", "root");
+populate_process("taskbar", "root");
+populate_process("startmenu", "root"); 
+populate_process("clock", "root"); 
+populate_process("icons", "root"); 
+
+function populate_process(p_window, user = "user") {
+    var process_id = 0;
+    if (Object.keys(processes).length === 0) {
+        process_id = getRandomInt(15615, 25548);
+    }
+    else {
+        process_id = Object.keys(processes).length;
+        keys = Object.keys(processes);
+        process_id = parseInt(keys[0]) + getRandomInt(7,37);
+    }
+
+    if (processes.hasOwnProperty(process_id)) {
+        populate_process(p_window);
+    }
+    else {
+        var now = new Date();
+        processes[process_id] = [process_id, user, "pts/1", now, p_window];
+    }
+    return process_id;
+}
+
+function kill_process_named(process_name) {
+    for (let key in processes) {
+        const process = processes[key];
+        if (process.includes(process_name)) delete processes[key];
+    }
+}
+
+function kill_process_id(process_id) {
+    p_name = get_process_name(process_id);
+    if (p_name === "desktop") {
+        createBlueWindow();
+    }
+    else if (p_name === "taskbar") {
+        document.getElementById(p_name).remove();
+        kill_process_named("clock");
+        kill_process_named("startmenu");
+    }
+    else if (p_name === "clock" || p_name === "startmenu") {
+        document.getElementById(p_name).remove();
+    }
+    else if (p_name === "icons") {
+        var icons = ["aboutme",,"skills","projects","contactme","terminal"]
+        for (let icon in icons) document.getElementById(icons[icon]).remove();
+    }
+    else if (p_name == "bash") {
+        hideWindow("terminalbox");
+        document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
+        start();
+    }
+    else {
+        if (p_name == "spaceshooter" || p_name == "snake") closeWindow(p_name);
+        else hideWindow(get_process_name(process_id));
+    }
+    delete processes[process_id];
+}
+
+function get_process_name(process_id) {
+    return processes[process_id][4];
+}
+
 window.addEventListener("load", start);
 
 function cowsay_say(text) {
@@ -103,6 +172,7 @@ function cowsay_bottom(length) {
 
 
 function start() {
+
     var term = document.getElementById("term-contents");
     var termContainer = term.parentElement;
 
@@ -235,6 +305,18 @@ function start() {
         },
         "rm": {
             "cmd": cmd_rm,
+            "complete": null,
+        },
+        "ps": {
+            "cmd": cmd_ps,
+            "complete": null,
+        },
+        "kill": {
+            "cmd": cmd_kill,
+            "complete": null,
+        },
+        "clear": {
+            "cmd": cmd_clear,
             "complete": null,
         },
     };
@@ -578,6 +660,63 @@ function start() {
             }
         }
     }
+
+    function cmd_ps(args) {
+        if (args.length <= 1) {
+            populate_process("ps");
+            // print_output();
+            print_output("PID\tTTY\tTIME\t\tCMD\n");
+            for (let id in processes) {
+                const process = processes[id];
+                const p_name = get_process_name(id);
+                if ((p_name != "desktop" && p_name != "startmenu" && p_name != "taskbar" && p_name != "clock" && p_name != "icons") || args.includes("-e")) {
+                    for (let value in process) {
+                        if (value == 0 || value == 2 || value == 4) {
+                            print_output(process[value] + "\t");
+                        }
+                        else if (value == 3) {
+                            const elapsed_time = new Date() - process[value];
+                            const time = new Date(elapsed_time).toLocaleTimeString('en-US', { hour12: false, timeZone: 'UTC' });
+                            print_output(time + "\t");
+                        }                    
+                    }
+                    print_output("\n");
+                }
+            }
+            kill_process_named("ps");
+        }
+        else {
+            print_output("Usage: ps\n");
+        }
+    }
+
+    function cmd_kill(args) {
+        if (args.length == 1) {
+            if (processes.hasOwnProperty(args[0])) {
+                if (process_name(args[0]) == "rick_astley") print_output("Good try, never give up!")
+                else {
+                    kill_process_id(args[0]);
+                    print_output("Process " + args[0] + " terminated\n");
+                }
+            }
+            else {
+                print_output("Process " + args[0] + " was not found\n");
+            }
+        }
+        else {
+            print_output("Usage: kill [id]\n");
+        }
+    }
+
+    function cmd_clear(args) {
+        if (args.length !== 0) {
+            print_output("Usage: clear\n");
+        } else {
+            document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
+            start();
+        }
+    }
+
 }
 
 errorBoxContent =   '<div class="topbar" id="mainboxheader">SystemError'+
