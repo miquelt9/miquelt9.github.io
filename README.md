@@ -3,7 +3,7 @@ As always WIP:
 - [ ] Add more detailed portfolio
 - [ ] Add a built-in game
 - [ ] yes function on terminal
-- [ ] pid + kill (cadascuna de les finestres és un process)
+- [x] pid + kill (cadascuna de les finestres és un process)
 - [ ] Painting mode (WIP)
 - [ ] Goose mode (WIP)
 - [ ] Start menu autoclose
