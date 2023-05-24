@@ -1,12 +1,14 @@
 var current_directory = "";
 
 var processes = {};
-populate_process("bash");
-populate_process("desktop", "root");
-populate_process("taskbar", "root");
-populate_process("startmenu", "root"); 
-populate_process("clock", "root"); 
-populate_process("icons", "root"); 
+
+var apps = ["bash","desktop","taskbar","clock","icons","startmenu"];
+apps = shuffleArray(apps);
+
+for (let app in apps) {
+    if (apps[app] == "bash") populate_process(apps[app]);
+    else populate_process(apps[app], "root");
+}
 
 function populate_process(p_window, user = "user") {
     var process_id = 0;
@@ -14,9 +16,9 @@ function populate_process(p_window, user = "user") {
         process_id = getRandomInt(15615, 25548);
     }
     else {
-        process_id = Object.keys(processes).length;
         keys = Object.keys(processes);
-        process_id = parseInt(keys[0]) + getRandomInt(7,37);
+        const last_pos = keys.length - 1;
+        process_id = parseInt(keys[last_pos]) + getRandomInt(7,37);
     }
 
     if (processes.hasOwnProperty(process_id)) {
@@ -766,3 +768,10 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
