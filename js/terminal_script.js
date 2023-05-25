@@ -1,14 +1,13 @@
 var current_directory = "";
 
 var processes = {};
+populate_process("bash");
+populate_process("desktop", "root");
+populate_process("taskbar", "root");
+populate_process("startmenu", "root"); 
+populate_process("clock", "root"); 
+populate_process("icons", "root"); 
 
-var apps = ["bash","desktop","taskbar","clock","icons","startmenu"];
-apps = shuffleArray(apps);
-
-for (let app in apps) {
-    if (apps[app] == "bash") populate_process(apps[app]);
-    else populate_process(apps[app], "root");
-}
 
 function populate_process(p_window, user = "user") {
     var process_id = 0;
@@ -16,9 +15,9 @@ function populate_process(p_window, user = "user") {
         process_id = getRandomInt(15615, 25548);
     }
     else {
+        process_id = Object.keys(processes).length;
         keys = Object.keys(processes);
-        const last_pos = keys.length - 1;
-        process_id = parseInt(keys[last_pos]) + getRandomInt(7,37);
+        process_id = parseInt(keys[0]) + getRandomInt(7,37);
     }
 
     if (processes.hasOwnProperty(process_id)) {
@@ -40,18 +39,18 @@ function kill_process_named(process_name) {
 
 function kill_process_id(process_id) {
     p_name = get_process_name(process_id);
-    if (p_name === "desktop") {
+    if (p_name == "desktop") {
         createBlueWindow();
     }
-    else if (p_name === "taskbar") {
+    else if (p_name == "taskbar") {
         document.getElementById(p_name).remove();
         kill_process_named("clock");
         kill_process_named("startmenu");
     }
-    else if (p_name === "clock" || p_name === "startmenu") {
+    else if (p_name == "clock" || p_name == "startmenu") {
         document.getElementById(p_name).remove();
     }
-    else if (p_name === "icons") {
+    else if (p_name == "icons") {
         var icons = ["aboutme",,"skills","projects","contactme","terminal"]
         for (let icon in icons) document.getElementById(icons[icon]).remove();
     }
@@ -695,11 +694,8 @@ function start() {
     function cmd_kill(args) {
         if (args.length == 1) {
             if (processes.hasOwnProperty(args[0])) {
-                if (process_name(args[0]) == "rick_astley") print_output("Good try, never give up!")
-                else {
                     kill_process_id(args[0]);
                     print_output("Process " + args[0] + " terminated\n");
-                }
             }
             else {
                 print_output("Process " + args[0] + " was not found\n");
@@ -766,12 +762,4 @@ function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-    return array;
 }
