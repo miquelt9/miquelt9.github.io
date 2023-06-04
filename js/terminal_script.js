@@ -339,6 +339,10 @@ function start() {
             "cmd": cmd_goose,
             "complete": null,
         },
+        "sl": {
+            "cmd": cmd_sl,
+            "complete": null,
+        },
     };
 
     function tab_complete(cmd) {
@@ -559,6 +563,23 @@ function start() {
         }
     }
 
+    async function cmd_sl(args) {
+        if (args.length > 0) print_output("Unknown command\n");
+        else {
+            for (let i = 80; i > -82; --i) { // TODO: Use the window size xd
+                print_output("\n\n\n\n\n\n\n")
+                print_output(getTrainSmoke(Math.abs(i)%2, i+4));             
+                print_output(getTrainBody(i));
+                if (i >= 0) print_output(getTrainWheels(i%6, i-2));
+                else print_output(getTrainWheels(5+(i%6), i-2));
+                if (i < 3) print_output("\n");
+                await delay(90);
+            }
+            document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
+            start();
+        }
+    }
+    
     function cmd_cat(args) {
         for (var arg of args) {
             if (FILES[arg]) {
