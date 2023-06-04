@@ -1,5 +1,7 @@
 var current_directory = "";
 
+var stop_flag = false;
+
 var processes = {};
 populate_process("bash");
 populate_process("desktop", "root");
@@ -190,6 +192,7 @@ function start() {
             handle_cmd(cmd_buffer);
         }
         cmd_buffer = "";
+        stop_flag = false;
         print_output("~"+ current_directory +"$ ");
     }
 
@@ -238,6 +241,7 @@ function start() {
             } else if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
                 print_output("^C\n~$ ");
                 cmd_buffer = "";
+                stop_flag = true;
             }
         } else if (evt.key === "Backspace") {
             if (cmd_buffer.length !== 0) {
@@ -299,6 +303,10 @@ function start() {
         "cat": {
             "cmd": cmd_cat,
             "complete": complete_cat,
+        },
+        "yes": {
+            "cmd": cmd_yes,
+            "complete": null,
         },
         "cd": {
             "cmd": cmd_cd,
@@ -419,6 +427,22 @@ function start() {
 
     function cmd_echo(args) {
         print_output(args.join(" ") + "\n");
+    }
+
+    async function cmd_yes(args) {
+        if (args.length === 0) {
+            print_output("Usage: yes [message]\n");
+            return;
+        }
+
+        populate_process("yes");
+        while(true) { 
+            print_output(args.join(" ") + "\n");
+            await delay(15);
+            if (stop_flag) break;
+        }
+        stop_flag = false;
+        kill_process_named("yes");
     }
 
     function cmd_cowsay(args) {
