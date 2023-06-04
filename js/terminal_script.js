@@ -574,7 +574,9 @@ function start() {
                 else print_output(getTrainWheels(5+(i%6), i-2));
                 if (i < 3) print_output("\n");
                 await delay(90);
+                if (stop_flag) break;
             }
+            stop_flag = false;
             document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
             start();
         }
