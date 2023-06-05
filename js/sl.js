@@ -1,6 +1,8 @@
 function getTrainSmoke(id, n) {
     if (id == 0) return addWhitespace(smoke1, n);
-    if (id == 1) return addWhitespace(smoke2, n);
+    if (id == 1) return addWhitespace(smoke1, n);
+    if (id == 2) return addWhitespace(smoke2, n);
+    if (id == 3) return addWhitespace(smoke2, n);
 }
 
 function getTrainBody(n) {

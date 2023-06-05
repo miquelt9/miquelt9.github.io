@@ -304,10 +304,6 @@ function start() {
             "cmd": cmd_cat,
             "complete": complete_cat,
         },
-        "yes": {
-            "cmd": cmd_yes,
-            "complete": null,
-        },
         "cd": {
             "cmd": cmd_cd,
             "complete": complete_cd,
@@ -341,6 +337,10 @@ function start() {
         },
         "sl": {
             "cmd": cmd_sl,
+            "complete": null,
+        },
+        "yes": {
+            "cmd": cmd_yes,
             "complete": null,
         },
     };
@@ -566,17 +566,19 @@ function start() {
     async function cmd_sl(args) {
         if (args.length > 0) print_output("Unknown command\n");
         else {
+            populate_process("sl");    
             for (let i = 80; i > -82; --i) { // TODO: Use the window size xd
                 print_output("\n\n\n\n\n\n\n")
-                print_output(getTrainSmoke(Math.abs(i)%2, i+4));             
+                print_output(getTrainSmoke(Math.abs(i)%4, i+4));             
                 print_output(getTrainBody(i));
                 if (i >= 0) print_output(getTrainWheels(i%6, i-2));
                 else print_output(getTrainWheels(5+(i%6), i-2));
                 if (i < 3) print_output("\n");
-                await delay(90);
+                await delay(80);
                 if (stop_flag) break;
             }
             stop_flag = false;
+            kill_process_named("sl");
             document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
             start();
         }
