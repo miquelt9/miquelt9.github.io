@@ -310,7 +310,7 @@ function start() {
         },
         "rm": {
             "cmd": cmd_rm,
-            "complete": null,
+            "complete": complete_cat,
         },
         "ps": {
             "cmd": cmd_ps,
@@ -392,7 +392,7 @@ function start() {
                         }
                         i += 1;
                     }
-                    print_output("\nOptions:\n" + similar_matches.join("\t") + "\n> ");
+                    print_output("\nOptions:\n" + similar_matches.join("\t") + "\n~$ ");
                     for (var char of cmd) {
                         print_output(char);
                     }
@@ -651,7 +651,14 @@ function start() {
         if (args.length < 1) {
             print_output("Usage: rm [file]\n");
         } else {
-            if (args[0] !== "-rf") {                        
+            if (args[0] === "*") {
+                FILES = {};
+            }
+            else if (args[0] !== "." && args[0] !== "..") {
+                if (FILES.hasOwnProperty(args[0])) delete FILES[args[0]];
+                else print_output("rm: cannot remove " + args[0] +": no such file or directory\n");
+            }
+            else if (args[0] !== "-rf") {                        
                 print_output("rm: No such file to be removed\n");
             } else {
                 if (args[1] === "/" || args[1] === "./" || args[1] === "~/"  || args[1] === "~" ) {
