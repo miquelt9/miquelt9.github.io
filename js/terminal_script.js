@@ -1,6 +1,7 @@
 var current_directory = "";
 
 var stop_flag = false;
+var bash_open = false;
 
 var processes = {};
 populate_process("bash");
@@ -71,6 +72,9 @@ function kill_process_id(process_id) {
 function get_process_name(process_id) {
     return processes[process_id][4];
 }
+
+function define_bash_as_opened() {bash_open = true;}
+function define_bash_as_closed() {bash_open = false;}
 
 window.addEventListener("load", start);
 
@@ -221,16 +225,18 @@ function start() {
     }
 
     window.addEventListener("paste", function(evt) {
-        evt.preventDefault();
-        let paste = (evt.clipboardData || window.clipboardData).getData('text');
+        if (!bash_open) {
+            evt.preventDefault();
+            let paste = (evt.clipboardData || window.clipboardData).getData('text');
 
-        for (var char of paste) {
-            handle_char(char);
+            for (var char of paste) {
+                handle_char(char);
+            }
         }
     })
 
     window.addEventListener("keydown", function(evt) {
-        if (evt.isComposing || evt.keyCode === 229) {
+        if (!bash_open || evt.isComposing || evt.keyCode === 229) {
             return;
         }
         evt.target.focus();

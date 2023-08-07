@@ -97,7 +97,10 @@ async function nevergonna() {
 
 function showWindow(window) {
   var ps_window = window
-  if (window === "terminalbox") ps_window = "bash";
+  if (window === "terminalbox") {
+    ps_window = "bash";
+    define_bash_as_opened();
+  }
   kill_process_named(ps_window);
   populate_process(ps_window);
   
@@ -108,6 +111,7 @@ function showWindow(window) {
 
 function hideWindow(window) {
   kill_process_named(window);
+  if (window === "terminalbox") { define_bash_as_closed(); }
   document.getElementById(window).style.display = "none";
   document.getElementById(window + "Taskbar").style.display = "none";
 }
