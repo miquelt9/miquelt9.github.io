@@ -358,6 +358,7 @@ div.terminalbox a:active {
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-left: auto;
+	cursor: pointer;
 }
 
 .desktop {

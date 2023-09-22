@@ -95,6 +95,18 @@ async function nevergonna() {
   }
 }
 
+function getRandomColor() {
+  const h = getRandomInt(0, 360); // Random hue value (0-360)
+  const s = getRandomInt(50, 95); // Random saturation value (50-100)
+  const l = getRandomInt(60, 90); // Random lightness value (60-90)
+
+  return `hsl(${h},${s}%,${l}%)`; // Construct the HSL color string
+}
+
+function changeBackgroundColor() {
+  document.getElementById("the_background").style.backgroundColor = getRandomColor();
+}
+
 function showWindow(window) {
   var ps_window = window
   if (window === "terminalbox") {
