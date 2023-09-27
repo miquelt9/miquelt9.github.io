@@ -2,6 +2,7 @@ This is my personal website.
 As always WIP:
 - [ ] Add more detailed portfolio
 - [ ] Add a built-in game
+- [ ] Spaceshooter not working :'(  (https://github.com/miquelt9/SpaceShooter)
 - [ ] yes function on terminal
 - [x] pid + kill (cadascuna de les finestres és un process)
 - [ ] Painting mode (WIP)
