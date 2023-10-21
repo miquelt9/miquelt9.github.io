@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html data-lt-installed="true"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Miquel's PC</title>
+	<!-- <link rel="icon" href="images/tablogo.png"> -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com/">
+	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+	<link href="css/css2.css" rel="stylesheet">	
+</head>
+
+<script>
+    var percentage = 0;
+
+    function updatePercentage() {    
+        // percentage += Math.log(1 + percentage) * 100 / (percentage + 1);
+        percentage += (1 - percentage) * 0.01;
+        var new_percentage = (percentage*100)%100;
+        document.getElementById("percentage").innerHTML = (Math.round(new_percentage * 100) / 100).toFixed(2) + " %";
+    }
+    
+    // Call the updatePercentage function every second.
+    setInterval(updatePercentage, 1500);
+</script>
+
+<div class="error_message" style="display: block;">
+        <div class="error_face">:(</div>
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;">
+            This device run into a problem. 
+            Looks like the programmer who made this website didn't know what was doing.
+            You will lose any unsaved information in all open applications.
+            We are collecting some error info, and then we'll restart for you.
+        </p>
+
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;" id="percentage">0 %</p>
+        <div style="display: flex; align-items: flex-start; width: 80em;">
+            <img src="images/error_qr.png" style="padding: 4em; height: 10em; float: left;" alt="Error QR">
+            <p style="padding-top: 3em; font-size: 1.25em;">
+                For more info about this issue and possible fixes, visit <a style="color: whitesmoke;" href="https://miquelt9.github.io/stopcode">https://miquelt9.github.io/stopcode</a>. 
+                <br/><br/>If you call a support person give them this info:
+                <br/>What failed: Everything.sys
+                <br/>Stop code: PROGRAMMER_NOT_FOUND
+            </p>
+        </div>        
+</div>

@@ -361,6 +361,47 @@ div.terminalbox a:active {
 	cursor: pointer;
 }
 
+
+.error_message {
+	display: none; /*This value should change accordingly to state of the site*/
+    background-color: #00a;
+	color: #f1f1f1;
+	padding-left: 20em;
+	padding-top: 5em;
+	position: fixed;
+	text-overflow: ellipsis;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.error_container {
+	padding: 7%;
+	height: 100%;
+	width: 100%;
+	position: fixed;
+}
+
+.error_face {
+	padding: 3%;
+	position: relative;
+	letter-spacing: -0.15em;
+	top: 0;
+	left: 0;
+	font-size: 7em;
+	}
+
+.blink {
+	animation: blink 1s steps(1) infinite;
+}
+
+@keyframes blink {
+	66% {
+		opacity: 0;
+	}
+}
+
 .desktop {
 	display: flex;
 	flex-direction: column;
