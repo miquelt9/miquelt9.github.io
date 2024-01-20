@@ -31,9 +31,9 @@
 		<div class="desktop_device">
 			<div class="mainbox" id="aboutbox" style="display: none;">
 				<div class="topbar" id="aboutboxheader">System Properties
-				<div class="buttons"><div class="topbarButton" onclick="minimise('aboutbox')">_</div>
-				<div class="topbarButton">□</div>
-				<div class="topbarButton" onclick="hideWindow('aboutbox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('aboutbox')">_</div>
+				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('aboutbox')">X</div></div></div>	
 				
 				<div class="content">
 					<div class="properties">
@@ -57,9 +57,9 @@
 
 			<div class="mainbox" id="skillsbox" style="display: none;">
 				<div class="topbar" id="skillsboxheader">Skills
-				<div class="buttons"><div class="topbarButton" onclick="minimise('skillsbox')">_</div>
-				<div class="topbarButton" >□</div>
-				<div class="topbarButton" onclick="hideWindow('skillsbox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('skillsbox')">_</div>
+				<div class="topbarButton clickable" >□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('skillsbox')">X</div></div></div>	
 				
 				<div class="content">
 					Languages:<br>
@@ -77,21 +77,21 @@
 
 			<div class="mainbox" id="projectsbox" style="display: none;">
 				<div class="topbar" id="projectsboxheader">Projects
-				<div class="buttons"><div class="topbarButton" onclick="minimise('projectsbox')">_</div>
-				<div class="topbarButton" >□</div>
-				<div class="topbarButton" onclick="hideWindow('projectsbox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('projectsbox')">_</div>
+				<div class="topbarButton  clickable" >□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('projectsbox')">X</div></div></div>	
 				
 				<div class="content">
-					• <strong>Plushistics</strong> &nbsp; <a href="https://devpost.com/software/plushistics"> <u>Devpost</u> </a> <br>
+					• <strong>Plushistics</strong> &nbsp; <a clas="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
 					&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
 
-					• <strong>Falcon Explorer</strong> &nbsp; <a href="https://github.com/miquelt9/PROP-FIB"> <u>Github</u> </a> <br>
+					• <strong>Falcon Explorer</strong> &nbsp; <a clas="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
 					&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
 
-					• <strong>Chip-Chips</strong> &nbsp; <a href="https://devpost.com/software/chip-chips"> <u>Devpost</u> </a> <br>
+					• <strong>Chip-Chips</strong> &nbsp; <a clas="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
 					&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
 
-					• <strong>SpaceShooter</strong> &nbsp; <a href="https://devpost.com/software/spaceshooter-5hi4of"> <u>Devpost</u> </a> <div class="gamelink" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
+					• <strong>SpaceShooter</strong> &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u> </a> <div class="gamelink clickable" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
 					&nbsp; A 2D single player game based in the arcada Asteroids using Unity (HackUPC 2021) <br> <br>
 
 					More comming soon!
@@ -102,24 +102,24 @@
 
 			<div class="mainbox" id="contactmebox"style="display: none;">
 				<div class="topbar" id="contactmeboxheader">Contact
-				<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
-				<div class="topbarButton" >□</div>
-				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('contactmebox')">_</div>
+				<div class="topbarButton clickable" >□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('contactmebox')">X</div></div></div>	
 				
 				<div class="content">
-					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
-					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
-					<a href="https://github.com/miquelt9"> GitHub </a> <br>
-					<a class="windowslink" onclick="showWindow('cvbox')" style="padding-left: 0%;">Check my CV!</a>
+					<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
+					<a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
+					<a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br>
+					<a class="windowslink clickable" onclick="showWindow('cvbox')" style="padding-left: 0%;">Check my CV!</a>
 					<!-- <a href="./docs/Miquel_Torner_CV.pdf" target="_blank">Check my CV!</a> -->
 				</div>
 			</div>
 
 			<div class="terminalbox" id="terminalbox">
 				<div class="terminaltopbar" id="terminalboxheader">>.
-				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('terminalbox')">_</div>
-				<div class="terminaltopbarButton">□</div>
-				<div class="terminaltopbarButton" onclick="hideWindow('terminalbox')">X</div></div></div>	
+				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('terminalbox')">_</div>
+				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton clickable" onclick="hideWindow('terminalbox')">X</div></div></div>	
 				
 				<div class="terminalcontent" id="terminalcontent">
 					<h1>Hi, I'm Miquel!</h1>
@@ -133,9 +133,9 @@
 						You can start by trying the following commands:
 					</p>
 					<ul>
-						<li><a href="#" class="text-link" data-text="cat about" tabindex="-1">cat about</a></li>
-						<li><a href="#" class="text-link" data-text="cat email" tabindex="-1">cat email</a></li>
-						<li><a href="#" class="text-link" data-text="cd github" tabindex="-1">cd github</a></li>
+						<li><a href="#" class="text-link clickable" data-text="cat about" tabindex="-1">cat about</a></li>
+						<li><a href="#" class="text-link clickable" data-text="cat email" tabindex="-1">cat email</a></li>
+						<li><a href="#" class="text-link clickable" data-text="cd github" tabindex="-1">cd github</a></li>
 					</ul>
 					<pre id="term-contents">~$ <span class="cursor"></span></pre>
 				</div>
@@ -146,9 +146,9 @@
 
 			<div class="gamebox" id="spaceshooterbox">
 				<div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
-				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('spaceshooterbox')">_</div>
-				<div class="terminaltopbarButton">□</div>
-				<div class="terminaltopbarButton" onclick="closeWindow('spaceshooter')">X</div></div></div>	
+				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('spaceshooterbox')">_</div>
+				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton clickable" onclick="closeWindow('spaceshooter')">X</div></div></div>	
 				
 				<div class="gamecontent"  id="spaceshooter"> 
 					
@@ -159,9 +159,9 @@
 
 			<div class="gamebox" id="snakebox">
 				<div class="terminaltopbar" id="snakeboxheader">Snake 🐍 (WIP :P)
-				<div class="buttons"><div class="terminaltopbarButton" onclick="minimise('snakebox')">_</div>
-				<div class="terminaltopbarButton">□</div>
-				<div class="terminaltopbarButton" onclick="hideWindow('snakebox')">X</div></div></div>	
+				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('snakebox')">_</div>
+				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton clickable" onclick="hideWindow('snakebox')">X</div></div></div>	
 				
 				<div class="gamecontent"  id="snake"> 
 
@@ -172,18 +172,18 @@
 
 			<div class="cvbox" id="cvbox"style="display: none;">
 				<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
-				<div class="buttons"><div class="topbarButton" onclick="minimise('cvbox')">_</div>
-				<div class="topbarButton">□</div>
-				<div class="topbarButton" onclick="hideWindow('cvbox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('cvbox')">_</div>
+				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('cvbox')">X</div></div></div>	
 				<iframe id="iframepdf" style="width: 1280px; height: 780px" src="./docs/Miquel_Torner_CV.pdf"></iframe>
 			</div>
 
 
 			<div class="cvbox" id="canbox" style="display: none;" width="400" height="400">
 				<div class="topbar" id="canboxheader">&nbsp;CANVAS!
-				<div class="buttons"><div class="topbarButton" onclick="minimise('canbox')">_</div>
-				<div class="topbarButton">□</div>
-				<div class="topbarButton" onclick="hideWindow('canbox')">X</div></div></div>	
+				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('canbox')">_</div>
+				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton clickable" onclick="hideWindow('canbox')">X</div></div></div>	
 				<!-- <canvas id="can" width="700" height="200" style="position:absolute;top:15%;left:5%;border:2px solid;"></canvas> -->
 
 			</div>
@@ -191,39 +191,45 @@
 
 			<img class="rick" id="rick" style="display: none;" src="images/nevergonna.gif"></img>
 
+
+			<img id="arrow" class="arrow" src="images/arrow_m.png" style="visibility: hidden;">
+			<img id="pointer" class="pointer" src="images/pointer.png" style="visibility: hidden;">
+			<script type="text/javascript" src="js/mouse_script.js"></script>
+
+
 			<div class="desktop">
-			<div class="desktopicon" id="aboutme" onclick="showWindow('aboutbox')"><img src="images/about.png">About me</div>
-			<div class="desktopicon" id="skills" onclick="showWindow('skillsbox')"><img src="images/skills.png">Skills</div>
-			<div class="desktopicon" id="projects" onclick="showWindow('projectsbox')"><img src="images/projects.png">Projects</div>
-			<div class="desktopicon" id="contactme" onclick="showWindow('contactmebox')"><img src="images/contact.png">Contact</div>
-			<div class="desktopicon" id="terminal" onclick="showWindow('terminalbox')"><img src="images/terminal.png">Terminal</div>
+			<div class="desktopicon clickable" id="aboutme" onclick="showWindow('aboutbox')"><img class="clickable" src="images/about.png">About me</div>
+			<div class="desktopicon clickable" id="skills" onclick="showWindow('skillsbox')"><img class="clickable" src="images/skills.png">Skills</div>
+			<div class="desktopicon clickable" id="projects" onclick="showWindow('projectsbox')"><img class="clickable" src="images/projects.png">Projects</div>
+			<div class="desktopicon clickable" id="contactme" onclick="showWindow('contactmebox')"><img class="clickable" src="images/contact.png">Contact</div>
+			<div class="desktopicon clickable" id="terminal" onclick="showWindow('terminalbox')"><img class="clickable" src="images/terminal.png">Terminal</div>
 			<!-- <div class="desktopicon" id="terminal" onclick="showWindow('canbox')" onclick="initcanvas()"><img src="images/terminal.png">Terminal</div> -->
 
 			</div>
 
-			<div class="startmenu" id="startbutton" style="display: none;">
-				<a href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem">
+			<div class="startmenu clickable" id="startbutton" style="display: none;">
+				<a class="clickable" href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem clickable">
 					&MediumSpace; Have a nice day!
 				</div></a>
 				<!-- <a target="_blank" onclick="showGoose('goose1')"><div class="startmenuItem">
 					&MediumSpace; Something coming soon...
 				</div></a> -->
-				<a target="_blank" onclick="nevergonna()"><div class="startmenuItem">
+				<a target="_blank" onclick="nevergonna()"><div class="startmenuItem clickable">
 					&MediumSpace; Something coming soon...
 				</div></a>
 			</div>
 
 			<div class="taskbar" id="taskbar">
-				<div class="startButton" onclick="startMenu()" id="startmenu"> <img src="images/start.png"> Start </div>
-				<div class="taskbarWindow" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;">Properties</div>
-				<div class="taskbarWindow" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
-				<div class="taskbarWindow" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
-				<div class="taskbarWindow" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
-				<div class="taskbarWindow" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
-				<div class="taskbarWindow" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
-				<div class="taskbarWindow" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake 🐍</div>
-				<div class="taskbarWindow" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
-				<div class="clock" onclick="changeBackgroundColor()" id="clock">00:00</div>
+				<div class="startButton clickable" onclick="startMenu()" id="startmenu"> <img src="images/start.png"> Start </div>
+				<div class="taskbarWindow clickable" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;">Properties</div>
+				<div class="taskbarWindow clickable" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
+				<div class="taskbarWindow clickable" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
+				<div class="taskbarWindow clickable" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
+				<div class="taskbarWindow clickable" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
+				<div class="taskbarWindow clickable" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
+				<div class="taskbarWindow clickable" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake 🐍</div>
+				<div class="taskbarWindow clickable" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
+				<div class="clock clickable" onclick="changeBackgroundColor()" id="clock">00:00</div>
 			</div>
 		</div>
 		<div class="mobile_device_380">

@@ -254,10 +254,10 @@ function start() {
                 cmd_buffer = cmd_buffer.slice(0, -1);
                 term.removeChild(cursor.previousSibling);
             }
-        } else if (evt.key === "Tab") {
+        } else if (evt.key === "Tab" && bash_open) {
             tab_complete(cmd_buffer);
             evt.preventDefault();
-        } else if (evt.key === "Enter") {
+        } else if (evt.key === "Enter" && bash_open) {
             handle_enter()
         }
     });
@@ -339,6 +339,10 @@ function start() {
         },
         "./goose.exe": {
             "cmd": cmd_goose,
+            "complete": null,
+        },
+        "./virus.exe": {
+            "cmd": cmd_virus,
             "complete": null,
         },
         "sl": {
@@ -642,6 +646,23 @@ function start() {
         } else {
             print_output("Goose mode is still not available :(\n");
             // showGoose('goose1')
+        }
+    }
+
+    function cmd_virus(args) {
+        if (args.length !== 0) {
+            print_output("Invalid argument\n");
+        } else {
+            define_bash_as_closed();
+            ghostMouseMove();
+            var delay = 5000;
+            const msg = "always wondered why people never use their strongest attack first.";
+            for (let i = 0; i < msg.length; i++) {
+                delay += 60;
+                setTimeout(function() {print_output(msg[i])}, delay);
+            }
+            setTimeout(function() {print_output("\n~$ ")}, delay+300);           
+            setTimeout(function() {define_bash_as_opened()}, delay+4000);           
         }
     }
 

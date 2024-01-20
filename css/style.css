@@ -22,7 +22,7 @@ a {
 }
 
 .gamelink:hover {
-	cursor: pointer;
+	cursor: none;
 }
 
 .gamelink:active {
@@ -31,7 +31,7 @@ a {
 }
 
 .gamelink:visited {
-	cursor: pointer;
+	cursor: none;
 	color: #572191;
 }
 
@@ -45,7 +45,7 @@ a {
 
 
 .windowslink:hover {
-	cursor: pointer;
+	cursor: none;
 }
 
 .windowslink:active {
@@ -54,7 +54,7 @@ a {
 }
 
 .windowslink:visited {
-	cursor: pointer;
+	cursor: none;
 	color: #572191;
 }
 
@@ -64,6 +64,26 @@ a {
 	z-index: 101;
 	left: 10%;
 	top: 19.5%;
+}
+
+.arrow {
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	width: 14px;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 1000;
+}
+
+.pointer {
+	position: absolute;
+	top: 30%;
+	left: 30%;
+	width: 18px;
+	visibility: hidden;
+	pointer-events: none;
+	z-index: 1000;
 }
 
 .goose {
@@ -247,7 +267,11 @@ div.terminalbox a:active {
 	margin-left: auto;
 	display: flex;
 	flex-direction: row;
-	cursor: pointer;
+	cursor: none;
+}
+
+.clickable {
+	cursor: none;
 }
 
 .topbarButton {
@@ -304,7 +328,7 @@ div.terminalbox a:active {
 	border-top: solid 2px #FEFFFF;
 	border-left: solid 2px #FEFFFF;
 	padding: 4px;
-	cursor: pointer;
+	cursor: none;
 }
 
 .startButton img {
@@ -333,6 +357,7 @@ div.terminalbox a:active {
 	border-left: solid 2px #FEFFFF;
 	align-items: center;
 	padding-left: 4px;
+	cursor: none;
 }
 
 .startmenuItem:hover {
@@ -347,7 +372,7 @@ div.terminalbox a:active {
 	border-top: solid 2px #FEFFFF;
 	border-left: solid 2px #FEFFFF;
 	padding: 4px;
-	cursor: pointer;
+	cursor: none;
 }
 
 .clock {
@@ -358,7 +383,7 @@ div.terminalbox a:active {
 	padding-left: 5px;
 	padding-right: 5px;
 	margin-left: auto;
-	cursor: pointer;
+	cursor: none;
 }
 
 
@@ -418,7 +443,7 @@ div.terminalbox a:active {
 	padding: 20px;
 	overflow-wrap: auto;
 	font-size: 1.1rem;
-	cursor: pointer;
+	cursor: none;
 }
 
 .desktopicon img {
