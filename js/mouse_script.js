@@ -3,17 +3,14 @@ var freshRecording = []
 var prevTime = undefined
 var prevX = undefined
 var prevY = undefined
+var ghostX = 0
+var ghostY = 0
 var offsetX = 0
 var offsetY = 0
 var userMoveCount = 0
 
-// var startTime = 0;
 var ghostMouse = false;
 var mouseOutisde = false;
-// var randomOneX = 1;
-// var randomOneY = 1;
-// var randomFunX = 1;
-// var randomFunY = 1;
 
 function getRandomOne() {return Math.random() < 0.5 ? -1 : 1;}
 
@@ -28,12 +25,6 @@ function ghostMouseMove() {
         delay += getRandomInt(300, 600);
         setTimeout(function() {animate( performance.now(), getRandomOne(), getRandomOne(), 0.2+Math.random(), 0.2+Math.random());}, delay);
     }
-
-    // setTimeout(function() {
-    //     offsetX = 0;
-    //     offsetY = 0;
-    //     paintCursor(prevX, prevY);
-    // }, 3000);
 }
 
 function animate(startT, randomOneX, randomOneY, randomMultX, randomMultY) {
@@ -76,6 +67,9 @@ function paintCursor(mouseX, mouseY) {
     mouseX = Math.max(1, Math.min(mouseX, window.innerWidth-1));
     mouseY = Math.max(1, Math.min(mouseY, window.innerHeight-1));
 
+    ghostX = mouseX;
+    ghostY = mouseY;
+
     var targetElement = document.elementFromPoint(mouseX, mouseY);
     var cursorStyle = window.getComputedStyle(targetElement).cursor;
 
@@ -103,6 +97,10 @@ function paintCursor(mouseX, mouseY) {
     }
 }
 
+function getGhostXCursor() {return ghostMouse ? ghostX : prevX;}
+
+function getGhostYCursor() {return ghostMouse ? ghostY : prevY;}
+
 
 
 
@@ -123,7 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mouseOutisde = false;
         var mouseX = e.clientX;
         var mouseY = e.clientY;
-  
+
         var targetElement = document.elementFromPoint(e.clientX, e.clientY);
         var cursorStyle = window.getComputedStyle(targetElement).cursor;
 
@@ -154,5 +152,4 @@ document.addEventListener("DOMContentLoaded", function () {
         prevY = mouseY;
     });
   });
-
 

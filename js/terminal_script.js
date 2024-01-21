@@ -644,8 +644,8 @@ function start() {
         if (args.length !== 0) {
             print_output("Invalid argument\n");
         } else {
-            print_output("Goose mode is still not available :(\n");
-            // showGoose('goose1')
+            print_output("Goose mode is still being develop...\n");
+            showGoose('goose1')
         }
     }
 

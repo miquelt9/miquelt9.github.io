@@ -4,63 +4,6 @@ const pos_boxes = []
 
 var rickCount = 0;
 
-// document.addEventListener('mousemove', function(e) {
-//   let body = document.querySelector('body');
-//   let circle = document.getElementById('circle');
-//   let left = e.offsetX;
-//   let top = e.offsetY;
-//   circle.style.left = left + 'px';
-//   circle.style.top = top + 'px';
-// });
-
-document.addEventListener('DOMContentLoaded', () => {
-  let mousePosX = 0,
-      mousePosY = 0,
-      body = document.getElementById('goose1');      
-      nose = document.getElementById('goose_nose1');    
-      neck = document.getElementById('goose_neck1');    
-      head = document.getElementById('goose_head1');    
-
-  document.onmousemove = (e) => {
-      mousePosX = e.pageX-27;
-      mousePosY = e.pageY-12;
-  }
-
-  let delay = 80,
-      revisedMousePosX = 0,
-      revisedMousePosY = 0;
-      rect = body.getBoundingClientRect();
-      xValue = rect.left;
-      yValue = rect.top;
-
-  let angle = Math.atan2(mousePosY-yValue, mousePosX-xValue);
-
-  function delayMouseFollow() {
-      var xDiff = mousePosX - revisedMousePosX;
-      var yDiff = mousePosY - revisedMousePosY;
-
-      revisedMousePosX += (xDiff) / delay;
-      revisedMousePosY += (yDiff) / delay; 
-      angle = Math.atan2(yDiff, xDiff);
-
-      requestAnimationFrame(delayMouseFollow);
-
-      body.style.top = revisedMousePosY + 'px';
-      body.style.left = revisedMousePosX + 'px';
-
-      var angleDeg = angle*57.2957795;
-      // console.log(((Math.abs(angleDeg)-90)/4));
-      // console.log(nose.getBoundingClientRect().top);
-      nose.style.bottom = -((Math.abs(angleDeg)-90)/2.5)-9 + 'px';
-      neck.style.bottom = -((Math.abs(angleDeg)-90)/5)+5 + 'px';
-      head.style.bottom = -((Math.abs(angleDeg)-90)/3)+3 + 'px';
-
-      body.style.rotate = (angle) + 'rad';
-  }
-  delayMouseFollow();
-});
-
-
 
 document.addEventListener("DOMContentLoaded", function(event) {
     //Load pos boxes (used for keeping the z-index of each box)
@@ -74,12 +17,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
     setInterval(getCurrentTime, 1000);
 });
-
-function showGoose(goose) {
-  document.getElementById(goose).style.display = "block";
-  document.getElementById(goose).style.left = "900px";
-  document.getElementById(goose).style.top = "300px";
-}
 
 async function nevergonna() {
   rickCount += 1;
