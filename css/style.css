@@ -70,7 +70,7 @@ a {
 	position: absolute;
 	top: 30%;
 	left: 30%;
-	width: 14px;
+	width: 12px;
 	visibility: hidden;
 	pointer-events: none;
 	z-index: 1000;
@@ -80,7 +80,7 @@ a {
 	position: absolute;
 	top: 30%;
 	left: 30%;
-	width: 18px;
+	width: 16px;
 	visibility: hidden;
 	pointer-events: none;
 	z-index: 1000;
