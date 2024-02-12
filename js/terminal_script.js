@@ -681,12 +681,9 @@ function start() {
             if (args[0] === "*") {
                 FILES = {};
             }
-            else if (args[0] !== "." && args[0] !== "..") {
+            else if (args[0] !== "." && args[0] !== ".." && args[0] !== "-rf") {
                 if (FILES.hasOwnProperty(args[0])) delete FILES[args[0]];
                 else print_output("rm: cannot remove " + args[0] +": no such file or directory\n");
-            }
-            else if (args[0] !== "-rf") {                        
-                print_output("rm: No such file to be removed\n");
             } else {
                 if (args[1] === "/" || args[1] === "./" || args[1] === "~/"  || args[1] === "~" ) {
 
