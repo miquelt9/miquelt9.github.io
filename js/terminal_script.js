@@ -480,10 +480,23 @@ function start() {
     var link = document.createElement("a");
     link.innerText = "Miquel_Torner_CV.pdf\n";
     link.href = "./docs/Miquel_Torner_CV.pdf";
-    // link.onclick="showWindow('cvbox')" TODO: make the cv window appear
     link.target = "_blank";
     link.tabIndex = -1;
     FILES["cv"] = link;
+
+    var link = document.createElement("a");
+    link.innerText = "miquelt9.github.io/portfolio/\n";
+    link.href = "https://miquelt9.github.io/portfolio/";
+    link.target = "_blank";
+    link.tabIndex = -1;
+    FILES["portfolio"] = link;
+
+    var link = document.createElement("a");
+    link.innerText = "miquelt9.github.io/portfolio/posts\n";
+    link.href = "https://miquelt9.github.io/portfolio/posts";
+    link.target = "_blank";
+    link.tabIndex = -1;
+    FILES["posts"] = link;
 
     var link = document.createElement("a");
     link.innerText = "github.com/miquelt9\n";
@@ -614,6 +627,8 @@ function start() {
         "linkedin": "https://www.linkedin.com/in/miqueltv/",
         "devpost": "https://devpost.com/miqueltorner9",
         "cv": "./docs/Miquel_Torner_CV.pdf",
+        "portfolio": "https://miquelt9.github.io/portfolio/",
+        "posts": "https://miquelt9.github.io/portfolio/posts",
     }
 
     function cmd_cd(args) {
@@ -832,6 +847,10 @@ function createBlueWindow() {
     document.body.style.background = "#357EC7";
     document.body.style.overflow = "hidden";
     document.body.appendChild(elem);
+
+    setTimeout(function() {
+        window.location.replace("https://miquelt9.github.io/404");
+    }, 2500);
 }
 
 function delay(time) {
