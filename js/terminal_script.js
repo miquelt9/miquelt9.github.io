@@ -550,7 +550,7 @@ function start() {
 
     var ul = document.createElement("ul");
     var li = document.createElement("li")
-    li.innerText = "I'm a Informatics Engineering student at Barcelona School of Informatics (FIB), UPC";
+    li.innerText = "Informatics Engineering graduate from Barcelona School of Informatics (FIB), UPC";
     ul.appendChild(li);
     li = document.createElement("li")
     li.innerText = "A part from programming, I love cooking and hiking!";
