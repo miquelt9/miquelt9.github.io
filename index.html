@@ -6,9 +6,19 @@
 	<title>Miquel's PC</title>
 	<!-- <link rel="icon" href="images/tablogo.png"> -->
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="styles/base.css">
+	<link rel="stylesheet" href="styles/windows.css">
+	<link rel="stylesheet" href="styles/terminal.css">
+	<link rel="stylesheet" href="styles/mobile.css">
+	<link rel="stylesheet" href="styles/games.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
 	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
 	<link href="css/css2.css" rel="stylesheet">	
+	<script type="text/javascript" src="content/site-data.js"></script>
+	<script type="text/javascript" src="scripts/core/utils.js"></script>
+	<script type="text/javascript" src="scripts/core/processRegistry.js"></script>
+	<script type="text/javascript" src="scripts/core/windowManager.js"></script>
+	<script type="text/javascript" src="scripts/features/terminal/contentData.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/goose_script.js"></script>
 	<script type="text/javascript" src="js/sl.js"></script>
@@ -36,7 +46,7 @@
 				<div class="topbarButton clickable">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('aboutbox')">X</div></div></div>	
 				
-				<div class="content">
+				<div class="content" id="about-desktop-content">
 					<div class="properties">
 						<img src="images/meOnPC.png">
 						<div class="txt">
@@ -81,7 +91,7 @@
 				<div class="topbarButton  clickable" >□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('projectsbox')">X</div></div></div>	
 				
-				<div class="content">
+				<div class="content" id="projects-desktop-content">
 					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable" style="color: black;"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
 					&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
 
@@ -109,7 +119,7 @@
 				<div class="topbarButton clickable" >□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('contactmebox')">X</div></div></div>	
 				
-				<div class="content">
+				<div class="content" id="contact-desktop-content">
 					<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
 					<a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
 					<a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br>
@@ -243,7 +253,7 @@
 				<div class="topbarButton">□</div>
 				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
 				
-				<div class="content">
+				<div class="content" id="about-mobile-content">
 					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
 					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
 					<a href="https://github.com/miquelt9"> GitHub </a>
@@ -286,7 +296,7 @@
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	
 				
-				<div class="content" style="text-align: justify;">
+				<div class="content" style="text-align: justify;" id="projects-mobile-content">
 						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable" style="color: black;"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
 						&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
 	
@@ -314,7 +324,7 @@
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	
 				
-				<div class="content" >
+				<div class="content" id="contact-mobile-content">
 					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
 					<a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br>
 					<a href="https://github.com/miquelt9"> GitHub </a> <br>

@@ -1,41 +1,31 @@
-const boxes = ["aboutbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox", "cvbox", "canbox"]
-
-const pos_boxes = []
-
 var rickCount = 0;
 
-
-document.addEventListener("DOMContentLoaded", function(event) {
-    //Load pos boxes (used for keeping the z-index of each box)
-    for (let i = 0; i < boxes.length; i++) {
-      pos_boxes.push(i);
-    }
-    // window.alert(boxes);
-    for (let i = 0; i < boxes.length; i++) {
-      dragElement(document.getElementById(boxes[i]));
-      document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
-    }
-    setInterval(getCurrentTime, 1000);
+document.addEventListener("DOMContentLoaded", function onReady() {
+  if (window.WindowManager) {
+    window.WindowManager.initialize();
+  }
+  renderSiteContent();
+  setInterval(getCurrentTime, 1000);
 });
 
 async function nevergonna() {
   rickCount += 1;
   if (rickCount >= 3) {
-    populate_process("rick_astley");
+    window.ProcessRegistry.populateProcess("rick_astley");
     var audio = new Audio('/sounds/nevergonna.mp3');
     audio.play();
-    await delay(1000);
+    await window.AppUtils.delay(1000);
     document.getElementById("rick").style.display = "block";
-    await delay(15500);
+    await window.AppUtils.delay(15500);
     document.getElementById("rick").style.display = "none";
-    kill_process_named("rick_astley");
+    window.ProcessRegistry.killProcessNamed("rick_astley");
   }
 }
 
 function getRandomColor() {
-  const h = getRandomInt(0, 360); // Random hue value (0-360)
-  const s = getRandomInt(50, 95); // Random saturation value (50-100)
-  const l = getRandomInt(60, 90); // Random lightness value (60-90)
+  const h = window.AppUtils.getRandomInt(0, 360);
+  const s = window.AppUtils.getRandomInt(50, 95);
+  const l = window.AppUtils.getRandomInt(60, 90);
 
   return `hsl(${h},${s}%,${l}%)`; // Construct the HSL color string
 }
@@ -44,49 +34,51 @@ function changeBackgroundColor() {
   document.getElementById("the_background").style.backgroundColor = getRandomColor();
 }
 
-function showWindow(window) {
-  var ps_window = window
-  if (window === "terminalbox") {
-    ps_window = "bash";
+function showWindow(windowId) {
+  var psWindow = windowId;
+  if (windowId === "terminalbox") {
+    psWindow = "bash";
     define_bash_as_opened();
   }
-  kill_process_named(ps_window);
-  populate_process(ps_window);
-  
-  bringToFront(window);
-  document.getElementById(window).style.display = "block";
-  document.getElementById(window + "Taskbar").style.display = "block";
+  window.ProcessRegistry.killProcessNamed(psWindow);
+  window.ProcessRegistry.populateProcess(psWindow);
+  window.WindowManager.bringToFront(windowId);
+  document.getElementById(windowId).style.display = "block";
+  document.getElementById(windowId + "Taskbar").style.display = "block";
 }
 
-function hideWindow(window) {
-  kill_process_named(window);
-  if (window === "terminalbox") { define_bash_as_closed(); }
-  document.getElementById(window).style.display = "none";
-  document.getElementById(window + "Taskbar").style.display = "none";
-}
-
-// Just used for games box
-function closeWindow(window) {
-  kill_process_named(window);
-  var iframe = document.getElementById(window + "game");
-  iframe.remove();
-  document.getElementById(window + "box").style.display = "none";
-  document.getElementById(window + "box" + "Taskbar").style.display = "none";
+function hideWindow(windowId) {
+  window.ProcessRegistry.killProcessNamed(windowId);
+  if (windowId === "terminalbox") { define_bash_as_closed(); }
+  document.getElementById(windowId).style.display = "none";
+  document.getElementById(windowId + "Taskbar").style.display = "none";
 }
 
 // Just used for games box
-function openWindow(window) {
-  kill_process_named(window);
-  populate_process(window);
-  bringToFront(window + "box");
-  document.getElementById(window + "box").style.display = "block";
-  document.getElementById(window + "box" + "Taskbar").style.display = "block";
+function closeWindow(windowId) {
+  window.ProcessRegistry.killProcessNamed(windowId);
+  var iframe = document.getElementById(windowId + "game");
+  if (iframe) {
+    iframe.remove();
+  }
+  document.getElementById(windowId + "box").style.display = "none";
+  document.getElementById(windowId + "box" + "Taskbar").style.display = "none";
+}
 
-  if (window == 'spaceshooter') {
+// Just used for games box
+function openWindow(windowId) {
+  window.ProcessRegistry.killProcessNamed(windowId);
+  window.ProcessRegistry.populateProcess(windowId);
+  window.WindowManager.bringToFront(windowId + "box");
+  document.getElementById(windowId + "box").style.display = "block";
+  document.getElementById(windowId + "box" + "Taskbar").style.display = "block";
+
+  if (windowId === "spaceshooter") {
+    document.getElementById(windowId).innerHTML = "";
     var ifrm = document.createElement("iframe");
-    document.getElementById(window).appendChild(ifrm);
+    document.getElementById(windowId).appendChild(ifrm);
 
-    ifrm.id = window + "game";
+    ifrm.id = windowId + "game";
     ifrm.mozallowfullscreen = "true";
     ifrm.allow = "autoplay; fullscreen";
     ifrm.style = "border:0px #000000 none;";
@@ -99,37 +91,43 @@ function openWindow(window) {
     ifrm.marginwidth="320px";
     ifrm.height="780px";
     ifrm.width="1280px"
-    ifrm.src = "/static/spaceshooter/index.html";
+    ifrm.src = "/apps/spaceshooter/index.html";
   }
 
-  if (window == 'snake') {
-    // var jgame = document.createElement("canvas")
-    // document.getElementById(window).appendChild(jgame);
-    document.getElementById(window).innerHTML = '<canvas width="800" height="600" id="sgame"></canvas>';
-    document.getElementById(window).outerHTML += '<script src="/js/snake.js"></script>';
-
+  if (windowId === "snake") {
+    document.getElementById(windowId).innerHTML = "";
+    var snakeFrame = document.createElement("iframe");
+    document.getElementById(windowId).appendChild(snakeFrame);
+    snakeFrame.id = windowId + "game";
+    snakeFrame.allow = "autoplay; fullscreen";
+    snakeFrame.style = "border:0px #000000 none;";
+    snakeFrame.allowfullscreen = "true";
+    snakeFrame.frameborder = "0";
+    snakeFrame.height = "640px";
+    snakeFrame.width = "840px";
+    snakeFrame.src = "/apps/snake/index.html";
   }
 }
 
-function minimise(window) {
-  document.getElementById(window).style.display = "none";
+function minimise(windowId) {
+  document.getElementById(windowId).style.display = "none";
 }
 
 // idk, but not really working + not worth since all the content 
 // is already displayed when showing any window 
-function maximise(window) {
-  document.getElementById(window).style.width = "97vw";
-  document.getElementById(window).style.height = "97vh";
+function maximise(windowId) {
+  document.getElementById(windowId).style.width = "97vw";
+  document.getElementById(windowId).style.height = "97vh";
 }
 
-function toggle(window) {
-  var current = document.getElementById(window).style.display;
+function toggle(windowId) {
+  var current = document.getElementById(windowId).style.display;
   if (current == "none") {
-    bringToFront(window);
-    document.getElementById(window).style.display = "block"; 
+    window.WindowManager.bringToFront(windowId);
+    document.getElementById(windowId).style.display = "block"; 
   }
   else {
-    document.getElementById(window).style.display = "none";  
+    document.getElementById(windowId).style.display = "none";  
   }
 }
 
@@ -143,92 +141,44 @@ function startMenu() {
 
 }
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  // alert("inside dragElement " + elmnt.id)
-  elmnt.onmousedown = activeWindow;
-  if (document.getElementById(elmnt.id + "header")) {
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    elmnt.onmousedown = dragMouseDown;
-  }
-
-  function dragMouseDown(e) {
-    bringToFront(elmnt.id);
-    e = e || window.event;
-    e.preventDefault();
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    document.onmousemove = elementDrag;
-  }
-
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
-
-  function closeDragElement() {
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-
-  function activeWindow(e) {
-    e = e || window.event;
-    
-    var position = elementPos();
-    var pos_value = pos_boxes[position];
-    // window.alert("element: " + elmnt.id);
-    if (pos_value != boxes.length) {
-      for(let i = 0; i < boxes.length; i++) {
-        if (boxes[i] == elmnt.id) {
-          pos_boxes[i] = boxes.length;
-          document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
-        } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
-          pos_boxes[i] -= 1;
-          document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
-        }
-      }
-    }
-  }
-
-  function elementPos() {
-    for(let i=0; i<boxes.length; i++) {
-      if (boxes[i] == elmnt.id) return i;
-    }
-  }
-}
-
 function getCurrentTime() {
   var now = new Date();
   var time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, 0);
   document.getElementById('clock').innerHTML = time;
 }
 
-function elementPos(elmnt_id) {
-  for(let i=0; i<boxes.length; i++) {
-    if (boxes[i] == elmnt_id) return i;
-  }
+function bringToFront(windowId) {
+  window.WindowManager.bringToFront(windowId);
 }
 
-function bringToFront(window) {
-  var position = elementPos(window);
-  var pos_value = pos_boxes[position];
+function renderSiteContent() {
+  if (!window.SITE_DATA) {
+    return;
+  }
 
-  if (pos_value != boxes.length) {
-    for(let i=0; i<boxes.length; i++) {
-      if (boxes[i] == window) {
-        pos_boxes[i] = boxes.length;
-        document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];
-      } else if (document.getElementById(boxes[i]).style.zIndex > pos_value) {
-        pos_boxes[i] -= 1;
-        document.getElementById(boxes[i]).style.zIndex = pos_boxes[i];      }
-    }
+  var aboutDesktop = document.getElementById("about-desktop-content");
+  var aboutMobile = document.getElementById("about-mobile-content");
+  var projectsDesktop = document.getElementById("projects-desktop-content");
+  var projectsMobile = document.getElementById("projects-mobile-content");
+  var contactDesktop = document.getElementById("contact-desktop-content");
+  var contactMobile = document.getElementById("contact-mobile-content");
+
+  if (aboutDesktop) {
+    aboutDesktop.innerHTML = window.SITE_DATA.templates.aboutDesktop;
+  }
+  if (aboutMobile) {
+    aboutMobile.innerHTML = window.SITE_DATA.templates.aboutMobile;
+  }
+  if (projectsDesktop) {
+    projectsDesktop.innerHTML = window.SITE_DATA.templates.projectsDesktop;
+  }
+  if (projectsMobile) {
+    projectsMobile.innerHTML = window.SITE_DATA.templates.projectsMobile;
+  }
+  if (contactDesktop) {
+    contactDesktop.innerHTML = window.SITE_DATA.templates.contactDesktop;
+  }
+  if (contactMobile) {
+    contactMobile.innerHTML = window.SITE_DATA.templates.contactMobile;
   }
 }

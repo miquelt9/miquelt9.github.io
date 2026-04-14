@@ -1,0 +1,5 @@
+@media screen and (max-width: 480px) {
+  .mobile_device_480 {
+    display: block;
+  }
+}

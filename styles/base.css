@@ -1,0 +1,12 @@
+body {
+  background: rgb(146, 246, 251);
+  background: gradien;
+  max-width: 100%;
+  overflow-x: hidden;
+  font-family: "Source Code Pro", monospace;
+  font-weight: 400;
+}
+
+a {
+  text-decoration: none;
+}

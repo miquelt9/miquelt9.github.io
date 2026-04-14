@@ -2,76 +2,13 @@ var current_directory = "";
 
 var stop_flag = false;
 var bash_open = false;
-
-var processes = {};
-populate_process("bash");
-populate_process("desktop", "root");
-populate_process("taskbar", "root");
-populate_process("startmenu", "root"); 
-populate_process("clock", "root"); 
-populate_process("icons", "root"); 
-
-
-function populate_process(p_window, user = "user") {
-    var process_id = 0;
-    if (Object.keys(processes).length === 0) {
-        process_id = getRandomInt(15615, 25548);
-    }
-    else {
-        process_id = Object.keys(processes).length;
-        keys = Object.keys(processes);
-        process_id = parseInt(keys[0]) + getRandomInt(7,37);
-    }
-
-    if (processes.hasOwnProperty(process_id)) {
-        populate_process(p_window);
-    }
-    else {
-        var now = new Date();
-        processes[process_id] = [process_id, user, "pts/1", now, p_window];
-    }
-    return process_id;
-}
-
-function kill_process_named(process_name) {
-    for (let key in processes) {
-        const process = processes[key];
-        if (process.includes(process_name)) delete processes[key];
-    }
-}
-
-function kill_process_id(process_id) {
-    p_name = get_process_name(process_id);
-    if (p_name == "desktop") {
-        createBlueWindow();
-    }
-    else if (p_name == "taskbar") {
-        document.getElementById(p_name).remove();
-        kill_process_named("clock");
-        kill_process_named("startmenu");
-    }
-    else if (p_name == "clock" || p_name == "startmenu") {
-        document.getElementById(p_name).remove();
-    }
-    else if (p_name == "icons") {
-        var icons = ["aboutme",,"skills","projects","contactme","terminal"]
-        for (let icon in icons) document.getElementById(icons[icon]).remove();
-    }
-    else if (p_name == "bash") {
-        hideWindow("terminalbox");
-        document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
-        start();
-    }
-    else {
-        if (p_name == "spaceshooter" || p_name == "snake") closeWindow(p_name);
-        else hideWindow(get_process_name(process_id));
-    }
-    delete processes[process_id];
-}
-
-function get_process_name(process_id) {
-    return processes[process_id][4];
-}
+var processes = window.ProcessRegistry.processes;
+window.ProcessRegistry.populateProcess("bash");
+window.ProcessRegistry.populateProcess("desktop", "root");
+window.ProcessRegistry.populateProcess("taskbar", "root");
+window.ProcessRegistry.populateProcess("startmenu", "root");
+window.ProcessRegistry.populateProcess("clock", "root");
+window.ProcessRegistry.populateProcess("icons", "root");
 
 function define_bash_as_opened() {bash_open = true;}
 function define_bash_as_closed() {bash_open = false;}
@@ -449,14 +386,14 @@ function start() {
             return;
         }
 
-        populate_process("yes");
+        window.ProcessRegistry.populateProcess("yes");
         while(true) { 
             print_output(args.join(" ") + "\n");
-            await delay(15);
+            await window.AppUtils.delay(15);
             if (stop_flag) break;
         }
         stop_flag = false;
-        kill_process_named("yes");
+        window.ProcessRegistry.killProcessNamed("yes");
     }
 
     function cmd_cowsay(args) {
@@ -467,112 +404,9 @@ function start() {
         print_output(cowsay_say(args.join(" ")) + "\n");
     }
 
-    var FILES = {};
-    var HIDEN_FILES = {};
-
-    var link = document.createElement("a");
-    link.innerText = "miqueltorner9@gmail.com\n";
-    link.href = "mailto:miqueltorner9@gmail.com";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["email"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "Miquel_Torner_CV.pdf\n";
-    link.href = "./docs/Miquel_Torner_CV.pdf";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["cv"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "miquelt9.github.io/portfolio/\n";
-    link.href = "https://miquelt9.github.io/portfolio/";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["portfolio"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "miquelt9.github.io/portfolio/posts\n";
-    link.href = "https://miquelt9.github.io/portfolio/posts";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["posts"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "github.com/miquelt9\n";
-    link.href = "https://github.com/miquelt9";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["github"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "linkedin.com/in/miqueltv/\n";
-    link.href = "https://www.linkedin.com/in/miqueltv/";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["linkedin"] = link;
-
-    var link = document.createElement("a");
-    link.innerText = "devpost.com/miqueltorner9\n";
-    link.href = "https://www.devpost.com/miqueltorner9";
-    link.target = "_blank";
-    link.tabIndex = -1;
-    FILES["devpost"] = link;
-
-    var secret_link = document.createElement("a");
-    HIDEN_FILES["."] = secret_link
-
-    var secret_link = document.createElement("a");
-    HIDEN_FILES[".."] = secret_link
-
-    var secret_link = document.createElement("a");
-    HIDEN_FILES["snake.exe"] = secret_link
-
-    var secret_link = document.createElement("a");
-    HIDEN_FILES["goose.exe"] = secret_link
-
-
-
-    var about = document.createElement("div");
-
-    var p = document.createElement("p");
-    p.innerText = "Hi I’m Miquel!";
-    about.appendChild(p);
-
-    var img = document.createElement("img")
-    img.src = "images/photoOfMe.png";
-    img.style.width = "100px";
-    about.appendChild(img);
-
-    p = document.createElement("p");
-    p.innerText = "Things to about me!:";
-    about.appendChild(p);
-
-    var ul = document.createElement("ul");
-    var li = document.createElement("li")
-    li.innerText = "Informatics Engineering graduate from Barcelona School of Informatics (FIB), UPC";
-    ul.appendChild(li);
-    li = document.createElement("li")
-    li.innerText = "A part from programming, I love cooking and hiking!";
-    ul.appendChild(li);
-    about.appendChild(ul)
-
-    p = document.createElement("p");
-    p.innerText = "Supported locales:";
-    about.appendChild(p);
-
-    ul = document.createElement("ul");
-    li = document.createElement("li")
-    li.innerText = "English";
-    ul.appendChild(li);
-    li = document.createElement("li")
-    li.innerText = "Catalan";
-    ul.appendChild(li);
-    li = document.createElement("li")
-    li.innerText = "Spanish";
-    ul.appendChild(li);
-    about.appendChild(ul);
-    FILES["about"] = about;
+    var terminalData = window.TerminalContentData.buildTerminalContent();
+    var FILES = terminalData.files;
+    var HIDEN_FILES = terminalData.hiddenFiles;
 
     function cmd_ls(args) {
         if (args.length < 1) {
@@ -589,7 +423,7 @@ function start() {
     async function cmd_sl(args) {
         if (args.length > 0) print_output("Unknown command\n");
         else {
-            populate_process("sl");    
+            window.ProcessRegistry.populateProcess("sl");
             for (let i = 80; i > -82; --i) { // TODO: Use the window size xd
                 print_output("\n\n\n\n\n\n\n")
                 print_output(getTrainSmoke(Math.abs(i)%4, i+4));             
@@ -597,11 +431,11 @@ function start() {
                 if (i >= 0) print_output(getTrainWheels(i%6, i-2));
                 else print_output(getTrainWheels(5+(i%6), i-2));
                 if (i < 3) print_output("\n");
-                await delay(80);
+                await window.AppUtils.delay(80);
                 if (stop_flag) break;
             }
             stop_flag = false;
-            kill_process_named("sl");
+            window.ProcessRegistry.killProcessNamed("sl");
             document.getElementById('terminalcontent').innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
             start();
         }
@@ -622,14 +456,7 @@ function start() {
         return Object.keys(FILES);
     }
 
-    var LINKS = {
-        "github": "https://github.com/miquelt9",
-        "linkedin": "https://www.linkedin.com/in/miqueltv/",
-        "devpost": "https://devpost.com/miqueltorner9",
-        "cv": "./docs/Miquel_Torner_CV.pdf",
-        "portfolio": "https://miquelt9.github.io/portfolio/",
-        "posts": "https://miquelt9.github.io/portfolio/posts",
-    }
+    var LINKS = terminalData.links;
 
     function cmd_cd(args) {
         if (args.length !== 1) {
@@ -705,47 +532,46 @@ function start() {
                     var audio = new Audio('/sounds/error_sound.mp3');
                     //var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
                     print_output("Ooops!\n");
-                    await delay(200);
+                    await window.AppUtils.delay(200);
                     
                     for (let i = 0; i < 3; i++) { 
-                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        //audio.play();
-                        await delay(getRandomInt(750, 1500));
+                        createErrorBox(window.AppUtils.getRandomInt(1, 80), window.AppUtils.getRandomInt(5, 85));
+                        await window.AppUtils.delay(window.AppUtils.getRandomInt(750, 1500));
                     }
                     for (let i = 0; i < 10; i++) { 
-                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        await delay(getRandomInt(200, 300));
+                        createErrorBox(window.AppUtils.getRandomInt(1, 80), window.AppUtils.getRandomInt(5, 85));
+                        await window.AppUtils.delay(window.AppUtils.getRandomInt(200, 300));
                     }
                     for (let i = 0; i < 20; i++) { 
-                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        await delay(getRandomInt(100, 150));
+                        createErrorBox(window.AppUtils.getRandomInt(1, 80), window.AppUtils.getRandomInt(5, 85));
+                        await window.AppUtils.delay(window.AppUtils.getRandomInt(100, 150));
                     }
                     for (let i = 0; i < 50; i++) { 
-                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        await delay(getRandomInt(40, 80));
+                        createErrorBox(window.AppUtils.getRandomInt(1, 80), window.AppUtils.getRandomInt(5, 85));
+                        await window.AppUtils.delay(window.AppUtils.getRandomInt(40, 80));
                     }
                     for (let i = 0; i < 150; i++) { 
-                        createErrorBox(getRandomInt(1, 80), getRandomInt(5, 85));
-                        await delay(getRandomInt(10, 30));
+                        createErrorBox(window.AppUtils.getRandomInt(1, 80), window.AppUtils.getRandomInt(5, 85));
+                        await window.AppUtils.delay(window.AppUtils.getRandomInt(10, 30));
                     }
 
                     for (let i = 0; i < 7; i++) { 
-                        var x_off = getRandomInt(0,1), x = getRandomInt(1, 80);
-                        var y_off = getRandomInt(0,1), y = getRandomInt(5, 85);
+                        var x_off = window.AppUtils.getRandomInt(0,1), x = window.AppUtils.getRandomInt(1, 80);
+                        var y_off = window.AppUtils.getRandomInt(0,1), y = window.AppUtils.getRandomInt(5, 85);
                         if (x_off == 0) x_off = -1;
                         if (y_off == 0) y_off = -1;
-                        var it = getRandomInt(50, 150);
+                        var it = window.AppUtils.getRandomInt(50, 150);
                         for (let i = 0; i < it; i++) { 
                             if (y < 5 || y > 85) y_off *= -1;
                             if (x < 1 || x > 80) x_off *= -1;
                             createErrorBox(x, y);
-                            await delay(getRandomInt(5, 20));
+                            await window.AppUtils.delay(window.AppUtils.getRandomInt(5, 20));
                             y += y_off*1.5;
                             x += x_off;
                         }
                     }
                     
-                    await delay(700);
+                    await window.AppUtils.delay(700);
 
                     createBlueWindow();
                     
@@ -759,12 +585,12 @@ function start() {
 
     function cmd_ps(args) {
         if (args.length <= 1) {
-            populate_process("ps");
+            window.ProcessRegistry.populateProcess("ps");
             // print_output();
             print_output("PID\tTTY\tTIME\t\tCMD\n");
             for (let id in processes) {
                 const process = processes[id];
-                const p_name = get_process_name(id);
+                const p_name = window.ProcessRegistry.getProcessName(id);
                 if ((p_name != "desktop" && p_name != "startmenu" && p_name != "taskbar" && p_name != "clock" && p_name != "icons") || args.includes("-e")) {
                     for (let value in process) {
                         if (value == 0 || value == 2 || value == 4) {
@@ -779,7 +605,7 @@ function start() {
                     print_output("\n");
                 }
             }
-            kill_process_named("ps");
+            window.ProcessRegistry.killProcessNamed("ps");
         }
         else {
             print_output("Usage: ps\n");
@@ -789,7 +615,7 @@ function start() {
     function cmd_kill(args) {
         if (args.length == 1) {
             if (processes.hasOwnProperty(args[0])) {
-                    kill_process_id(args[0]);
+                    window.ProcessRegistry.killProcessId(args[0]);
                     print_output("Process " + args[0] + " terminated\n");
             }
             else {
@@ -853,12 +679,4 @@ function createBlueWindow() {
     }, 2500);
 }
 
-function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-}
-
-function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+// Shared helpers are now provided by window.AppUtils.
