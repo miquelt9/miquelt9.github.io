@@ -178,6 +178,19 @@ function start() {
         termContainer.scrollTop = termContainer.scrollHeight - termContainer.clientHeight;
     }
 
+    function browse_history(direction) {
+        if (cmd_history.length === 0) {
+            return;
+        }
+        cmd_history_index = Math.max(0, Math.min(cmd_history.length, cmd_history_index + direction));
+        if (cmd_history_index === cmd_history.length) {
+            replace_cmd_buffer("");
+            return;
+        }
+        replace_cmd_buffer(cmd_history[cmd_history_index]);
+        move_cursor_to_end();
+    }
+
     function print_output(text) {
         output_html(document.createTextNode(text));
     }
@@ -307,6 +320,7 @@ function start() {
             if (evt.altKey === false && evt.ctrlKey === false && evt.metaKey === false) {
                 evt.preventDefault();
                 handle_char(evt.key);
+                evt.preventDefault();
             } else if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
                 evt.preventDefault();
                 move_cursor_to_end();
@@ -322,30 +336,19 @@ function start() {
                 evt.preventDefault();
                 remove_char_before_cursor();
             }
+            evt.preventDefault();
+        } else if (evt.key === "ArrowUp") {
+            browse_history(-1);
+            evt.preventDefault();
+        } else if (evt.key === "ArrowDown") {
+            browse_history(1);
+            evt.preventDefault();
         } else if (evt.key === "Tab" && bash_open) {
             tab_complete(cmd_buffer);
             evt.preventDefault();
         } else if (evt.key === "Enter" && bash_open) {
+            handle_enter();
             evt.preventDefault();
-            handle_enter()
-        } else if (evt.key === "ArrowUp") {
-            evt.preventDefault();
-            if (cmd_history.length === 0) {
-                return;
-            }
-            cmd_history_index = Math.max(0, cmd_history_index - 1);
-            replace_cmd_buffer(cmd_history[cmd_history_index]);
-        } else if (evt.key === "ArrowDown") {
-            evt.preventDefault();
-            if (cmd_history.length === 0) {
-                return;
-            }
-            cmd_history_index = Math.min(cmd_history.length, cmd_history_index + 1);
-            if (cmd_history_index === cmd_history.length) {
-                replace_cmd_buffer("");
-            } else {
-                replace_cmd_buffer(cmd_history[cmd_history_index]);
-            }
         } else if (evt.key === "ArrowLeft") {
             evt.preventDefault();
             move_cursor_left();
@@ -427,21 +430,6 @@ function start() {
             "cmd": cmd_history_cmd,
             "complete": null,
         },
-        "chmod": {
-            "cmd": cmd_chmod,
-            "complete": complete_chmod,
-        },
-    };
-
-    var EXECUTABLES = {
-        "snake": cmd_snake,
-        "goose": cmd_goose,
-        "virus": cmd_virus,
-    };
-    var executablePermissions = {
-        "snake": false,
-        "goose": false,
-        "virus": true,
     };
 
     var HIDEN_COMMANDS = {
@@ -528,13 +516,6 @@ function start() {
         if (cmd_parts.length === 0) {
             return;
         }
-        var commandTarget = normalizeExecutableTarget(cmd_parts[0]);
-        if (commandTarget && !executablePermissions[commandTarget]) {
-            if (Object.prototype.hasOwnProperty.call(EXECUTABLES, commandTarget)) {
-                print_output("Permission denied: " + cmd_parts[0] + ". Try: chmod +x " + commandTarget + ".sh\n");
-                return;
-            }
-        }
         if (COMMANDS[cmd_parts[0]]) {
             COMMANDS[cmd_parts[0]]["cmd"](cmd_parts.slice(1));
         }
@@ -555,42 +536,6 @@ function start() {
         }
     }
 
-    function normalizeExecutableTarget(target) {
-        if (!target) {
-            return null;
-        }
-        if (!/^(?:\.\/)?[a-z]+\.sh$/.test(target)) {
-            return null;
-        }
-        var normalized = target.replace(/^\.\//, "").replace(/\.sh$/, "");
-        if (!Object.prototype.hasOwnProperty.call(EXECUTABLES, normalized)) {
-            return null;
-        }
-        return normalized;
-    }
-
-    function cmd_chmod(args) {
-        if (args.length !== 2 || args[0] !== "+x") {
-            print_output("Usage: chmod +x [snake|goose|virus].sh\n");
-            return;
-        }
-        var target = normalizeExecutableTarget(args[1]);
-        if (!target) {
-            print_output("chmod: cannot access '" + args[1] + "': No such file\n");
-            return;
-        }
-        executablePermissions[target] = true;
-        print_output("Made executable: ./" + target + ".sh\n");
-    }
-
-    function complete_chmod(args) {
-        var options = ["+x", "snake.sh", "./snake.sh", "goose.sh", "./goose.sh", "virus.sh", "./virus.sh"];
-        if (args.length <= 1) {
-            return options;
-        }
-        return [];
-    }
-
     function cmd_pwd() {
         var link = document.createElement("a");
         link.innerText = "https://miquelt9.github.io\n";
@@ -601,6 +546,7 @@ function start() {
 
     function cmd_help() {
         print_output("Available commands:\n" + Object.keys(COMMANDS).join("\t") + "\n");
+        print_output("Hidden executables: ./goose.sh ./snake.sh ./virus.sh\n");
     }
 
     function cmd_echo(args) {
@@ -745,8 +691,8 @@ function start() {
         if (args.length !== 0) {
             print_output("Invalid argument\n");
         } else {
-            print_output("Goose mode is still being develop...\n");
-            showGoose('goose1')
+            print_output("Summoning goose chaos...\n");
+            showGoose("goose1");
         }
     }
 

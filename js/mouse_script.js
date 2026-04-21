@@ -8,6 +8,7 @@ var ghostMode = "free";
 var ghostTargetX = prevX;
 var ghostTargetY = prevY;
 var mouseNoiseToken = null;
+var lastControlledAt = 0;
 
 function clamp(value, min, max) {
     return Math.max(min, Math.min(value, max));
@@ -52,6 +53,7 @@ function paintCursor(mouseX, mouseY) {
 function setGhostCursorPosition(x, y) {
     ghostMouse = true;
     ghostMode = "controlled";
+    lastControlledAt = performance.now();
     ghostTargetX = clamp(x, 1, window.innerWidth - 1);
     ghostTargetY = clamp(y, 1, window.innerHeight - 1);
     paintCursor(ghostTargetX, ghostTargetY);
@@ -60,6 +62,9 @@ function setGhostCursorPosition(x, y) {
 function releaseGhostCursor() {
     ghostMouse = false;
     ghostMode = "free";
+    ghostTargetX = prevX;
+    ghostTargetY = prevY;
+    paintCursor(prevX, prevY);
 }
 
 function ghostMouseMove() {
@@ -107,6 +112,12 @@ document.addEventListener("DOMContentLoaded", function() {
         prevY = e.clientY;
 
         if (ghostMouse && ghostMode !== "free") {
+            // Failsafe: if controlled mode is stale, return control to user cursor.
+            if (ghostMode === "controlled" && performance.now() - lastControlledAt > 250) {
+                releaseGhostCursor();
+                paintCursor(prevX, prevY);
+                return;
+            }
             if (ghostMode === "controlled") {
                 paintCursor(ghostTargetX, ghostTargetY);
             }
