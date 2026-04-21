@@ -129,13 +129,29 @@ function start() {
     var snakeSession = null;
     var snakeFrameNode = null;
     var snakeInputEnabled = false;
+    var cmd_history = [];
+    var cmd_history_index = -1;
+
+    function replace_cmd_buffer(new_buffer) {
+        while (cmd_buffer.length !== 0) {
+            cmd_buffer = cmd_buffer.slice(0, -1);
+            term.removeChild(cursor.previousSibling);
+        }
+        for (var char of new_buffer) {
+            handle_char(char);
+        }
+    }
 
     function handle_enter() {
         output_html(document.createElement("br"));
         if (cmd_buffer.length !== 0) {
+            if (cmd_history.length === 0 || cmd_history[cmd_history.length - 1] !== cmd_buffer) {
+                cmd_history.push(cmd_buffer);
+            }
             handle_cmd(cmd_buffer);
         }
         cmd_buffer = "";
+        cmd_history_index = cmd_history.length;
         stop_flag = false;
         print_output("~"+ current_directory +"$ ");
     }
@@ -211,7 +227,6 @@ function start() {
         if (!bash_open || evt.isComposing || evt.keyCode === 229) {
             return;
         }
-        evt.target.focus();
 
         if (snakeInputEnabled) {
             if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
@@ -234,14 +249,18 @@ function start() {
 
         if (evt.key.length === 1) {
             if (evt.altKey === false && evt.ctrlKey === false && evt.metaKey === false) {
+                evt.preventDefault();
                 handle_char(evt.key);
             } else if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
+                evt.preventDefault();
                 print_output("^C\n~$ ");
                 cmd_buffer = "";
                 stop_flag = true;
+                cmd_history_index = cmd_history.length;
             }
         } else if (evt.key === "Backspace") {
             if (cmd_buffer.length !== 0) {
+                evt.preventDefault();
                 cmd_buffer = cmd_buffer.slice(0, -1);
                 term.removeChild(cursor.previousSibling);
             }
@@ -249,7 +268,26 @@ function start() {
             tab_complete(cmd_buffer);
             evt.preventDefault();
         } else if (evt.key === "Enter" && bash_open) {
+            evt.preventDefault();
             handle_enter()
+        } else if (evt.key === "ArrowUp") {
+            evt.preventDefault();
+            if (cmd_history.length === 0) {
+                return;
+            }
+            cmd_history_index = Math.max(0, cmd_history_index - 1);
+            replace_cmd_buffer(cmd_history[cmd_history_index]);
+        } else if (evt.key === "ArrowDown") {
+            evt.preventDefault();
+            if (cmd_history.length === 0) {
+                return;
+            }
+            cmd_history_index = Math.min(cmd_history.length, cmd_history_index + 1);
+            if (cmd_history_index === cmd_history.length) {
+                replace_cmd_buffer("");
+            } else {
+                replace_cmd_buffer(cmd_history[cmd_history_index]);
+            }
         }
     });
 
@@ -321,18 +359,37 @@ function start() {
             "cmd": cmd_clear,
             "complete": null,
         },
+        "history": {
+            "cmd": cmd_history_cmd,
+            "complete": null,
+        },
+        "chmod": {
+            "cmd": cmd_chmod,
+            "complete": complete_chmod,
+        },
+    };
+
+    var EXECUTABLES = {
+        "snake": cmd_snake,
+        "goose": cmd_goose,
+        "virus": cmd_virus,
+    };
+    var executablePermissions = {
+        "snake": false,
+        "goose": false,
+        "virus": true,
     };
 
     var HIDEN_COMMANDS = {
-        "./snake.exe": {
+        "./snake.sh": {
             "cmd": cmd_snake,
             "complete": null,
         },
-        "./goose.exe": {
+        "./goose.sh": {
             "cmd": cmd_goose,
             "complete": null,
         },
-        "./virus.exe": {
+        "./virus.sh": {
             "cmd": cmd_virus,
             "complete": null,
         },
@@ -408,6 +465,16 @@ function start() {
 
     function handle_cmd(cmd) {
         var cmd_parts = split_cmd(cmd);
+        if (cmd_parts.length === 0) {
+            return;
+        }
+        var commandTarget = normalizeExecutableTarget(cmd_parts[0]);
+        if (commandTarget && !executablePermissions[commandTarget]) {
+            if (Object.prototype.hasOwnProperty.call(EXECUTABLES, commandTarget)) {
+                print_output("Permission denied: " + cmd_parts[0] + ". Try: chmod +x " + commandTarget + ".sh\n");
+                return;
+            }
+        }
         if (COMMANDS[cmd_parts[0]]) {
             COMMANDS[cmd_parts[0]]["cmd"](cmd_parts.slice(1));
         }
@@ -416,6 +483,52 @@ function start() {
         } else {
             print_output("Unknown command\n");
         }
+    }
+
+    function cmd_history_cmd(args) {
+        if (args.length !== 0) {
+            print_output("Usage: history\n");
+            return;
+        }
+        for (var i = 0; i < cmd_history.length; i++) {
+            print_output((i + 1) + "  " + cmd_history[i] + "\n");
+        }
+    }
+
+    function normalizeExecutableTarget(target) {
+        if (!target) {
+            return null;
+        }
+        if (!/^(?:\.\/)?[a-z]+\.sh$/.test(target)) {
+            return null;
+        }
+        var normalized = target.replace(/^\.\//, "").replace(/\.sh$/, "");
+        if (!Object.prototype.hasOwnProperty.call(EXECUTABLES, normalized)) {
+            return null;
+        }
+        return normalized;
+    }
+
+    function cmd_chmod(args) {
+        if (args.length !== 2 || args[0] !== "+x") {
+            print_output("Usage: chmod +x [snake|goose|virus].sh\n");
+            return;
+        }
+        var target = normalizeExecutableTarget(args[1]);
+        if (!target) {
+            print_output("chmod: cannot access '" + args[1] + "': No such file\n");
+            return;
+        }
+        executablePermissions[target] = true;
+        print_output("Made executable: ./" + target + ".sh\n");
+    }
+
+    function complete_chmod(args) {
+        var options = ["+x", "snake.sh", "./snake.sh", "goose.sh", "./goose.sh", "virus.sh", "./virus.sh"];
+        if (args.length <= 1) {
+            return options;
+        }
+        return [];
     }
 
     function cmd_pwd() {

@@ -10,7 +10,7 @@
         linkedin: { type: "link", text: "linkedin.com/in/miqueltv/\n", href: "https://www.linkedin.com/in/miqueltv/" },
         devpost: { type: "link", text: "devpost.com/miqueltorner9\n", href: "https://www.devpost.com/miqueltorner9" },
       },
-      hiddenFiles: [".", "..", "snake.exe", "goose.exe"],
+      hiddenFiles: [".", "..", "snake.sh", "goose.sh", "virus.sh"],
       links: {
         github: "https://github.com/miquelt9",
         linkedin: "https://www.linkedin.com/in/miqueltv/",
