@@ -126,6 +126,8 @@ function start() {
     term.appendChild(cursor);
 
     var cmd_buffer = "";
+    var cmd_char_nodes = [];
+    var cmd_cursor_index = 0;
     var snakeSession = null;
     var snakeFrameNode = null;
     var snakeInputEnabled = false;
@@ -133,16 +135,21 @@ function start() {
     var cmd_history_index = -1;
 
     function replace_cmd_buffer(new_buffer) {
-        while (cmd_buffer.length !== 0) {
-            cmd_buffer = cmd_buffer.slice(0, -1);
-            term.removeChild(cursor.previousSibling);
+        for (var i = 0; i < cmd_char_nodes.length; i++) {
+            if (cmd_char_nodes[i].parentNode === term) {
+                term.removeChild(cmd_char_nodes[i]);
+            }
         }
+        cmd_buffer = "";
+        cmd_char_nodes = [];
+        cmd_cursor_index = 0;
         for (var char of new_buffer) {
             handle_char(char);
         }
     }
 
     function handle_enter() {
+        move_cursor_to_end();
         output_html(document.createElement("br"));
         if (cmd_buffer.length !== 0) {
             if (cmd_history.length === 0 || cmd_history[cmd_history.length - 1] !== cmd_buffer) {
@@ -151,14 +158,24 @@ function start() {
             handle_cmd(cmd_buffer);
         }
         cmd_buffer = "";
+        cmd_char_nodes = [];
+        cmd_cursor_index = 0;
         cmd_history_index = cmd_history.length;
         stop_flag = false;
         print_output("~"+ current_directory +"$ ");
     }
 
     function handle_char(key) {
-        print_output(key);
-        cmd_buffer += key;
+        var charNode = document.createTextNode(key);
+        if (cmd_cursor_index >= cmd_char_nodes.length) {
+            term.insertBefore(charNode, cursor);
+        } else {
+            term.insertBefore(charNode, cmd_char_nodes[cmd_cursor_index]);
+        }
+        cmd_char_nodes.splice(cmd_cursor_index, 0, charNode);
+        cmd_buffer = cmd_buffer.slice(0, cmd_cursor_index) + key + cmd_buffer.slice(cmd_cursor_index);
+        cmd_cursor_index += 1;
+        termContainer.scrollTop = termContainer.scrollHeight - termContainer.clientHeight;
     }
 
     function print_output(text) {
@@ -168,6 +185,42 @@ function start() {
     function output_html(node) {
         term.insertBefore(node, cursor);
         termContainer.scrollTop = termContainer.scrollHeight - termContainer.clientHeight;
+    }
+
+    function move_cursor_to_end() {
+        term.appendChild(cursor);
+        cmd_cursor_index = cmd_char_nodes.length;
+    }
+
+    function move_cursor_left() {
+        if (cmd_cursor_index === 0) {
+            return;
+        }
+        term.insertBefore(cursor, cmd_char_nodes[cmd_cursor_index - 1]);
+        cmd_cursor_index -= 1;
+    }
+
+    function move_cursor_right() {
+        if (cmd_cursor_index >= cmd_char_nodes.length) {
+            return;
+        }
+        var anchor = cmd_char_nodes[cmd_cursor_index];
+        term.insertBefore(cursor, anchor.nextSibling);
+        cmd_cursor_index += 1;
+    }
+
+    function remove_char_before_cursor() {
+        if (cmd_cursor_index === 0) {
+            return;
+        }
+        var removeIndex = cmd_cursor_index - 1;
+        var node = cmd_char_nodes[removeIndex];
+        if (node.parentNode === term) {
+            term.removeChild(node);
+        }
+        cmd_char_nodes.splice(removeIndex, 1);
+        cmd_buffer = cmd_buffer.slice(0, removeIndex) + cmd_buffer.slice(removeIndex + 1);
+        cmd_cursor_index -= 1;
     }
 
     function setSnakeDirectionFromKey(key) {
@@ -230,8 +283,11 @@ function start() {
 
         if (snakeInputEnabled) {
             if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
+                move_cursor_to_end();
                 print_output("^C\n~$ ");
                 cmd_buffer = "";
+                cmd_char_nodes = [];
+                cmd_cursor_index = 0;
                 stop_flag = true;
                 stopTerminalSnakeGame();
                 evt.preventDefault();
@@ -253,16 +309,18 @@ function start() {
                 handle_char(evt.key);
             } else if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
                 evt.preventDefault();
+                move_cursor_to_end();
                 print_output("^C\n~$ ");
                 cmd_buffer = "";
+                cmd_char_nodes = [];
+                cmd_cursor_index = 0;
                 stop_flag = true;
                 cmd_history_index = cmd_history.length;
             }
         } else if (evt.key === "Backspace") {
-            if (cmd_buffer.length !== 0) {
+            if (cmd_cursor_index !== 0) {
                 evt.preventDefault();
-                cmd_buffer = cmd_buffer.slice(0, -1);
-                term.removeChild(cursor.previousSibling);
+                remove_char_before_cursor();
             }
         } else if (evt.key === "Tab" && bash_open) {
             tab_complete(cmd_buffer);
@@ -288,6 +346,12 @@ function start() {
             } else {
                 replace_cmd_buffer(cmd_history[cmd_history_index]);
             }
+        } else if (evt.key === "ArrowLeft") {
+            evt.preventDefault();
+            move_cursor_left();
+        } else if (evt.key === "ArrowRight") {
+            evt.preventDefault();
+            move_cursor_right();
         }
     });
 
@@ -450,13 +514,9 @@ function start() {
                         }
                         i += 1;
                     }
+                    move_cursor_to_end();
                     print_output("\nOptions:\n" + similar_matches.join("\t") + "\n~$ ");
-                    for (var char of cmd) {
-                        print_output(char);
-                    }
-                    for (var char of similar_match.substring(cmd_part.length)) {
-                        handle_char(char);
-                    }
+                    replace_cmd_buffer(similar_match);
                 }
                 return;
             }
