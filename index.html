@@ -66,26 +66,6 @@
 
 			</div>
 
-			<div class="mainbox" id="skillsbox" style="display: none;">
-				<div class="topbar" id="skillsboxheader">Skills
-				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('skillsbox')">_</div>
-				<div class="topbarButton clickable" >□</div>
-				<div class="topbarButton clickable" onclick="hideWindow('skillsbox')">X</div></div></div>	
-				
-				<div class="content">
-					Languages:<br>
-					• C++ <br>
-					• Java <br>
-					• Python <br>
-					<br>
-					Tech:<br>
-					• Android development in Android Studio <br>
-					• Git & Mercurial <br>
-					<br> <br>
-				</div>
-
-			</div>
-
 			<div class="mainbox" id="projectsbox" style="display: none;">
 				<div class="topbar" id="projectsboxheader">Projects
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('projectsbox')">_</div>
@@ -214,7 +194,7 @@
 
 			<div class="desktop">
 			<div class="desktopicon clickable" id="aboutme" onclick="showWindow('aboutbox')"><img class="clickable" src="images/about.png">About me</div>
-			<div class="desktopicon clickable" id="skills" onclick="showWindow('skillsbox')"><img class="clickable" src="images/skills.png">Skills</div>
+			<div class="desktopicon" id="skills"><img src="images/skills.png">Skills</div>
 			<div class="desktopicon clickable" id="projects" onclick="showWindow('projectsbox')"><img class="clickable" src="images/projects.png">Projects</div>
 			<div class="desktopicon clickable" id="contactme" onclick="showWindow('contactmebox')"><img class="clickable" src="images/contact.png">Contact</div>
 			<div class="desktopicon clickable" id="terminal" onclick="showWindow('terminalbox')"><img class="clickable" src="images/terminal.png">Terminal</div>
@@ -237,7 +217,6 @@
 			<div class="taskbar" id="taskbar">
 				<div class="startButton clickable" onclick="startMenu()" id="startmenu"> <img src="images/start.png"> Start </div>
 				<div class="taskbarWindow clickable" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;">Properties</div>
-				<div class="taskbarWindow clickable" id="skillsboxTaskbar" onclick="toggle('skillsbox')" style="display: none;">Skills</div>
 				<div class="taskbarWindow clickable" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
 				<div class="taskbarWindow clickable" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
 				<div class="taskbarWindow clickable" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>

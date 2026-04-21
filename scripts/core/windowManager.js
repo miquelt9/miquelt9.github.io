@@ -1,5 +1,5 @@
 (function initWindowManager(globalScope) {
-  var boxes = ["aboutbox", "skillsbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox", "cvbox", "canbox"];
+  var boxes = ["aboutbox", "projectsbox", "contactmebox", "terminalbox", "spaceshooterbox", "snakebox", "cvbox", "canbox"];
   var positions = [];
 
   function initialize() {
