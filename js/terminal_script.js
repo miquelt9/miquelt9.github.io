@@ -126,6 +126,9 @@ function start() {
     term.appendChild(cursor);
 
     var cmd_buffer = "";
+    var snakeSession = null;
+    var snakeFrameNode = null;
+    var snakeInputEnabled = false;
 
     function handle_enter() {
         output_html(document.createElement("br"));
@@ -150,6 +153,38 @@ function start() {
         term.insertBefore(node, cursor);
         termContainer.scrollTop = termContainer.scrollHeight - termContainer.clientHeight;
     }
+
+    function setSnakeDirectionFromKey(key) {
+        if (!snakeSession || !snakeSession.game) {
+            return false;
+        }
+        if (key === "ArrowUp" || key === "w" || key === "W") {
+            snakeSession.game.setDirection(0, -1);
+            return true;
+        }
+        if (key === "ArrowDown" || key === "s" || key === "S") {
+            snakeSession.game.setDirection(0, 1);
+            return true;
+        }
+        if (key === "ArrowLeft" || key === "a" || key === "A") {
+            snakeSession.game.setDirection(-1, 0);
+            return true;
+        }
+        if (key === "ArrowRight" || key === "d" || key === "D") {
+            snakeSession.game.setDirection(1, 0);
+            return true;
+        }
+        return false;
+    }
+
+    function stopTerminalSnakeGame() {
+        if (!snakeSession || !snakeSession.game) {
+            return;
+        }
+        snakeSession.game.stop();
+        snakeInputEnabled = false;
+    }
+    window.stopTerminalSnakeGame = stopTerminalSnakeGame;
 
     for (var link of document.getElementsByClassName("text-link")) {
         link.addEventListener("click", function(evt) {
@@ -177,6 +212,25 @@ function start() {
             return;
         }
         evt.target.focus();
+
+        if (snakeInputEnabled) {
+            if (evt.altKey === false && evt.ctrlKey === true && evt.metaKey === false && evt.key === "c") {
+                print_output("^C\n~$ ");
+                cmd_buffer = "";
+                stop_flag = true;
+                stopTerminalSnakeGame();
+                evt.preventDefault();
+                return;
+            }
+
+            if (setSnakeDirectionFromKey(evt.key)) {
+                evt.preventDefault();
+                return;
+            }
+
+            evt.preventDefault();
+            return;
+        }
 
         if (evt.key.length === 1) {
             if (evt.altKey === false && evt.ctrlKey === false && evt.metaKey === false) {
@@ -473,12 +527,44 @@ function start() {
         }
     }
 
-    function cmd_snake(args) {
+    async function cmd_snake(args) {
         if (args.length !== 0) {
             print_output("Invalid argument\n");
+        } else if (snakeSession && snakeSession.game && snakeSession.game.isRunning()) {
+            print_output("Snake is already running\n");
         } else {
-            print_output("Starting game...\n");
-            openWindow("snake");
+            print_output("Starting terminal snake...\n");
+            snakeFrameNode = document.createElement("pre");
+            snakeFrameNode.className = "snake-terminal-frame";
+            output_html(snakeFrameNode);
+
+            snakeInputEnabled = true;
+            stop_flag = false;
+            window.ProcessRegistry.populateProcess("snaketerm");
+
+            var game = window.TerminalSnakeGame.createTerminalSnakeGame({
+                width: 20,
+                height: 12,
+                tickMs: 120,
+                onFrame: function onFrame(frame) {
+                    if (snakeFrameNode) {
+                        snakeFrameNode.textContent = frame;
+                    }
+                    termContainer.scrollTop = termContainer.scrollHeight - termContainer.clientHeight;
+                },
+                isBlocked: function isBlocked() {
+                    return stop_flag;
+                },
+            });
+
+            snakeSession = { game: game };
+            await game.run();
+
+            snakeInputEnabled = false;
+            snakeSession = null;
+            snakeFrameNode = null;
+            stop_flag = false;
+            window.ProcessRegistry.killProcessNamed("snaketerm");
         }
     }
 

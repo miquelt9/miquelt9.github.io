@@ -60,10 +60,23 @@
     var pos4 = 0;
     element.onmousedown = activeWindow;
     var header = document.getElementById(element.id + "header");
+    var maximizeButton = findMaximizeButton(element);
     if (header) {
       header.onmousedown = dragMouseDown;
+      header.ondblclick = toggleMaximizedFromEvent;
     } else {
       element.onmousedown = dragMouseDown;
+      element.ondblclick = toggleMaximizedFromEvent;
+    }
+
+    if (maximizeButton) {
+      maximizeButton.onclick = function toggleFromButton(event) {
+        if (event) {
+          event.stopPropagation();
+        }
+        bringToFront(element.id);
+        toggleMaximized(element);
+      };
     }
 
     function dragMouseDown(e) {
@@ -95,6 +108,71 @@
     function activeWindow() {
       bringToFront(element.id);
     }
+
+    function toggleMaximizedFromEvent(event) {
+      if (event && event.target && event.target.classList && event.target.classList.contains("buttons")) {
+        return;
+      }
+      bringToFront(element.id);
+      toggleMaximized(element);
+    }
+  }
+
+  function findMaximizeButton(element) {
+    var header = document.getElementById(element.id + "header");
+    if (!header) {
+      return null;
+    }
+    var topbarButtons = header.querySelectorAll(".topbarButton, .terminaltopbarButton");
+    for (var i = 0; i < topbarButtons.length; i++) {
+      if (topbarButtons[i].textContent.trim() === "□") {
+        return topbarButtons[i];
+      }
+    }
+    return null;
+  }
+
+  function toggleMaximized(element) {
+    if (element.dataset.isMaximized === "true") {
+      restoreWindow(element);
+      return;
+    }
+    maximizeWindow(element);
+  }
+
+  function maximizeWindow(element) {
+    element.dataset.prevTop = element.style.top || "";
+    element.dataset.prevLeft = element.style.left || "";
+    element.dataset.prevWidth = element.style.width || "";
+    element.dataset.prevHeight = element.style.height || "";
+    element.dataset.prevMaxWidth = element.style.maxWidth || "";
+    element.dataset.prevMaxHeight = element.style.maxHeight || "";
+    element.dataset.prevMinWidth = element.style.minWidth || "";
+    element.dataset.prevMinHeight = element.style.minHeight || "";
+
+    var taskbar = document.getElementById("taskbar");
+    var taskbarHeight = taskbar ? taskbar.offsetHeight : 0;
+    element.style.top = "0px";
+    element.style.left = "0px";
+    element.style.width = window.innerWidth + "px";
+    element.style.height = Math.max(0, window.innerHeight - taskbarHeight) + "px";
+    element.style.maxWidth = "none";
+    element.style.maxHeight = "none";
+    element.style.minWidth = "0";
+    element.style.minHeight = "0";
+    element.dataset.isMaximized = "true";
+  }
+
+  function restoreWindow(element) {
+    element.style.top = element.dataset.prevTop || "";
+    element.style.left = element.dataset.prevLeft || "";
+    element.style.width = element.dataset.prevWidth || "";
+    element.style.height = element.dataset.prevHeight || "";
+    element.style.maxWidth = element.dataset.prevMaxWidth || "";
+    element.style.maxHeight = element.dataset.prevMaxHeight || "";
+    element.style.minWidth = element.dataset.prevMinWidth || "";
+    element.style.minHeight = element.dataset.prevMinHeight || "";
+    element.dataset.isMaximized = "false";
   }
 
   globalScope.WindowManager = {

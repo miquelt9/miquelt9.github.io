@@ -59,6 +59,10 @@
       globalScope.start();
     } else if (processName === "spaceshooter" || processName === "snake") {
       globalScope.closeWindow(processName);
+    } else if (processName === "snaketerm") {
+      if (typeof globalScope.stopTerminalSnakeGame === "function") {
+        globalScope.stopTerminalSnakeGame();
+      }
     } else {
       globalScope.hideWindow(processName);
     }
