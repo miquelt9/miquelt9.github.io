@@ -15,6 +15,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
 	<link href="css/css2.css" rel="stylesheet">	
 	<script type="text/javascript" src="content/site-data.js"></script>
+	<script type="text/javascript" src="scripts/core/i18n.js"></script>
 	<script type="text/javascript" src="scripts/core/utils.js"></script>
 	<script type="text/javascript" src="scripts/core/processRegistry.js"></script>
 	<script type="text/javascript" src="scripts/core/windowManager.js"></script>
@@ -38,7 +39,7 @@
 		
 		<div class="desktop_device">
 			<div class="mainbox" id="aboutbox" style="display: none;">
-				<div class="topbar" id="aboutboxheader">System Properties
+				<div class="topbar" id="aboutboxheader"><span data-i18n="windows.about">System Properties</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('aboutbox')">_</div>
 				<div class="topbarButton clickable">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('aboutbox')">X</div></div></div>	
@@ -63,7 +64,7 @@
 			</div>
 
 			<div class="mainbox" id="projectsbox" style="display: none;">
-				<div class="topbar" id="projectsboxheader">Projects
+				<div class="topbar" id="projectsboxheader"><span data-i18n="windows.projects">Projects</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('projectsbox')">_</div>
 				<div class="topbarButton  clickable" >□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('projectsbox')">X</div></div></div>	
@@ -91,7 +92,7 @@
 			</div>
 
 			<div class="mainbox" id="contactmebox"style="display: none;">
-				<div class="topbar" id="contactmeboxheader">Contact
+				<div class="topbar" id="contactmeboxheader"><span data-i18n="windows.contact">Contact</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('contactmebox')">_</div>
 				<div class="topbarButton clickable" >□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('contactmebox')">X</div></div></div>	
@@ -107,7 +108,7 @@
 			</div>
 
 			<div class="terminalbox" id="terminalbox">
-				<div class="terminaltopbar" id="terminalboxheader">>.
+				<div class="terminaltopbar" id="terminalboxheader"><span data-i18n="windows.terminal">>.</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('terminalbox')">_</div>
 				<div class="terminaltopbarButton clickable">□</div>
 				<div class="terminaltopbarButton clickable" onclick="hideWindow('terminalbox')">X</div></div></div>	
@@ -136,7 +137,7 @@
 			<script type="application/javascript" src="js/terminal_script.js"></script>
 
 			<div class="gamebox" id="spaceshooterbox">
-				<div class="terminaltopbar" id="spaceshooterboxheader">SpaceShooter
+				<div class="terminaltopbar" id="spaceshooterboxheader"><span data-i18n="windows.spaceshooter">SpaceShooter</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('spaceshooterbox')">_</div>
 				<div class="terminaltopbarButton clickable">□</div>
 				<div class="terminaltopbarButton clickable" onclick="closeWindow('spaceshooter')">X</div></div></div>	
@@ -149,7 +150,7 @@
 
 
 			<div class="gamebox" id="snakebox">
-				<div class="terminaltopbar" id="snakeboxheader">Snake 🐍 (WIP :P)
+				<div class="terminaltopbar" id="snakeboxheader"><span data-i18n="windows.snake">Snake 🐍 (WIP :P)</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('snakebox')">_</div>
 				<div class="terminaltopbarButton clickable">□</div>
 				<div class="terminaltopbarButton clickable" onclick="hideWindow('snakebox')">X</div></div></div>	
@@ -162,7 +163,7 @@
 
 
 			<div class="cvbox" id="cvbox"style="display: none;">
-				<div class="topbar" id="cvboxheader">&nbsp;CV&VeryThinSpace;📄
+				<div class="topbar" id="cvboxheader"><span data-i18n="windows.cv">&nbsp;CV&VeryThinSpace;📄</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('cvbox')">_</div>
 				<div class="topbarButton clickable">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('cvbox')">X</div></div></div>	
@@ -189,44 +190,47 @@
 
 
 			<div class="desktop">
-			<div class="desktopicon clickable" id="aboutme" onclick="showWindow('aboutbox')"><img class="clickable" src="images/about.png">About me</div>
-			<div class="desktopicon clickable" id="projects" onclick="showWindow('projectsbox')"><img class="clickable" src="images/projects.png">Projects</div>
-			<div class="desktopicon clickable" id="contactme" onclick="showWindow('contactmebox')"><img class="clickable" src="images/contact.png">Contact</div>
-			<div class="desktopicon clickable" id="terminal" onclick="showWindow('terminalbox')"><img class="clickable" src="images/terminal.png">Terminal</div>
+			<div class="desktopicon clickable" id="aboutme" onclick="showWindow('aboutbox')" data-i18n="desktop.about"><img class="clickable" src="images/about.png">About me</div>
+			<div class="desktopicon clickable" id="projects" onclick="showWindow('projectsbox')" data-i18n="desktop.projects"><img class="clickable" src="images/projects.png">Projects</div>
+			<div class="desktopicon clickable" id="contactme" onclick="showWindow('contactmebox')" data-i18n="desktop.contact"><img class="clickable" src="images/contact.png">Contact</div>
+			<div class="desktopicon clickable" id="terminal" onclick="showWindow('terminalbox')" data-i18n="desktop.terminal"><img class="clickable" src="images/terminal.png">Terminal</div>
 			<!-- <div class="desktopicon" id="terminal" onclick="showWindow('canbox')" onclick="initcanvas()"><img src="images/terminal.png">Terminal</div> -->
 
 			</div>
 
 			<div class="startmenu clickable" id="startbutton" style="display: none;">
 				<a class="clickable" href="images/frog_meme.jpg" target="_blank"><div class="startmenuItem clickable">
-					&MediumSpace; Have a nice day!
+					&MediumSpace; <span data-i18n="startMenu.niceDay">Have a nice day!</span>
 				</div></a>
 				<!-- <a target="_blank" onclick="showGoose('goose1')"><div class="startmenuItem">
 					&MediumSpace; Something coming soon...
 				</div></a> -->
 				<a target="_blank" onclick="nevergonna()"><div class="startmenuItem clickable">
-					&MediumSpace; Something coming soon...
+					&MediumSpace; <span data-i18n="startMenu.comingSoon">Something coming soon...</span>
 				</div></a>
 			</div>
 
 			<div class="taskbar" id="taskbar">
-				<div class="startButton clickable" onclick="startMenu()" id="startmenu"> <img src="images/start.png"> Start </div>
-				<div class="taskbarWindow clickable" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;">Properties</div>
-				<div class="taskbarWindow clickable" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;">Projects</div>
-				<div class="taskbarWindow clickable" id="contactmeboxTaskbar" onclick="toggle('contactmebox')">Contact</div>
-				<div class="taskbarWindow clickable" id="terminalboxTaskbar" onclick="toggle('terminalbox')">Terminal</div>
-				<div class="taskbarWindow clickable" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')">SpaceShooter</div>
-				<div class="taskbarWindow clickable" id="snakeboxTaskbar" onclick="toggle('snakebox')">Snake 🐍</div>
-				<div class="taskbarWindow clickable" id="cvboxTaskbar" onclick="toggle('cvbox')">CV&VeryThinSpace;📄</div>
-				<div class="clock clickable" onclick="changeBackgroundColor()" id="clock">00:00</div>
+				<div class="startButton clickable" onclick="startMenu()" id="startmenu-btn" data-i18n="taskbar.start"> <img src="images/start.png"> Start </div>
+				<div class="taskbarWindow clickable" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;" data-i18n="taskbar.properties">Properties</div>
+				<div class="taskbarWindow clickable" id="projectsboxTaskbar" onclick="toggle('projectsbox')" style="display: none;" data-i18n="taskbar.projects">Projects</div>
+				<div class="taskbarWindow clickable" id="contactmeboxTaskbar" onclick="toggle('contactmebox')" data-i18n="taskbar.contact">Contact</div>
+				<div class="taskbarWindow clickable" id="terminalboxTaskbar" onclick="toggle('terminalbox')" data-i18n="taskbar.terminal">Terminal</div>
+				<div class="taskbarWindow clickable" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')" data-i18n="taskbar.spaceshooter">SpaceShooter</div>
+				<div class="taskbarWindow clickable" id="snakeboxTaskbar" onclick="toggle('snakebox')" data-i18n="taskbar.snake">Snake 🐍</div>
+				<div class="taskbarWindow clickable" id="cvboxTaskbar" onclick="toggle('cvbox')" data-i18n="taskbar.cv">CV&VeryThinSpace;📄</div>
+				<div class="taskbar-tray">
+					<div class="clock clickable" onclick="window.i18n.toggleLocale()" id="lang-toggle">EN</div>
+					<div class="clock clickable" onclick="changeBackgroundColor()" id="clock">00:00</div>
+				</div>
 			</div>
 		</div>
 		<div class="mobile_device_380">
 			<!-- Css activates always the 480, to improve -->
-			<!-- <div class="mainbox" id="contactmebox"style="display: block;"><div class="topbar" id="contactmeboxheader">Contact
+			<!-- <div class="mainbox" id="contactmebox"style="display: block;">				<div class="topbar" id="contactmeboxheader" data-i18n="windows.contact">Contact
 				<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
 				<div class="topbarButton">□</div>
-				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>	
+				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>
 				
 				<div class="content" id="about-mobile-content">
 					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
@@ -239,7 +243,7 @@
 		<div class="mobile_device_480">
 
 			<div class="mainbox" id="aboutbox" style="display: block;">
-				<div class="topbar" id="aboutboxheader" style="font-size: 1rem;">System Properties
+				<div class="topbar" id="aboutboxheader" style="font-size: 1rem;"><span data-i18n="windows.about">System Properties</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	
@@ -266,7 +270,7 @@
 			</div>
 
 			<div class="mainbox" id="projectsbox" style="display: block; ">
-				<div class="topbar" id="projectsboxheader" style="font-size: 1rem;">Projects
+				<div class="topbar" id="projectsboxheader" style="font-size: 1rem;"><span data-i18n="windows.projects">Projects</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	
@@ -294,7 +298,7 @@
 			</div>
 
 			<div class="mainbox" id="contactmebox"style="display: block;">
-				<div class="topbar" id="contactmeboxheader" style="font-size: 1rem;">Contact
+				<div class="topbar" id="contactmeboxheader" style="font-size: 1rem;"><span data-i18n="windows.contact">Contact</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
 				<div class="topbarButton">X</div></div></div>	

@@ -4,8 +4,14 @@
   <meta charset="utf-8">
   <meta http-equiv="refresh" content="0; url=/static/spaceshooter/index.html">
   <title>Redirecting...</title>
+  <script type="text/javascript" src="../../scripts/core/i18n.js"></script>
 </head>
 <body>
-  <p>Redirecting to SpaceShooter...</p>
+  <p id="redirect-text">Redirecting to SpaceShooter...</p>
+  <script>
+    if (window.i18n) {
+      document.getElementById('redirect-text').textContent = window.i18n.t('redirects.spaceshooter');
+    }
+  </script>
 </body>
 </html>

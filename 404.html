@@ -3,12 +3,13 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Miquel's PC</title>
+	<title data-i18n="error404.title">Miquel's PC - Error</title>
 	<!-- <link rel="icon" href="images/tablogo.png"> -->
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com/">
 	<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-	<link href="css/css2.css" rel="stylesheet">	
+	<link href="css/css2.css" rel="stylesheet">
+	<script type="text/javascript" src="scripts/core/i18n.js"></script>
 </head>
 
 <script>
@@ -23,14 +24,29 @@
     
     // Call the updatePercentage function every second.
     setInterval(updatePercentage, 1500);
+
+    document.addEventListener("DOMContentLoaded", function() {
+        if (window.i18n) {
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                el.textContent = window.i18n.t(el.getAttribute('data-i18n'));
+            });
+        }
+    });
 </script>
 
 <div class="error_message" style="display: block;">
         <div class="error_face">:(</div>
-        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;">
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;" data-i18n="error404.problem">
             This device run into a problem. 
+        </p>
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;" data-i18n="error404.programmer">
             Looks like the programmer who made this website didn't know what was doing.
+        </p>
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;" data-i18n="error404.loseInfo">
             You will lose any unsaved information in all open applications.
+        </p>
+        <p style="padding-left: 3em; font-size: 1.5em; width: 50em; text-align: justify;" data-i18n="error404.collecting">
             We are collecting some error info, and then we'll restart for you.
         </p>
 
@@ -38,10 +54,10 @@
         <div style="display: flex; align-items: flex-start; width: 80em;">
             <img src="images/error_qr.png" style="padding: 4em; height: 10em; float: left;" alt="Error QR">
             <p style="padding-top: 3em; font-size: 1.25em;">
-                For more info about this issue and possible fixes, visit <a style="color: whitesmoke;" href="https://miquelt9.github.io/stopcode">https://miquelt9.github.io/stopcode</a>. 
-                <br/><br/>If you call a support person give them this info:
-                <br/>What failed: Everything.sys
-                <br/>Stop code: PROGRAMMER_NOT_FOUND
+                <span data-i18n="error404.moreInfo">For more info about this issue and possible fixes, visit</span> <a style="color: whitesmoke;" href="https://miquelt9.github.io/stopcode">https://miquelt9.github.io/stopcode</a>. 
+                <br/><br/><span data-i18n="error404.support">If you call a support person give them this info:</span>
+                <br/><span data-i18n="error404.failed">What failed: Everything.sys</span>
+                <br/><span data-i18n="error404.stopCode">Stop code: PROGRAMMER_NOT_FOUND</span>
             </p>
         </div>        
 </div>

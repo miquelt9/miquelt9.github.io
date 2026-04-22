@@ -110,11 +110,15 @@
         element.className = "goose-fetch-item goose-fetch-stack";
 
         function noteWindow(extraClass) {
+            var taunts = (window.i18n ? window.i18n.t('goose.taunts') : shared.TAUNTS);
             return (
                 '<div class="goose-fetch-window goose-fetch-window--note ' + extraClass + '">' +
-                    '<div class="goose-fetch-window-title">Goose "Not-epad"</div>' +
+                    '<div class="goose-fetch-window-title goose-fetch-window-title--with-close">' +
+                        '<span class="goose-fetch-window-title-label">' + (window.i18n ? window.i18n.t('goose.notepad') : 'Goose "Not-epad"') + '</span>' +
+                        '<button class="goose-fetch-window-close" type="button" aria-label="' + (window.i18n ? window.i18n.t('goose.closeNote') : 'Close goose note') + '">X</button>' +
+                    "</div>" +
                     '<div class="goose-fetch-window-body">' +
-                        '<div class="goose-fetch-note-text">' + shared.TAUNTS[Math.floor(Math.random() * shared.TAUNTS.length)] + '</div>' +
+                        '<div class="goose-fetch-note-text">' + taunts[Math.floor(Math.random() * taunts.length)] + '</div>' +
                     "</div>" +
                 "</div>"
             );
@@ -123,7 +127,10 @@
         function imageWindow(extraClass, src, caption) {
             return (
                 '<div class="goose-fetch-window goose-fetch-window--image ' + extraClass + '">' +
-                    '<div class="goose-fetch-window-title">Absolutely Important</div>' +
+                    '<div class="goose-fetch-window-title goose-fetch-window-title--with-close">' +
+                        '<span class="goose-fetch-window-title-label">' + (window.i18n ? window.i18n.t('goose.important') : 'Absolutely Important') + '</span>' +
+                        '<button class="goose-fetch-window-close" type="button" aria-label="' + (window.i18n ? window.i18n.t('goose.closeImage') : 'Close goose image') + '">X</button>' +
+                    "</div>" +
                     '<div class="goose-fetch-window-body">' +
                         '<img class="goose-fetch-image" src="' + src + '" alt="' + caption + '">' +
                         '<div class="goose-fetch-image-caption">' + caption + '</div>' +
@@ -133,8 +140,10 @@
         }
 
         if (isNote) {
+            element.setAttribute("data-goose-fetch-kind", "note");
             element.innerHTML = noteWindow("stack-a");
         } else {
+            element.setAttribute("data-goose-fetch-kind", "image");
             element.innerHTML = imageWindow("stack-a", "goose-stonks.jpg", "goose stonks");
         }
 

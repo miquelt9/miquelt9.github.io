@@ -13,6 +13,7 @@
             root: dom.root,
             sprite: dom.sprite,
             lastHonkAt: 0,
+            stateStartedAt: 0,
             stateUntil: 0,
             currentState: shared.STATE.idle,
             locomotion: "walk",
@@ -36,7 +37,7 @@
         goose.root.addEventListener("mousedown", function onGooseClick(evt) {
             evt.preventDefault();
             evt.stopPropagation();
-            setState(shared.STATE.chase, performance.now(), 2200 + shared.randomRange(0, 1200));
+            startChase(performance.now(), 3200, 1600);
             env.playHonk(goose);
         });
 
@@ -45,6 +46,7 @@
 
         function setState(nextState, now, duration) {
             goose.currentState = nextState;
+            goose.stateStartedAt = now;
             goose.stateUntil = now + (duration || 0);
             if (nextState !== shared.STATE.uiInteract) {
                 goose.pendingUiInteraction = null;
@@ -104,12 +106,42 @@
                     return;
                 }
                 goose.locomotion = goose.pendingUiInteraction.run ? "run" : "walk";
-                goose.target = {
-                    x: goose.pendingUiInteraction.point.x - shared.FRAME_WIDTH * 0.52,
-                    y: goose.pendingUiInteraction.point.y - shared.FRAME_HEIGHT * 0.46,
-                };
-                env.playHonk(goose);
+                goose.target = getGooseTargetForBeakTarget(goose.pendingUiInteraction.point);
             }
+        }
+
+        function startChase(now, baseDuration, durationVariance) {
+            setState(shared.STATE.chase, now, baseDuration + shared.randomRange(0, durationVariance || 0));
+        }
+
+        function getChaseStage(now) {
+            var elapsed;
+            var totalDuration;
+            var progress;
+            if (goose.currentState !== shared.STATE.chase) {
+                return 0;
+            }
+            elapsed = Math.max(0, now - goose.stateStartedAt);
+            totalDuration = Math.max(1, goose.stateUntil - goose.stateStartedAt);
+            progress = shared.clamp(elapsed / totalDuration, 0, 1);
+            if (progress < 0.16) {
+                return 0;
+            }
+            if (progress < 0.36) {
+                return 1;
+            }
+            if (progress < 0.6) {
+                return 2;
+            }
+            return 3;
+        }
+
+        function getChaseSpeed(now) {
+            return [220, 265, 325, 390][getChaseStage(now)];
+        }
+
+        function getChaseGrabDistance(now) {
+            return [28, 36, 44, 56][getChaseStage(now)];
         }
 
         function getDirectionFromVector(x, y) {
@@ -257,10 +289,29 @@
             }
             var releasedElement = goose.fetchElement;
             releasedElement.classList.add("goose-fetch-item-dropped");
-            setTimeout(function cleanupFetchItem() {
-                releasedElement.remove();
-            }, 16000);
             goose.fetchElement = null;
+        }
+
+        function bindFetchElementControls(fetchElement) {
+            if (!fetchElement) {
+                return;
+            }
+            var closeButton = fetchElement.querySelector(".goose-fetch-window-close");
+            if (!closeButton) {
+                return;
+            }
+            closeButton.addEventListener("click", function onFetchElementClose(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                var wasCarried = goose.fetchElement === fetchElement && goose.currentState === shared.STATE.fetchReturn;
+                if (goose.fetchElement === fetchElement) {
+                    goose.fetchElement = null;
+                }
+                fetchElement.remove();
+                if (wasCarried) {
+                    startChase(performance.now(), 4200, 1800);
+                }
+            });
         }
 
         function maybeStartCursorGrab(now) {
@@ -270,7 +321,7 @@
             var beak = getBeakWorldPosition();
             var cursorX = typeof getGhostXCursor === "function" ? getGhostXCursor() : beak.x;
             var cursorY = typeof getGhostYCursor === "function" ? getGhostYCursor() : beak.y;
-            if (shared.distance(beak.x, beak.y, cursorX, cursorY) < 24) {
+            if (shared.distance(beak.x, beak.y, cursorX, cursorY) < getChaseGrabDistance(now)) {
                 setState(shared.STATE.cursorDrag, now, 1800);
             }
         }
@@ -284,9 +335,9 @@
                     } else if (roll < 0.46) {
                         setState(shared.STATE.windowDrag, now, 2600 + shared.randomRange(0, 1800));
                     } else if (roll < 0.60) {
-                        setState(shared.STATE.uiInteract, now, 1200 + shared.randomRange(0, 900));
+                        setState(shared.STATE.uiInteract, now, 2600 + shared.randomRange(0, 1400));
                     } else if (roll < 0.80) {
-                        setState(shared.STATE.chase, now, 2200 + shared.randomRange(0, 1400));
+                        startChase(now, 3400, 2000);
                     } else {
                         setState(shared.STATE.wander, now, 1800 + shared.randomRange(0, 1800));
                     }
@@ -304,6 +355,7 @@
                     setState(shared.STATE.fetchWait, now, 350);
                     if (!goose.fetchNoteCaptured) {
                         goose.fetchElement = env.buildFetchElement();
+                        bindFetchElementControls(goose.fetchElement);
                         goose.fetchNoteCaptured = true;
                     }
                 }
@@ -357,10 +409,18 @@
                     return;
                 }
 
-                if (shared.distance(goose.position.x, goose.position.y, goose.target.x, goose.target.y) < 20 || now >= goose.stateUntil) {
+                var interactionBeak = getBeakWorldPosition();
+                if (shared.distance(interactionBeak.x, interactionBeak.y, goose.pendingUiInteraction.point.x, goose.pendingUiInteraction.point.y) < 22) {
+                    env.playHonk(goose);
                     goose.pendingUiInteraction.action();
                     goose.pendingUiInteraction = null;
                     setState(shared.STATE.idle, now, 700 + shared.randomRange(0, 700));
+                    return;
+                }
+
+                if (now >= goose.stateUntil) {
+                    goose.pendingUiInteraction = null;
+                    setState(shared.STATE.wander, now, 1200 + shared.randomRange(0, 1200));
                     return;
                 }
             }
@@ -389,12 +449,14 @@
             }
         }
 
-        function updateMotion(dt) {
+        function updateMotion(now, dt) {
             var desiredSpeed = 0;
             if (goose.currentState === shared.STATE.wander || goose.currentState === shared.STATE.fetchExit || goose.currentState === shared.STATE.fetchReturn) {
                 desiredSpeed = goose.locomotion === "run" ? 180 : 95;
-            } else if (goose.currentState === shared.STATE.chase || goose.currentState === shared.STATE.cursorDrag) {
-                desiredSpeed = 185;
+            } else if (goose.currentState === shared.STATE.chase) {
+                desiredSpeed = getChaseSpeed(now);
+            } else if (goose.currentState === shared.STATE.cursorDrag) {
+                desiredSpeed = 250;
             } else if (goose.currentState === shared.STATE.uiInteract) {
                 desiredSpeed = goose.locomotion === "run" ? 185 : 95;
             }
@@ -411,6 +473,9 @@
             }
 
             var blend = shared.clamp(dt * 7.5, 0.08, 0.5);
+            if (goose.currentState === shared.STATE.chase) {
+                blend = shared.clamp(dt * 12.5, 0.18, 0.78);
+            }
             goose.velocity.x += (desiredVelocityX - goose.velocity.x) * blend;
             goose.velocity.y += (desiredVelocityY - goose.velocity.y) * blend;
             goose.velocity.x *= 0.94;
@@ -452,7 +517,7 @@
 
         function updateFrame(now, dt) {
             updateState(now);
-            updateMotion(dt);
+            updateMotion(now, dt);
             render(dt);
         }
     }
