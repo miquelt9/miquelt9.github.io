@@ -1,92 +1,244 @@
-var GooseVirus = (function() {
-    var body = null;
-    var neck = null;
-    var head = null;
-    var nose = null;
-    var speech = null;
-    var footprintsLayer = null;
-    var giftsLayer = null;
+(function initGoose(globalScope) {
+    var shared = globalScope.GooseShared;
+    var visuals = globalScope.GooseVisuals;
 
-    var isRunning = false;
-    var isDomReady = false;
-    var lastFrame = 0;
-    var lastStepAt = 0;
-    var lastStatePickAt = 0;
-    var lastStealAt = -10000;
-    var stealUntil = 0;
+    if (!shared || !visuals) {
+        globalScope.showGoose = function showGoose() {};
+        return;
+    }
+
+    var root = null;
+    var sprite = null;
+    var footprintLayer = null;
+    var propLayer = null;
     var audioContext = null;
 
-    var position = { x: 0, y: 0 };
+    var isRunning = false;
+    var isReady = false;
+    var lastFrameAt = 0;
+    var lastFrameKey = "";
+    var lastHonkAt = 0;
+    var stateUntil = 0;
+    var currentState = shared.STATE.idle;
+    var locomotion = "walk";
+    var currentDirection = "E";
+    var animationTime = 0;
+
+    var position = { x: 120, y: 240 };
     var velocity = { x: 0, y: 0 };
-    var target = { x: 0, y: 0 };
-    var mode = "idle";
-    var dragGift = null;
-
-    var TAUNTS = [
-        "i cause problems on purpose",
-        "you look productive, not for long",
-        "honk if you love deadlines",
-        "skills removed. icon stays.",
-        "this is your break reminder",
-    ];
-
-    function randomRange(min, max) {
-        return min + Math.random() * (max - min);
-    }
-
-    function clamp(value, min, max) {
-        return Math.max(min, Math.min(value, max));
-    }
-
-    function distance(ax, ay, bx, by) {
-        var dx = bx - ax;
-        var dy = by - ay;
-        return Math.sqrt(dx * dx + dy * dy);
-    }
+    var target = { x: 320, y: 240 };
+    var pendingFetchEdge = null;
+    var fetchElement = null;
+    var fetchNoteCaptured = false;
+    var draggedWindow = null;
+    var draggedWindowGrabPoint = null;
+    var draggedWindowDestination = null;
+    var pendingUiInteraction = null;
 
     function getViewportTarget() {
         return {
-            x: randomRange(window.innerWidth * 0.08, window.innerWidth * 0.82),
-            y: randomRange(window.innerHeight * 0.08, window.innerHeight * 0.75),
+            x: shared.randomRange(40, window.innerWidth - shared.FRAME_WIDTH - 60),
+            y: shared.randomRange(60, window.innerHeight - shared.FRAME_HEIGHT - 80),
+        };
+    }
+
+    function chooseOffscreenEdge() {
+        var edges = [
+            { x: -shared.FRAME_WIDTH - 120, y: shared.randomRange(50, window.innerHeight - shared.FRAME_HEIGHT - 40) },
+            { x: window.innerWidth + 120, y: shared.randomRange(50, window.innerHeight - shared.FRAME_HEIGHT - 40) },
+            { x: shared.randomRange(40, window.innerWidth - shared.FRAME_WIDTH - 40), y: -shared.FRAME_HEIGHT - 90 },
+            { x: shared.randomRange(40, window.innerWidth - shared.FRAME_WIDTH - 40), y: window.innerHeight + 100 },
+        ];
+        return edges[Math.floor(Math.random() * edges.length)];
+    }
+
+    function isWindowVisible(element) {
+        return !!(element && window.getComputedStyle(element).display !== "none");
+    }
+
+    function isElementVisible(element) {
+        if (!element) {
+            return false;
+        }
+        var computed = window.getComputedStyle(element);
+        var rect = element.getBoundingClientRect();
+        return computed.display !== "none" && computed.visibility !== "hidden" && rect.width > 0 && rect.height > 0;
+    }
+
+    function getElementCenter(element) {
+        var rect = element.getBoundingClientRect();
+        return {
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2,
+        };
+    }
+
+    function getDesktopIconTargets() {
+        return [
+            { iconId: "aboutme", windowId: "aboutbox" },
+            { iconId: "projects", windowId: "projectsbox" },
+            { iconId: "contactme", windowId: "contactmebox" },
+            { iconId: "terminal", windowId: "terminalbox" },
+        ];
+    }
+
+    function chooseIconOpenInteraction() {
+        var targets = getDesktopIconTargets();
+        var candidates = [];
+        for (var i = 0; i < targets.length; i += 1) {
+            var icon = document.getElementById(targets[i].iconId);
+            var win = document.getElementById(targets[i].windowId);
+            if (!isElementVisible(icon) || isWindowVisible(win)) {
+                continue;
+            }
+            candidates.push({
+                point: getElementCenter(icon),
+                run: false,
+                action: function(windowId) {
+                    return function performOpen() {
+                        if (typeof globalScope.showWindow === "function") {
+                            globalScope.showWindow(windowId);
+                        }
+                    };
+                }(targets[i].windowId),
+            });
+        }
+        if (candidates.length === 0) {
+            return null;
+        }
+        return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function getCloseButtonForWindow(windowId) {
+        var header = document.getElementById(windowId + "header");
+        if (!header) {
+            return null;
+        }
+        var buttons = header.querySelectorAll(".topbarButton, .terminaltopbarButton");
+        for (var i = 0; i < buttons.length; i += 1) {
+            if (buttons[i].textContent.trim() === "X") {
+                return buttons[i];
+            }
+        }
+        return null;
+    }
+
+    function chooseWindowCloseInteraction() {
+        var windowIds = ["aboutbox", "projectsbox", "contactmebox", "terminalbox"];
+        var candidates = [];
+        for (var i = 0; i < windowIds.length; i += 1) {
+            var win = document.getElementById(windowIds[i]);
+            if (!isWindowVisible(win)) {
+                continue;
+            }
+            var closeButton = getCloseButtonForWindow(windowIds[i]);
+            if (!isElementVisible(closeButton)) {
+                continue;
+            }
+            candidates.push({
+                point: getElementCenter(closeButton),
+                run: true,
+                action: function(windowId) {
+                    return function performClose() {
+                        if (typeof globalScope.hideWindow === "function") {
+                            globalScope.hideWindow(windowId);
+                        }
+                    };
+                }(windowIds[i]),
+            });
+        }
+        if (candidates.length === 0) {
+            return null;
+        }
+        return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function chooseUiInteraction() {
+        var openInteraction = chooseIconOpenInteraction();
+        var closeInteraction = chooseWindowCloseInteraction();
+        if (openInteraction && closeInteraction) {
+            return Math.random() < 0.55 ? openInteraction : closeInteraction;
+        }
+        return openInteraction || closeInteraction;
+    }
+
+    function getWindowDragCandidates() {
+        var ids = ["terminalbox", "aboutbox", "contactmebox", "projectsbox"];
+        var candidates = [];
+        for (var i = 0; i < ids.length; i += 1) {
+            var element = document.getElementById(ids[i]);
+            if (!isWindowVisible(element)) {
+                continue;
+            }
+            if (element.dataset && element.dataset.isMaximized === "true") {
+                continue;
+            }
+            candidates.push(element);
+        }
+        return candidates;
+    }
+
+    function chooseWindowDragTarget() {
+        var candidates = getWindowDragCandidates();
+        if (candidates.length === 0) {
+            return null;
+        }
+        return candidates[Math.floor(Math.random() * candidates.length)];
+    }
+
+    function getWindowGrabPoint(element) {
+        var rect = element.getBoundingClientRect();
+        return {
+            x: rect.left + Math.min(rect.width * 0.22, 64),
+            y: rect.top + 16,
+        };
+    }
+
+    function getWindowDropTarget(element) {
+        var taskbar = document.getElementById("taskbar");
+        var taskbarHeight = taskbar ? taskbar.offsetHeight : 0;
+        return {
+            x: shared.randomRange(18, Math.max(18, window.innerWidth - element.offsetWidth - 18)),
+            y: shared.randomRange(18, Math.max(18, window.innerHeight - taskbarHeight - element.offsetHeight - 18)),
         };
     }
 
     function ensureDom() {
-        if (isDomReady) {
+        if (isReady) {
             return true;
         }
 
-        body = document.getElementById("goose1");
-        neck = document.getElementById("goose_neck1");
-        head = document.getElementById("goose_head1");
-        nose = document.getElementById("goose_nose1");
-        if (!body || !neck || !head || !nose) {
-            return false;
+        root = document.getElementById("goose1");
+        if (!root) {
+            root = document.createElement("div");
+            root.id = "goose1";
+            document.body.appendChild(root);
         }
 
-        body.classList.add("goose-root");
-        body.style.pointerEvents = "auto";
-        body.addEventListener("mousedown", function onGoosePoke(evt) {
+        root.className = "goose-pet goose-root";
+        root.innerHTML = '<div class="goose-pet-sprite" aria-hidden="true"></div>';
+        root.setAttribute("aria-hidden", "true");
+
+        sprite = root.firstElementChild;
+        sprite.style.backgroundImage = 'url("' + visuals.buildSpriteSheet() + '")';
+        sprite.style.backgroundSize = (shared.SHEET_FRAME_WIDTH * shared.TOTAL_COLUMNS) + "px " + (shared.SHEET_FRAME_HEIGHT * shared.SPRITE_ROWS.length) + "px";
+
+        footprintLayer = document.createElement("div");
+        footprintLayer.className = "goose-trail-container";
+        document.body.appendChild(footprintLayer);
+
+        propLayer = document.createElement("div");
+        propLayer.className = "goose-gifts-container";
+        document.body.appendChild(propLayer);
+
+        root.addEventListener("mousedown", function onGooseClick(evt) {
+            evt.preventDefault();
             evt.stopPropagation();
-            mode = "chase";
-            lastStatePickAt = performance.now() + randomRange(1800, 2600);
-            say("honk!");
+            setState(shared.STATE.chase, performance.now(), 2200 + shared.randomRange(0, 1200));
             playHonk(720);
         });
 
-        speech = document.createElement("div");
-        speech.className = "goose-speech";
-        body.appendChild(speech);
-
-        footprintsLayer = document.createElement("div");
-        footprintsLayer.className = "goose-trail-container";
-        document.body.appendChild(footprintsLayer);
-
-        giftsLayer = document.createElement("div");
-        giftsLayer.className = "goose-gifts-container";
-        document.body.appendChild(giftsLayer);
-
-        isDomReady = true;
+        isReady = true;
         return true;
     }
 
@@ -96,267 +248,407 @@ var GooseVirus = (function() {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
             var now = audioContext.currentTime;
-            var osc = audioContext.createOscillator();
+            var oscillator = audioContext.createOscillator();
             var gain = audioContext.createGain();
-            osc.type = "sawtooth";
-            osc.frequency.setValueAtTime(frequency || 680, now);
-            osc.frequency.exponentialRampToValueAtTime((frequency || 680) * 0.55, now + 0.12);
+            oscillator.type = "square";
+            oscillator.frequency.setValueAtTime(frequency || 620, now);
+            oscillator.frequency.exponentialRampToValueAtTime((frequency || 620) * 1.35, now + 0.04);
+            oscillator.frequency.exponentialRampToValueAtTime((frequency || 620) * 0.72, now + 0.16);
             gain.gain.setValueAtTime(0.001, now);
-            gain.gain.exponentialRampToValueAtTime(0.08, now + 0.02);
-            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
-            osc.connect(gain);
+            gain.gain.exponentialRampToValueAtTime(0.06, now + 0.03);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+            oscillator.connect(gain);
             gain.connect(audioContext.destination);
-            osc.start(now);
-            osc.stop(now + 0.2);
-        } catch (err) {
-            // Audio can fail before user interaction; goose continues silently.
+            oscillator.start(now);
+            oscillator.stop(now + 0.23);
+            lastHonkAt = performance.now();
+        } catch (error) {
+            // Audio is optional if blocked by the browser.
         }
     }
 
-    function say(text) {
-        if (!speech) {
-            return;
-        }
-        speech.textContent = text || "";
-        speech.style.opacity = text ? "1" : "0";
-    }
-
-    function dropFootstep(now) {
-        if (!footprintsLayer || now - lastStepAt < 140) {
-            return;
-        }
-        lastStepAt = now;
-        var step = document.createElement("div");
-        step.className = "goose-footstep";
-        step.style.left = (position.x + 20 + randomRange(-6, 10)) + "px";
-        step.style.top = (position.y + 30 + randomRange(-6, 6)) + "px";
-        step.style.transform = "rotate(" + randomRange(-30, 30) + "deg)";
-        footprintsLayer.appendChild(step);
-        setTimeout(function() {
-            step.remove();
-        }, 3200);
-    }
-
-    function createGiftWindow() {
-        if (!giftsLayer) {
-            return null;
+    function setState(nextState, now, duration) {
+        currentState = nextState;
+        stateUntil = now + (duration || 0);
+        if (nextState !== shared.STATE.uiInteract) {
+            pendingUiInteraction = null;
         }
 
-        var gift = document.createElement("div");
-        gift.className = "goose-gift-window";
-        gift.innerHTML =
-            '<div class="goose-gift-title">Goose "Not-epad"</div>' +
-            '<div class="goose-gift-content"></div>';
-
-        var content = gift.querySelector(".goose-gift-content");
-        if (content) {
-            content.textContent = TAUNTS[Math.floor(Math.random() * TAUNTS.length)];
-        }
-
-        gift.style.left = "-360px";
-        gift.style.top = randomRange(window.innerHeight * 0.15, window.innerHeight * 0.65) + "px";
-        giftsLayer.appendChild(gift);
-        return gift;
-    }
-
-    function startDragGift() {
-        var gift = createGiftWindow();
-        if (!gift) {
-            return;
-        }
-        dragGift = {
-            node: gift,
-            targetX: randomRange(window.innerWidth * 0.25, window.innerWidth * 0.72),
-            targetY: randomRange(window.innerHeight * 0.16, window.innerHeight * 0.63),
-        };
-
-        position.x = -90;
-        position.y = randomRange(window.innerHeight * 0.2, window.innerHeight * 0.72);
-        velocity.x = 0;
-        velocity.y = 0;
-        target.x = dragGift.targetX;
-        target.y = dragGift.targetY;
-        mode = "dragging";
-        say("gift.");
-        playHonk(640);
-    }
-
-    function releaseDragGift() {
-        if (!dragGift || !dragGift.node) {
-            dragGift = null;
-            return;
-        }
-        var giftToRemove = dragGift.node;
-        giftToRemove.classList.add("goose-gift-window-idle");
-        setTimeout(function() {
-            giftToRemove.remove();
-        }, 18000);
-        dragGift = null;
-    }
-
-    function pickNextMode(now) {
-        if (now < lastStatePickAt || mode === "dragging" || mode === "steal") {
-            return;
-        }
-
-        var roll = Math.random();
-        if (roll < 0.18) {
-            startDragGift();
-            lastStatePickAt = now + randomRange(2600, 4200);
-            return;
-        }
-        if (roll < 0.45) {
-            mode = "wander";
+        if (nextState === shared.STATE.idle) {
+            locomotion = "walk";
+            velocity.x *= 0.55;
+            velocity.y *= 0.55;
+            if (now - lastHonkAt > 1800 && Math.random() < 0.38) {
+                playHonk(540 + shared.randomRange(0, 80));
+            }
+        } else if (nextState === shared.STATE.wander) {
+            locomotion = Math.random() < 0.68 ? "walk" : "run";
             target = getViewportTarget();
-            say("");
-            lastStatePickAt = now + randomRange(1500, 3400);
-            return;
-        }
-        if (roll < 0.72) {
-            mode = "chase";
-            say("...");
-            lastStatePickAt = now + randomRange(1200, 2600);
-            return;
-        }
-        mode = "idle";
-        say("");
-        lastStatePickAt = now + randomRange(800, 1800);
-    }
-
-    function maybeStealCursor(now) {
-        if (mode !== "chase" || now - lastStealAt < 6400) {
-            return;
-        }
-        var cursorX = typeof getGhostXCursor === "function" ? getGhostXCursor() : target.x;
-        var cursorY = typeof getGhostYCursor === "function" ? getGhostYCursor() : target.y;
-        if (distance(position.x + 60, position.y + 16, cursorX, cursorY) < 40) {
-            mode = "steal";
-            stealUntil = now + 2200;
-            lastStealAt = now;
-            say("mine");
-            playHonk(830);
-        }
-    }
-
-    function updateGiftPosition() {
-        if (!dragGift || !dragGift.node) {
-            return;
-        }
-        dragGift.node.style.left = (position.x + 70) + "px";
-        dragGift.node.style.top = (position.y - 14) + "px";
-    }
-
-    function updateTarget(now) {
-        if (mode === "idle") {
-            target.x = position.x;
-            target.y = position.y;
-            return;
-        }
-
-        if (mode === "wander") {
-            if (distance(position.x, position.y, target.x, target.y) < 26) {
-                target = getViewportTarget();
+        } else if (nextState === shared.STATE.fetchExit) {
+            locomotion = "walk";
+            pendingFetchEdge = chooseOffscreenEdge();
+            target = { x: pendingFetchEdge.x, y: pendingFetchEdge.y };
+            fetchNoteCaptured = false;
+        } else if (nextState === shared.STATE.fetchWait) {
+            locomotion = "idle";
+        } else if (nextState === shared.STATE.fetchReturn) {
+            locomotion = "walk";
+            target = getViewportTarget();
+        } else if (nextState === shared.STATE.chase || nextState === shared.STATE.cursorDrag) {
+            locomotion = "run";
+            if (nextState === shared.STATE.cursorDrag) {
+                target = chooseOffscreenEdge();
+                playHonk(860);
             }
-            return;
-        }
-
-        if (mode === "chase") {
-            target.x = typeof getGhostXCursor === "function" ? getGhostXCursor() : position.x;
-            target.y = typeof getGhostYCursor === "function" ? getGhostYCursor() : position.y;
-            maybeStealCursor(now);
-            return;
-        }
-
-        if (mode === "steal") {
-            target.x = clamp(position.x + randomRange(18, 42), 0, window.innerWidth - 80);
-            target.y = clamp(position.y + randomRange(-22, 22), 0, window.innerHeight - 52);
-            if (typeof setGhostCursorPosition === "function") {
-                setGhostCursorPosition(position.x + 62, position.y + 16);
-            }
-            if (now >= stealUntil) {
-                mode = "wander";
+        } else if (nextState === shared.STATE.windowDrag) {
+            draggedWindow = chooseWindowDragTarget();
+            draggedWindowGrabPoint = null;
+            draggedWindowDestination = null;
+            if (!draggedWindow) {
+                currentState = shared.STATE.wander;
+                locomotion = "walk";
                 target = getViewportTarget();
-                say("honk.");
-                if (typeof releaseGhostCursor === "function") {
-                    releaseGhostCursor();
+                return;
+            }
+            locomotion = "walk";
+            draggedWindowGrabPoint = getWindowGrabPoint(draggedWindow);
+            target = {
+                x: draggedWindowGrabPoint.x - shared.FRAME_WIDTH * 0.52,
+                y: draggedWindowGrabPoint.y - shared.FRAME_HEIGHT * 0.46,
+            };
+            if (globalScope.WindowManager && typeof globalScope.WindowManager.bringToFront === "function") {
+                globalScope.WindowManager.bringToFront(draggedWindow.id);
+            }
+            playHonk(610);
+        } else if (nextState === shared.STATE.uiInteract) {
+            pendingUiInteraction = chooseUiInteraction();
+            if (!pendingUiInteraction) {
+                currentState = shared.STATE.wander;
+                locomotion = "walk";
+                target = getViewportTarget();
+                return;
+            }
+            locomotion = pendingUiInteraction.run ? "run" : "walk";
+            target = {
+                x: pendingUiInteraction.point.x - shared.FRAME_WIDTH * 0.52,
+                y: pendingUiInteraction.point.y - shared.FRAME_HEIGHT * 0.46,
+            };
+            playHonk(pendingUiInteraction.run ? 760 : 660);
+        }
+    }
+
+    function getDirectionFromVector(x, y) {
+        if (Math.abs(x) < 0.001 && Math.abs(y) < 0.001) {
+            return currentDirection;
+        }
+        var angle = Math.atan2(y, x);
+        var octant = Math.round(angle / (Math.PI / 4)) % 8;
+        if (octant < 0) {
+            octant += 8;
+        }
+        return shared.SPRITE_ROWS[octant];
+    }
+
+    function getAnimState() {
+        if (currentState === shared.STATE.idle || (Math.abs(velocity.x) + Math.abs(velocity.y) < 10 && currentState !== shared.STATE.cursorDrag)) {
+            return "idle";
+        }
+        return locomotion === "run" ? "run" : "walk";
+    }
+
+    function getFrameColumn(animState, frame) {
+        return shared.STATE_COLUMNS[animState].offset + frame;
+    }
+
+    function getBeakWorldPosition() {
+        var pose = visuals.getDirectionPose(currentDirection);
+        return {
+            x: position.x + shared.FRAME_WIDTH * 0.44 + pose.vx * 35,
+            y: position.y + shared.FRAME_HEIGHT * 0.48 + pose.vy * 31,
+        };
+    }
+
+    function getFootWorldPosition(sideSign) {
+        var directionVector = shared.normalize(velocity.x || (target.x - position.x), velocity.y || (target.y - position.y));
+        var right = { x: directionVector.y, y: -directionVector.x };
+        var center = {
+            x: position.x + shared.FRAME_WIDTH * 0.43,
+            y: position.y + shared.FRAME_HEIGHT * 0.74,
+        };
+        return {
+            x: center.x - directionVector.x * 8 + right.x * sideSign * 8,
+            y: center.y - directionVector.y * 8 + right.y * sideSign * 8,
+        };
+    }
+
+    function leaveFootprint(sideSign) {
+        if (!footprintLayer) {
+            return;
+        }
+        var point = getFootWorldPosition(sideSign);
+        var footprint = document.createElement("div");
+        footprint.className = "goose-footstep";
+        footprint.style.left = point.x + "px";
+        footprint.style.top = point.y + "px";
+        footprint.style.transform = "rotate(" + shared.randomRange(-18, 18) + "deg)";
+        footprintLayer.appendChild(footprint);
+        setTimeout(function cleanupFootprint() {
+            footprint.remove();
+        }, 2600);
+    }
+
+    function updateSprite(dt) {
+        var animState = getAnimState();
+        animationTime += dt * shared.STATE_COLUMNS[animState].fps;
+        var frame = Math.floor(animationTime) % shared.STATE_COLUMNS[animState].frames;
+        var row = shared.SPRITE_ROWS.indexOf(currentDirection);
+        var column = getFrameColumn(animState, frame);
+        sprite.style.backgroundPosition =
+            (-(column * shared.SHEET_FRAME_WIDTH + shared.FRAME_PADDING_X)) + "px " +
+            (-(row * shared.SHEET_FRAME_HEIGHT + shared.FRAME_PADDING_Y)) + "px";
+
+        var frameKey = animState + ":" + frame + ":" + currentDirection;
+        if (frameKey !== lastFrameKey) {
+            lastFrameKey = frameKey;
+            if (shared.FOOT_CONTACT[animState] && Object.prototype.hasOwnProperty.call(shared.FOOT_CONTACT[animState], frame)) {
+                leaveFootprint(shared.FOOT_CONTACT[animState][frame]);
+            }
+        }
+    }
+
+    function isOffscreen(margin) {
+        var extra = margin || 0;
+        return (
+            position.x < -shared.FRAME_WIDTH - extra ||
+            position.y < -shared.FRAME_HEIGHT - extra ||
+            position.x > window.innerWidth + extra ||
+            position.y > window.innerHeight + extra
+        );
+    }
+
+    function updateFetchElement() {
+        if (!fetchElement) {
+            return;
+        }
+        var beak = getBeakWorldPosition();
+        var directionVector = shared.normalize(velocity.x || 1, velocity.y || 0);
+        var right = { x: directionVector.y, y: -directionVector.x };
+        var dragX = beak.x - directionVector.x * 62 + right.x * 12;
+        var dragY = beak.y - directionVector.y * 62 + right.y * 12;
+        fetchElement.style.transform = "translate3d(" + dragX + "px, " + dragY + "px, 0)";
+    }
+
+    function updateDraggedWindow() {
+        if (!draggedWindow || !draggedWindowGrabPoint || !isWindowVisible(draggedWindow)) {
+            return;
+        }
+        var beak = getBeakWorldPosition();
+        draggedWindow.style.left = (beak.x - draggedWindowGrabPoint.x) + "px";
+        draggedWindow.style.top = (beak.y - draggedWindowGrabPoint.y) + "px";
+    }
+
+    function releaseDraggedWindow() {
+        draggedWindow = null;
+        draggedWindowGrabPoint = null;
+        draggedWindowDestination = null;
+    }
+
+    function releaseFetchElement() {
+        if (!fetchElement) {
+            return;
+        }
+        var releasedElement = fetchElement;
+        releasedElement.classList.add("goose-fetch-item-dropped");
+        setTimeout(function cleanupFetchItem() {
+            releasedElement.remove();
+        }, 16000);
+        fetchElement = null;
+    }
+
+    function maybeStartCursorGrab(now) {
+        if (currentState !== shared.STATE.chase) {
+            return;
+        }
+        var beak = getBeakWorldPosition();
+        var cursorX = typeof getGhostXCursor === "function" ? getGhostXCursor() : beak.x;
+        var cursorY = typeof getGhostYCursor === "function" ? getGhostYCursor() : beak.y;
+        if (shared.distance(beak.x, beak.y, cursorX, cursorY) < 24) {
+            setState(shared.STATE.cursorDrag, now, 1800);
+        }
+    }
+
+    function updateState(now) {
+        if (currentState === shared.STATE.idle) {
+            if (now >= stateUntil) {
+                var roll = Math.random();
+                if (roll < 0.34) {
+                    setState(shared.STATE.fetchExit, now);
+                } else if (roll < 0.46) {
+                    setState(shared.STATE.windowDrag, now, 2600 + shared.randomRange(0, 1800));
+                } else if (roll < 0.60) {
+                    setState(shared.STATE.uiInteract, now, 1200 + shared.randomRange(0, 900));
+                } else if (roll < 0.80) {
+                    setState(shared.STATE.chase, now, 2200 + shared.randomRange(0, 1400));
+                } else {
+                    setState(shared.STATE.wander, now, 1800 + shared.randomRange(0, 1800));
                 }
             }
             return;
         }
 
-        if (mode === "dragging") {
-            target.x = dragGift ? dragGift.targetX : target.x;
-            target.y = dragGift ? dragGift.targetY : target.y;
-            if (distance(position.x, position.y, target.x, target.y) < 22) {
-                releaseDragGift();
-                mode = "idle";
-                lastStatePickAt = now + randomRange(700, 1800);
-                say("enjoy.");
+        if (currentState === shared.STATE.wander && shared.distance(position.x, position.y, target.x, target.y) < 18) {
+            setState(shared.STATE.idle, now, 700 + shared.randomRange(0, 900));
+            return;
+        }
+
+        if (currentState === shared.STATE.fetchExit) {
+            if (isOffscreen(40)) {
+                setState(shared.STATE.fetchWait, now, 350);
+                if (!fetchNoteCaptured) {
+                    fetchElement = visuals.buildFetchElement(propLayer);
+                    fetchNoteCaptured = true;
+                }
+            }
+            return;
+        }
+
+        if (currentState === shared.STATE.fetchWait && now >= stateUntil) {
+            setState(shared.STATE.fetchReturn, now, 2400 + shared.randomRange(0, 1400));
+            return;
+        }
+
+        if (currentState === shared.STATE.fetchReturn && shared.distance(position.x, position.y, target.x, target.y) < 18) {
+            releaseFetchElement();
+            setState(shared.STATE.idle, now, 900 + shared.randomRange(0, 800));
+            return;
+        }
+
+        if (currentState === shared.STATE.windowDrag) {
+            if (!draggedWindow || !isWindowVisible(draggedWindow)) {
+                releaseDraggedWindow();
+                setState(shared.STATE.wander, now, 1500 + shared.randomRange(0, 1200));
+                return;
+            }
+
+            if (!draggedWindowDestination) {
+                var windowBeakDistance = shared.distance(position.x + shared.FRAME_WIDTH * 0.52, position.y + shared.FRAME_HEIGHT * 0.46, draggedWindowGrabPoint.x, draggedWindowGrabPoint.y);
+                if (windowBeakDistance < 26) {
+                    draggedWindowDestination = getWindowDropTarget(draggedWindow);
+                    target = {
+                        x: draggedWindowDestination.x,
+                        y: draggedWindowDestination.y,
+                    };
+                    locomotion = "run";
+                    playHonk(690);
+                }
+                return;
+            }
+
+            if (shared.distance(position.x, position.y, draggedWindowDestination.x, draggedWindowDestination.y) < 22 || now >= stateUntil) {
+                updateDraggedWindow();
+                releaseDraggedWindow();
+                setState(shared.STATE.idle, now, 700 + shared.randomRange(0, 700));
+                return;
+            }
+        }
+
+        if (currentState === shared.STATE.uiInteract) {
+            if (!pendingUiInteraction) {
+                setState(shared.STATE.wander, now, 1200 + shared.randomRange(0, 1200));
+                return;
+            }
+
+            if (shared.distance(position.x, position.y, target.x, target.y) < 20 || now >= stateUntil) {
+                pendingUiInteraction.action();
+                pendingUiInteraction = null;
+                setState(shared.STATE.idle, now, 700 + shared.randomRange(0, 700));
+                return;
+            }
+        }
+
+        if (currentState === shared.STATE.chase) {
+            target.x = typeof getGhostXCursor === "function" ? getGhostXCursor() - shared.FRAME_WIDTH * 0.35 : target.x;
+            target.y = typeof getGhostYCursor === "function" ? getGhostYCursor() - shared.FRAME_HEIGHT * 0.5 : target.y;
+            maybeStartCursorGrab(now);
+            if (now >= stateUntil) {
+                setState(shared.STATE.wander, now, 1600 + shared.randomRange(0, 1600));
+            }
+            return;
+        }
+
+        if (currentState === shared.STATE.cursorDrag) {
+            var beak = getBeakWorldPosition();
+            if (typeof setGhostCursorPosition === "function") {
+                setGhostCursorPosition(beak.x, beak.y);
+            }
+            if (now >= stateUntil || isOffscreen(30)) {
+                if (typeof releaseGhostCursor === "function") {
+                    releaseGhostCursor();
+                }
+                setState(shared.STATE.wander, now, 1400 + shared.randomRange(0, 1600));
             }
         }
     }
 
-    function applyMotion(dt, now) {
-        var speed = 24;
-        if (mode === "wander") {
-            speed = 80;
-        } else if (mode === "chase") {
-            speed = 145;
-        } else if (mode === "steal") {
-            speed = 170;
-        } else if (mode === "dragging") {
-            speed = 100;
+    function updateMotion(dt) {
+        var desiredSpeed = 0;
+        if (currentState === shared.STATE.wander || currentState === shared.STATE.fetchExit || currentState === shared.STATE.fetchReturn) {
+            desiredSpeed = locomotion === "run" ? 180 : 95;
+        } else if (currentState === shared.STATE.chase || currentState === shared.STATE.cursorDrag) {
+            desiredSpeed = 185;
+        } else if (currentState === shared.STATE.uiInteract) {
+            desiredSpeed = locomotion === "run" ? 185 : 95;
         }
 
         var dx = target.x - position.x;
         var dy = target.y - position.y;
-        var distanceToTarget = Math.max(1, Math.sqrt(dx * dx + dy * dy));
-        var desiredX = (dx / distanceToTarget) * speed;
-        var desiredY = (dy / distanceToTarget) * speed;
-        var blend = clamp(dt * 6.5, 0.08, 0.45);
-        velocity.x += (desiredX - velocity.x) * blend;
-        velocity.y += (desiredY - velocity.y) * blend;
+        var directionVector = shared.normalize(dx, dy);
+        var desiredVelocityX = directionVector.x * desiredSpeed;
+        var desiredVelocityY = directionVector.y * desiredSpeed;
+
+        if (currentState === shared.STATE.idle || currentState === shared.STATE.fetchWait) {
+            desiredVelocityX = 0;
+            desiredVelocityY = 0;
+        }
+
+        var blend = shared.clamp(dt * 7.5, 0.08, 0.5);
+        velocity.x += (desiredVelocityX - velocity.x) * blend;
+        velocity.y += (desiredVelocityY - velocity.y) * blend;
         velocity.x *= 0.94;
         velocity.y *= 0.94;
 
         position.x += velocity.x * dt;
         position.y += velocity.y * dt;
-        position.x = clamp(position.x, -120, window.innerWidth - 80);
-        position.y = clamp(position.y, 0, window.innerHeight - 54);
 
-        if (mode !== "idle") {
-            dropFootstep(now);
+        if (currentState !== shared.STATE.fetchExit && currentState !== shared.STATE.fetchWait && currentState !== shared.STATE.cursorDrag) {
+            position.x = shared.clamp(position.x, -30, window.innerWidth - shared.FRAME_WIDTH + 20);
+            position.y = shared.clamp(position.y, 10, window.innerHeight - shared.FRAME_HEIGHT - 12);
         }
+
+        currentDirection = getDirectionFromVector(velocity.x, velocity.y);
     }
 
-    function updatePose(now) {
-        var moveAngle = Math.atan2(velocity.y, velocity.x || 0.001);
-        var waddle = Math.sin(now / 90) * 4;
-        body.style.left = position.x + "px";
-        body.style.top = position.y + "px";
-        body.style.transform = "rotate(" + moveAngle + "rad)";
-        body.setAttribute("data-goose-mode", mode);
-        neck.style.bottom = (8 + waddle * 0.25) + "px";
-        head.style.bottom = (29 + waddle * 0.42) + "px";
-        nose.style.bottom = (18 + waddle * 0.55) + "px";
+    function render(dt) {
+        root.style.transform = "translate3d(" + position.x + "px, " + position.y + "px, 0)";
+        updateSprite(dt);
+        updateFetchElement();
+        updateDraggedWindow();
     }
 
     function frame(now) {
         if (!isRunning) {
             return;
         }
-        if (!lastFrame) {
-            lastFrame = now;
+
+        if (!lastFrameAt) {
+            lastFrameAt = now;
         }
-        var dt = Math.min(0.05, (now - lastFrame) / 1000);
-        lastFrame = now;
+        var dt = Math.min(0.05, (now - lastFrameAt) / 1000);
+        lastFrameAt = now;
 
-        pickNextMode(now);
-        updateTarget(now);
-        applyMotion(dt, now);
-        updatePose(now);
-        updateGiftPosition();
-
+        updateState(now);
+        updateMotion(dt);
+        render(dt);
         requestAnimationFrame(frame);
     }
 
@@ -364,33 +656,26 @@ var GooseVirus = (function() {
         if (!ensureDom()) {
             return;
         }
-        body.style.display = "block";
+
+        root.style.display = "block";
         if (isRunning) {
-            mode = "chase";
-            say("back.");
+            setState(shared.STATE.chase, performance.now(), 2200);
             return;
         }
 
-        position.x = Math.max(0, window.innerWidth * 0.12);
-        position.y = Math.max(0, window.innerHeight * 0.45);
+        position.x = Math.max(40, window.innerWidth * 0.12);
+        position.y = Math.max(80, window.innerHeight * 0.46);
         target = getViewportTarget();
-        mode = "wander";
-        say("honk");
+        setState(shared.STATE.wander, performance.now(), 1800);
         isRunning = true;
         requestAnimationFrame(frame);
     }
 
-    return {
+    globalScope.GooseVirus = {
         start: start,
     };
-})();
 
-function showGoose() {
-    GooseVirus.start();
-}
-
-
-
-
-
-
+    globalScope.showGoose = function showGoose() {
+        globalScope.GooseVirus.start();
+    };
+})(window);

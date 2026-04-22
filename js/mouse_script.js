@@ -9,6 +9,10 @@ var ghostTargetX = prevX;
 var ghostTargetY = prevY;
 var mouseNoiseToken = null;
 var lastControlledAt = 0;
+var controlledOriginX = prevX;
+var controlledOriginY = prevY;
+var controlledMaxDistanceSq = 0;
+var CONTROLLED_RELEASE_DISTANCE = 110;
 
 function clamp(value, min, max) {
     return Math.max(min, Math.min(value, max));
@@ -50,7 +54,16 @@ function paintCursor(mouseX, mouseY) {
     fakeCursor.style.top = mouseY + "px";
 }
 
+function beginControlledCursorGrab() {
+    controlledOriginX = prevX;
+    controlledOriginY = prevY;
+    controlledMaxDistanceSq = 0;
+}
+
 function setGhostCursorPosition(x, y) {
+    if (ghostMode !== "controlled") {
+        beginControlledCursorGrab();
+    }
     ghostMouse = true;
     ghostMode = "controlled";
     lastControlledAt = performance.now();
@@ -60,11 +73,21 @@ function setGhostCursorPosition(x, y) {
 }
 
 function releaseGhostCursor() {
+    var releaseX = prevX;
+    var releaseY = prevY;
+
+    if (ghostMode === "controlled") {
+        if (controlledMaxDistanceSq < CONTROLLED_RELEASE_DISTANCE * CONTROLLED_RELEASE_DISTANCE) {
+            releaseX = controlledOriginX;
+            releaseY = controlledOriginY;
+        }
+    }
+
     ghostMouse = false;
     ghostMode = "free";
-    ghostTargetX = prevX;
-    ghostTargetY = prevY;
-    paintCursor(prevX, prevY);
+    ghostTargetX = releaseX;
+    ghostTargetY = releaseY;
+    paintCursor(releaseX, releaseY);
 }
 
 function ghostMouseMove() {
@@ -112,6 +135,14 @@ document.addEventListener("DOMContentLoaded", function() {
         prevY = e.clientY;
 
         if (ghostMouse && ghostMode !== "free") {
+            if (ghostMode === "controlled") {
+                var dxFromOrigin = prevX - controlledOriginX;
+                var dyFromOrigin = prevY - controlledOriginY;
+                var distanceSq = dxFromOrigin * dxFromOrigin + dyFromOrigin * dyFromOrigin;
+                if (distanceSq > controlledMaxDistanceSq) {
+                    controlledMaxDistanceSq = distanceSq;
+                }
+            }
             // Failsafe: if controlled mode is stale, return control to user cursor.
             if (ghostMode === "controlled" && performance.now() - lastControlledAt > 250) {
                 releaseGhostCursor();
