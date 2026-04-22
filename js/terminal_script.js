@@ -692,7 +692,7 @@ function start() {
             print_output("Invalid argument\n");
         } else {
             print_output("Summoning goose chaos...\n");
-            showGoose("goose1");
+            showGoose();
         }
     }
 
