@@ -177,6 +177,30 @@ function registerStartMenuAutoClose() {
   startMenuAutoCloseRegistered = true;
 }
 
+function dismissCookiesBanner() {
+  var banner = document.getElementById("cookies-banner");
+  if (banner) {
+    banner.style.display = "none";
+  }
+}
+
+function setupCookiesBanner() {
+  var banner = document.getElementById("cookies-banner");
+  if (!banner) {
+    return;
+  }
+
+  var acceptButton = document.getElementById("cookies-banner-accept");
+  var rejectButton = document.getElementById("cookies-banner-reject");
+
+  [acceptButton, rejectButton].forEach(function (btn) {
+    if (!btn) {
+      return;
+    }
+    btn.addEventListener("click", dismissCookiesBanner);
+  });
+}
+
 function startMenu() {
   if (isStartMenuOpen()) {
     closeStartMenu();
@@ -265,6 +289,7 @@ document.addEventListener("DOMContentLoaded", function onReady() {
   if (window.WindowManager) {
     window.WindowManager.initialize();
   }
+  setupCookiesBanner();
   registerStartMenuAutoClose();
   updateI18nUI();
   setInterval(getCurrentTime, 1000);
