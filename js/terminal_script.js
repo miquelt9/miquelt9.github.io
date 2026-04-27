@@ -748,7 +748,7 @@ function start() {
             } else {
                 if (args[1] === "/" || args[1] === "./" || args[1] === "~/"  || args[1] === "~" ) {
 
-                    var audio = new Audio('/sounds/error_sound.mp3');
+                    var audio = new Audio('sounds/error_sound.mp3');
                     //var audio = new Audio('https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3');
                     print_output("Ooops!\n");
                     await window.AppUtils.delay(200);

@@ -5,7 +5,7 @@ async function nevergonna() {
   rickCount += 1;
   if (rickCount >= 3) {
     window.ProcessRegistry.populateProcess("rick_astley");
-    var audio = new Audio('/sounds/nevergonna.mp3');
+    var audio = new Audio('sounds/nevergonna.mp3');
     audio.play();
     await window.AppUtils.delay(1000);
     document.getElementById("rick").style.display = "block";

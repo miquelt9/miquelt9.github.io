@@ -13,7 +13,7 @@
         var footprintLayer = null;
         var propLayer = null;
         var spriteSheetUrl = "";
-        var gooseSoundPath = "/sounds/goose-sound.mp3";
+        var gooseSoundPath = "sounds/goose-sound.mp3";
         var isReady = false;
 
         function getViewportTarget() {
