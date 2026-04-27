@@ -26,9 +26,9 @@
         FRAME_WIDTH: 88,
         FRAME_HEIGHT: 72,
         SHEET_FRAME_WIDTH: 112,
-        SHEET_FRAME_HEIGHT: 96,
-        FRAME_PADDING_X: 12,
-        FRAME_PADDING_Y: 12,
+        SHEET_FRAME_HEIGHT: 112,
+        FRAME_PADDING_X: 18,
+        FRAME_PADDING_Y: 22,
         SPRITE_ROWS: ["E", "SE", "S", "SW", "W", "NW", "N", "NE"],
         STATE_COLUMNS: {
             idle: { offset: 0, frames: 4, fps: 4 },

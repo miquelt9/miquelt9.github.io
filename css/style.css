@@ -188,8 +188,11 @@ a {
 }
 
 .goose-pet-sprite {
-	width: 88px;
-	height: 72px;
+	position: absolute;
+	top: -20px;
+	left: -12px;
+	width: 112px;
+	height: 112px;
 	background-repeat: no-repeat;
 	image-rendering: pixelated;
 	transform-origin: 50% 60%;

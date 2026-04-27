@@ -193,15 +193,21 @@
         }
 
         function getFootWorldPosition(sideSign) {
-            var directionVector = shared.normalize(goose.velocity.x || (goose.target.x - goose.position.x), goose.velocity.y || (goose.target.y - goose.position.y));
-            var right = { x: directionVector.y, y: -directionVector.x };
-            var center = {
-                x: goose.position.x + shared.FRAME_WIDTH * 0.43,
-                y: goose.position.y + shared.FRAME_HEIGHT * 0.74,
-            };
+            // Visual center of feet in unrotated local space
+            var unrotatedX = sideSign === -1 ? 1.25 : 11.25;
+            var unrotatedY = sideSign === -1 ? 19.5 : 20.5;
+            
+            var pose = window.GooseVisuals.getDirectionPose(goose.currentDirection);
+            var rad = pose.angle * Math.PI / 180;
+            var cos = Math.cos(rad);
+            var sin = Math.sin(rad);
+            
+            var rotX = unrotatedX * cos - unrotatedY * sin;
+            var rotY = unrotatedX * sin + unrotatedY * cos;
+
             return {
-                x: center.x - directionVector.x * 8 + right.x * sideSign * 8,
-                y: center.y - directionVector.y * 8 + right.y * sideSign * 8,
+                x: goose.position.x + shared.FRAME_WIDTH * 0.5 + rotX,
+                y: goose.position.y + shared.FRAME_HEIGHT * 0.5 + rotY,
             };
         }
 
@@ -211,11 +217,12 @@
                 return;
             }
             var point = getFootWorldPosition(sideSign);
+            var pose = window.GooseVisuals.getDirectionPose(goose.currentDirection);
             var footprint = document.createElement("div");
             footprint.className = "goose-footstep";
-            footprint.style.left = point.x + "px";
-            footprint.style.top = point.y + "px";
-            footprint.style.transform = "rotate(" + shared.randomRange(-18, 18) + "deg)";
+            footprint.style.left = (point.x - 3.5) + "px";
+            footprint.style.top = (point.y - 3.5) + "px";
+            footprint.style.transform = "rotate(" + (pose.angle + shared.randomRange(-18, 18)) + "deg)";
             footprintLayer.appendChild(footprint);
             setTimeout(function cleanupFootprint() {
                 footprint.remove();
@@ -229,8 +236,8 @@
             var row = shared.SPRITE_ROWS.indexOf(goose.currentDirection);
             var column = getFrameColumn(animState, frame);
             goose.sprite.style.backgroundPosition =
-                (-(column * shared.SHEET_FRAME_WIDTH + shared.FRAME_PADDING_X)) + "px " +
-                (-(row * shared.SHEET_FRAME_HEIGHT + shared.FRAME_PADDING_Y)) + "px";
+                (-(column * shared.SHEET_FRAME_WIDTH)) + "px " +
+                (-(row * shared.SHEET_FRAME_HEIGHT)) + "px";
 
             var frameKey = animState + ":" + frame + ":" + goose.currentDirection;
             if (frameKey !== goose.lastFrameKey) {
