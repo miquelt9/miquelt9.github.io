@@ -75,7 +75,9 @@
             } else if (nextState === shared.STATE.chase || nextState === shared.STATE.cursorDrag) {
                 goose.locomotion = "run";
                 if (nextState === shared.STATE.cursorDrag) {
-                    goose.target = env.chooseOffscreenEdge();
+                    goose.dragCurveDir = Math.random() < 0.5 ? 0.05 : -0.05;
+                    goose.lastRealX = undefined;
+                    goose.lastRealY = undefined;
                     env.playHonk(goose);
                 }
             } else if (nextState === shared.STATE.windowDrag) {
@@ -329,7 +331,7 @@
             var cursorX = typeof getGhostXCursor === "function" ? getGhostXCursor() : beak.x;
             var cursorY = typeof getGhostYCursor === "function" ? getGhostYCursor() : beak.y;
             if (shared.distance(beak.x, beak.y, cursorX, cursorY) < getChaseGrabDistance(now)) {
-                setState(shared.STATE.cursorDrag, now, 1800);
+                setState(shared.STATE.cursorDrag, now, 3500 + shared.randomRange(0, 1000));
             }
         }
 
@@ -447,11 +449,40 @@
                 if (typeof setGhostCursorPosition === "function") {
                     setGhostCursorPosition(beak.x, beak.y);
                 }
-                if (now >= goose.stateUntil || isOffscreen(30)) {
-                    if (typeof releaseGhostCursor === "function") {
-                        releaseGhostCursor();
+
+                var realX = typeof getRealXCursor === "function" ? getRealXCursor() : beak.x;
+                var realY = typeof getRealYCursor === "function" ? getRealYCursor() : beak.y;
+
+                if (goose.lastRealX !== undefined && goose.lastRealY !== undefined) {
+                    var realMoveDist = shared.distance(realX, realY, goose.lastRealX, goose.lastRealY);
+                    if (realMoveDist > 20 && now - goose.lastHonkAt > 700) {
+                        env.playHonk(goose);
                     }
-                    setState(shared.STATE.wander, now, 1400 + shared.randomRange(0, 1600));
+                }
+                goose.lastRealX = realX;
+                goose.lastRealY = realY;
+
+                var elapsed = now - goose.stateStartedAt;
+                var duration = Math.max(1, goose.stateUntil - goose.stateStartedAt);
+                var progress = elapsed / duration;
+
+                if (progress > 0.6) {
+                    goose.target = getGooseTargetForBeakTarget({x: realX, y: realY});
+                    if (shared.distance(beak.x, beak.y, realX, realY) < 30) {
+                        if (typeof releaseGhostCursor === "function") {
+                            releaseGhostCursor();
+                        }
+                        setState(shared.STATE.wander, now, 1400 + shared.randomRange(0, 1600));
+                    }
+                } else {
+                    var currentDirAngle = Math.atan2(goose.velocity.y, goose.velocity.x);
+                    if (Math.abs(goose.velocity.x) < 0.1 && Math.abs(goose.velocity.y) < 0.1) {
+                        var pose = visuals.getDirectionPose(goose.currentDirection);
+                        currentDirAngle = Math.atan2(pose.vy, pose.vx);
+                    }
+                    var newAngle = currentDirAngle + (goose.dragCurveDir || 0.05);
+                    goose.target.x = goose.position.x + Math.cos(newAngle) * 100;
+                    goose.target.y = goose.position.y + Math.sin(newAngle) * 100;
                 }
             }
         }
@@ -463,7 +494,9 @@
             } else if (goose.currentState === shared.STATE.chase) {
                 desiredSpeed = getChaseSpeed(now);
             } else if (goose.currentState === shared.STATE.cursorDrag) {
-                desiredSpeed = 250;
+                var dragElapsed = now - goose.stateStartedAt;
+                var dragDuration = Math.max(1, goose.stateUntil - goose.stateStartedAt);
+                desiredSpeed = (dragElapsed / dragDuration > 0.6) ? 120 : 250;
             } else if (goose.currentState === shared.STATE.uiInteract) {
                 desiredSpeed = goose.locomotion === "run" ? 185 : 95;
             }

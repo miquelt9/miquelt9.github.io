@@ -76,13 +76,6 @@ function releaseGhostCursor() {
     var releaseX = prevX;
     var releaseY = prevY;
 
-    if (ghostMode === "controlled") {
-        if (controlledMaxDistanceSq < CONTROLLED_RELEASE_DISTANCE * CONTROLLED_RELEASE_DISTANCE) {
-            releaseX = controlledOriginX;
-            releaseY = controlledOriginY;
-        }
-    }
-
     ghostMouse = false;
     ghostMode = "free";
     ghostTargetX = releaseX;
@@ -119,6 +112,9 @@ function ghostMouseMove() {
 
 function getGhostXCursor() { return ghostMouse ? ghostX : prevX; }
 function getGhostYCursor() { return ghostMouse ? ghostY : prevY; }
+
+function getRealXCursor() { return prevX; }
+function getRealYCursor() { return prevY; }
 
 document.body.addEventListener("mouseleave", function() {
     mouseOutisde = true;
