@@ -503,7 +503,11 @@ function start() {
                         i += 1;
                     }
                     move_cursor_to_end();
-                    print_output("\nOptions:\n" + similar_matches.join("\t") + "\n~$ ");
+                    var options_out = "";
+                    for (var j = 0; j < similar_matches.length; j += 4) {
+                        options_out += similar_matches.slice(j, j + 4).map(item => item.padEnd(12, ' ')).join("") + "\n";
+                    }
+                    print_output("\nOptions:\n" + options_out + "~$ ");
                     replace_cmd_buffer(similar_match);
                 }
                 return;
@@ -545,8 +549,12 @@ function start() {
     }
 
     function cmd_help() {
-        print_output("Available commands:\n" + Object.keys(COMMANDS).join("\t") + "\n");
-        print_output("Hidden executables: ./goose.sh ./snake.sh ./virus.sh\n");
+        var cmds = Object.keys(COMMANDS);
+        var out = "Available commands:\n";
+        for (var i = 0; i < cmds.length; i += 4) {
+            out += cmds.slice(i, i + 4).map(cmd => cmd.padEnd(10, ' ')).join("") + "\n";
+        }
+        print_output(out);
     }
 
     function cmd_echo(args) {
@@ -582,15 +590,21 @@ function start() {
     var HIDEN_FILES = terminalData.hiddenFiles;
 
     function cmd_ls(args) {
-        if (args.length < 1) {
-            print_output(Object.keys(FILES).join("\t") + "\n");
-        }
-        else if (args.length == 1 && (args[0] == "-a" || args[0] == "-la")) {
-            print_output(Object.keys(HIDEN_FILES).join("\t") + "\n" + Object.keys(FILES).join("\t") + "\n");
-        }
-        else {
+        if (args.length > 1 || (args.length === 1 && args[0] !== "-a" && args[0] !== "-la")) {
             print_output("Usage: ls\n");
+            return;
         }
+
+        var files_to_show = Object.keys(FILES);
+        if (args.length === 1) {
+            files_to_show = Object.keys(HIDEN_FILES).concat(files_to_show);
+        }
+
+        var out = "";
+        for (var i = 0; i < files_to_show.length; i += 4) {
+            out += files_to_show.slice(i, i + 4).map(file => file.padEnd(12, ' ')).join("") + "\n";
+        }
+        print_output(out);
     }
 
     async function cmd_sl(args) {
