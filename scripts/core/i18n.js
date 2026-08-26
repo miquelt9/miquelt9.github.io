@@ -6,8 +6,18 @@
 
   const STORAGE_KEY = 'site_locale';
   const DEFAULT_LOCALE = LOCALES.EN;
+  const SUPPORTED_LOCALES = Object.values(LOCALES);
 
-  let currentLocale = localStorage.getItem(STORAGE_KEY) || DEFAULT_LOCALE;
+  function readStoredLocale() {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  const storedLocale = readStoredLocale();
+  let currentLocale = SUPPORTED_LOCALES.includes(storedLocale) ? storedLocale : DEFAULT_LOCALE;
 
   const DICTIONARY = {
     [LOCALES.EN]: {
@@ -131,9 +141,11 @@
   }
 
   function setLocale(locale) {
-    if (Object.values(LOCALES).includes(locale)) {
+    if (SUPPORTED_LOCALES.includes(locale)) {
       currentLocale = locale;
-      localStorage.setItem(STORAGE_KEY, locale);
+      try {
+        localStorage.setItem(STORAGE_KEY, locale);
+      } catch (e) {}
       document.documentElement.lang = locale;
       // Dispatch event for UI updates
       window.dispatchEvent(new CustomEvent('localeChanged', { detail: { locale } }));
