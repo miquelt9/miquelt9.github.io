@@ -116,8 +116,17 @@ function cowsay_bottom(length) {
 
 
 function start() {
+    if (start._abort) {
+        start._abort.abort();
+    }
+    var abortController = new AbortController();
+    start._abort = abortController;
+    var signal = abortController.signal;
 
     var term = document.getElementById("term-contents");
+    if (!term) {
+        return;
+    }
     var termContainer = term.parentElement;
 
     term.innerText += "";
@@ -275,19 +284,20 @@ function start() {
                 handle_char(char);
             }
             handle_enter();
-        });
+        }, { signal: signal });
     }
 
     window.addEventListener("paste", function(evt) {
         if (!bash_open) {
-            evt.preventDefault();
-            let paste = (evt.clipboardData || window.clipboardData).getData('text');
-
-            for (var char of paste) {
-                handle_char(char);
-            }
+            return;
         }
-    })
+        evt.preventDefault();
+        let paste = (evt.clipboardData || window.clipboardData).getData('text');
+
+        for (var char of paste) {
+            handle_char(char);
+        }
+    }, { signal: signal });
 
     window.addEventListener("keydown", function(evt) {
         if (!bash_open || evt.isComposing || evt.keyCode === 229) {
@@ -356,7 +366,7 @@ function start() {
             evt.preventDefault();
             move_cursor_right();
         }
-    });
+    }, { signal: signal });
 
     function split_cmd(cmd) {
         var out = [];

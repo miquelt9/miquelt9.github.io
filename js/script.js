@@ -27,24 +27,51 @@ function changeBackgroundColor() {
   document.getElementById("the_background").style.backgroundColor = getRandomColor();
 }
 
-function showWindow(windowId) {
-  var psWindow = windowId;
+function processNameForWindow(windowId) {
   if (windowId === "terminalbox") {
-    psWindow = "bash";
-    define_bash_as_opened();
+    return "bash";
   }
+  return windowId;
+}
+
+function isTerminalVisible() {
+  var element = document.getElementById("terminalbox");
+  if (!element) {
+    return false;
+  }
+  return window.getComputedStyle(element).display !== "none";
+}
+
+function syncTerminalInput() {
+  if (typeof define_bash_as_opened !== "function" || typeof define_bash_as_closed !== "function") {
+    return;
+  }
+  if (isTerminalVisible()) {
+    define_bash_as_opened();
+  } else {
+    define_bash_as_closed();
+  }
+}
+
+function showWindow(windowId) {
+  var psWindow = processNameForWindow(windowId);
   window.ProcessRegistry.killProcessNamed(psWindow);
   window.ProcessRegistry.populateProcess(psWindow);
   window.WindowManager.bringToFront(windowId);
   document.getElementById(windowId).style.display = "block";
   document.getElementById(windowId + "Taskbar").style.display = "block";
+  if (windowId === "terminalbox") {
+    syncTerminalInput();
+  }
 }
 
 function hideWindow(windowId) {
-  window.ProcessRegistry.killProcessNamed(windowId);
-  if (windowId === "terminalbox") { define_bash_as_closed(); }
+  window.ProcessRegistry.killProcessNamed(processNameForWindow(windowId));
   document.getElementById(windowId).style.display = "none";
   document.getElementById(windowId + "Taskbar").style.display = "none";
+  if (windowId === "terminalbox") {
+    syncTerminalInput();
+  }
 }
 
 // Just used for games box
@@ -104,6 +131,9 @@ function openWindow(windowId) {
 
 function minimise(windowId) {
   document.getElementById(windowId).style.display = "none";
+  if (windowId === "terminalbox") {
+    syncTerminalInput();
+  }
 }
 
 // idk, but not really working + not worth since all the content 
@@ -121,6 +151,9 @@ function toggle(windowId) {
   }
   else {
     document.getElementById(windowId).style.display = "none";  
+  }
+  if (windowId === "terminalbox") {
+    syncTerminalInput();
   }
 }
 
@@ -292,5 +325,6 @@ document.addEventListener("DOMContentLoaded", function onReady() {
   setupCookiesBanner();
   registerStartMenuAutoClose();
   updateI18nUI();
+  syncTerminalInput();
   setInterval(getCurrentTime, 1000);
 });
