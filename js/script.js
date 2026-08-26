@@ -8,9 +8,19 @@ async function nevergonna() {
     var audio = new Audio('sounds/nevergonna.mp3');
     audio.play();
     await window.AppUtils.delay(1000);
-    document.getElementById("rick").style.display = "block";
+    var rick = document.getElementById("rick");
+    if (!rick) {
+      rick = document.createElement("img");
+      rick.id = "rick";
+      rick.className = "rick";
+      rick.src = "images/nevergonna.gif";
+      rick.alt = "";
+      var desktop = document.querySelector(".desktop_device");
+      (desktop || document.body).appendChild(rick);
+    }
+    rick.style.display = "block";
     await window.AppUtils.delay(15500);
-    document.getElementById("rick").style.display = "none";
+    rick.style.display = "none";
     window.ProcessRegistry.killProcessNamed("rick_astley");
   }
 }
@@ -60,6 +70,12 @@ function showWindow(windowId) {
   window.WindowManager.bringToFront(windowId);
   document.getElementById(windowId).style.display = "block";
   document.getElementById(windowId + "Taskbar").style.display = "block";
+  if (windowId === "cvbox") {
+    var iframe = document.getElementById("iframepdf");
+    if (iframe && !iframe.getAttribute("src")) {
+      iframe.src = "./docs/Miquel_Torner_CV.pdf";
+    }
+  }
   if (windowId === "terminalbox") {
     syncTerminalInput();
   }
