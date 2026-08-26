@@ -1,7 +1,6 @@
 body {
 	background: rgb(146, 246, 251);
 	/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
-	background: gradien;
 	max-width: 100%;
 	overflow-x: hidden;
 	font-family: 'Source Code Pro', monospace;
@@ -777,7 +776,6 @@ div.terminalbox a:active {
 	body {
 		background: rgb(146, 246, 251);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
-		background: gradien;
 		max-width: 100%;
 		overflow-x: auto;
 		font-family: 'Source Code Pro', monospace;
@@ -794,7 +792,6 @@ div.terminalbox a:active {
 	body {
 		background: rgb(146, 246, 251);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
-		background: gradien;
 		max-width: 100%;
 		overflow-x: auto;
 		font-family: 'Source Code Pro', monospace;
