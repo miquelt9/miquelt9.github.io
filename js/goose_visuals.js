@@ -144,7 +144,7 @@
             element.innerHTML = noteWindow("stack-a");
         } else {
             element.setAttribute("data-goose-fetch-kind", "image");
-            element.innerHTML = imageWindow("stack-a", "goose-stonks.jpg", "goose stonks");
+            element.innerHTML = imageWindow("stack-a", "images/goose-stonks.jpg", "goose stonks");
         }
 
         propLayer.appendChild(element);

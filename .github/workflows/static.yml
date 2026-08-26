@@ -36,8 +36,10 @@ jobs:
       - name: Prepare deploy directory
         run: |
           mkdir -p _site
+          mkdir -p _site/docs
           cp index.html 404.html README.md _site/
-          cp -r css js images sounds docs static apps content scripts styles _site/
+          cp docs/Miquel_Torner_CV.pdf _site/docs/
+          cp -r css js images sounds static apps content scripts styles _site/
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
