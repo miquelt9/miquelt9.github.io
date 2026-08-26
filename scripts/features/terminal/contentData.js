@@ -4,6 +4,7 @@
     link.innerText = fileData.text;
     link.href = fileData.href;
     link.target = "_blank";
+    link.rel = "noopener noreferrer";
     link.tabIndex = -1;
     return link;
   }
