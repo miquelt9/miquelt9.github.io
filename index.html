@@ -9,7 +9,10 @@
 		(function () {
 			try {
 				var theme = localStorage.getItem('pc-theme');
-				if (theme === 'dark' || theme === 'light' || theme === 'system') {
+				var phoneUsesSystemTheme = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+				if (phoneUsesSystemTheme) {
+					document.documentElement.setAttribute('data-pc-theme', 'system');
+				} else if (theme === 'dark' || theme === 'light' || theme === 'system') {
 					document.documentElement.setAttribute('data-pc-theme', theme);
 				}
 			} catch (e) {}
@@ -21,6 +24,7 @@
 	<link rel="stylesheet" href="styles/base.css">
 	<link rel="stylesheet" href="styles/windows.css">
 	<link rel="stylesheet" href="styles/terminal.css">
+	<link rel="stylesheet" href="styles/cookies.css">
 	<link rel="stylesheet" href="styles/mobile.css">
 	<link rel="stylesheet" href="styles/games.css">
 	<link href="css/css2.css" rel="stylesheet">
@@ -32,6 +36,14 @@
 	<script type="text/javascript" src="scripts/core/windowManager.js"></script>
 	<script type="text/javascript" src="scripts/features/terminal/contentData.js"></script>
 	<script type="text/javascript" src="scripts/features/terminal/snakeGame.js"></script>
+	<script type="text/javascript" src="scripts/features/desktop/background.js"></script>
+	<script type="text/javascript" src="scripts/features/desktop/windows.js"></script>
+	<script type="text/javascript" src="scripts/features/desktop/start-menu.js"></script>
+	<script type="text/javascript" src="scripts/features/desktop/taskbar.js"></script>
+	<script type="text/javascript" src="scripts/features/phone/phone.js"></script>
+	<script type="text/javascript" src="scripts/features/cookies/game.js"></script>
+	<script type="text/javascript" src="scripts/features/cookies/banner.js"></script>
+	<script type="text/javascript" src="scripts/features/easter-eggs/rickroll.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 	<script type="text/javascript" src="js/goose_shared.js"></script>
 	<script type="text/javascript" src="js/goose_visuals.js"></script>
@@ -63,16 +75,18 @@
 		</div>
 	</div>
 	<div id="cookie-game" class="cookie-game" hidden aria-hidden="true">
-		<div class="cookie-game__hud pc-window" role="status" aria-live="polite">
-			<strong>Cookie catch</strong>
-			<span>Score: <b id="cookie-game-score">0</b></span>
-			<span>Time: <b id="cookie-game-time">1:00</b></span>
-			<span id="cookie-game-streak"></span>
-		</div>
-		<div id="cookie-game-result" class="cookie-game__result pc-window" hidden>
-			<strong>Time's up!</strong>
-			<span>You caught <b id="cookie-game-final-score">0</b> cookies.</span>
-			<button id="cookie-game-replay" class="pc-button clickable" type="button">Play again</button>
+		<div id="cookie-game-hud" class="cookie-game__hud pc-window" hidden aria-hidden="true" role="dialog" aria-labelledby="cookie-game-title">
+			<div class="topbar" id="cookie-game-hudheader">
+				<span id="cookie-game-title">Cookie catch</span>
+				<div class="buttons">
+					<div class="topbarButton clickable" onclick="closeCookieGame()" role="button" aria-label="Close Cookie catch">X</div>
+				</div>
+			</div>
+			<div class="pc-window-content cookie-game__stats" role="status" aria-live="polite">
+				<span>Score: <b id="cookie-game-score">0</b></span>
+				<span>Time: <b id="cookie-game-time">0:30</b></span>
+				<span id="cookie-game-streak"></span>
+			</div>
 		</div>
 		<div id="cookie-game-status" class="sr-only" aria-live="polite"></div>
 	</div>
@@ -282,7 +296,7 @@
 			</div> -->
 		</div>
 
-		<div class="mobile_device_480">
+		<div class="mobile_device_480" id="phone-os">
 			<header class="phone-statusbar">
 				<span id="phone-clock">00:00</span>
 				<div class="phone-status-actions">
@@ -291,12 +305,10 @@
 				</div>
 			</header>
 			<section class="phone-home" id="phone-home">
-				<div class="phone-brand">Miquel's PC</div>
 				<div class="phone-app-grid">
 					<button class="phone-app clickable" onclick="openPhoneApp('about')"><img src="images/about.png" alt=""><span data-i18n="desktop.about">About me</span></button>
 					<button class="phone-app clickable" onclick="openPhoneApp('projects')"><img src="images/projects.png" alt=""><span data-i18n="desktop.projects">Projects</span></button>
 					<button class="phone-app clickable" onclick="openPhoneApp('contact')"><img src="images/contact.png" alt=""><span data-i18n="desktop.contact">Contact</span></button>
-					<button class="phone-app clickable" onclick="openPhoneApp('terminal')"><img src="images/terminal.png" alt=""><span data-i18n="desktop.terminal">Terminal</span></button>
 				</div>
 			</section>
 			<div class="mobile-theme-bar">

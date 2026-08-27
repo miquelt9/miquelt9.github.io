@@ -1,5 +1,6 @@
 @media screen and (max-width: 768px) {
   body { overflow: hidden; }
+  #cookies-banner { display: none !important; }
   .cookies-banner {
     right: 8px;
     bottom: 8px;
@@ -20,20 +21,6 @@
   .cookies-banner__btn {
     font-size: 0.68rem;
     padding: 5px 9px;
-  }
-
-  .cookie-game__hud {
-    top: 8px;
-    max-width: calc(100vw - 16px);
-    gap: 8px;
-    padding: 7px 9px;
-    font-size: 0.7rem;
-    white-space: nowrap;
-  }
-
-  .cookie-game__cookie {
-    min-width: 44px;
-    min-height: 44px;
   }
 
   .desktop_device {
@@ -67,6 +54,7 @@
   .phone-statusbar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; }
   .mobile-theme-bar { display:none; }
   .phone-status-actions { display:flex; gap:6px; }
+  #theme-toggle-mobile { display:none; }
   .phone-status-actions button { font-size:.7rem; padding:4px 6px; }
   .phone-home { flex:1; overflow:auto; padding:18px 12px; }
   .phone-brand { text-align:center; font-weight:bold; font-size:1.15rem; margin-bottom:22px; }

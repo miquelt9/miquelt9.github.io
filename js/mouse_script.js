@@ -105,7 +105,7 @@ function selectFakeCursor(mouseX, mouseY) {
     var arrowCursor = document.getElementById("arrow");
     var pointerCursor = document.getElementById("pointer");
     var targetElement = document.elementFromPoint(mouseX, mouseY);
-    var isClickable = !!(targetElement && targetElement.classList && targetElement.classList.contains("clickable"));
+    var isClickable = !!(targetElement && targetElement.closest && targetElement.closest(".clickable, .cookie-game__cookie"));
 
     if (isClickable) {
         arrowCursor.style.visibility = "hidden";

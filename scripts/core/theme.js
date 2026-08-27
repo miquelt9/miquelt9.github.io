@@ -19,7 +19,10 @@
   }
 
   const storedTheme = readStoredTheme();
-  let currentTheme = SUPPORTED_THEMES.includes(storedTheme) ? storedTheme : DEFAULT_THEME;
+  const phoneUsesSystemTheme = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  let currentTheme = phoneUsesSystemTheme
+    ? THEMES.SYSTEM
+    : (SUPPORTED_THEMES.includes(storedTheme) ? storedTheme : DEFAULT_THEME);
 
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-pc-theme', theme);
