@@ -1,5 +1,6 @@
 var rickCount = 0;
 var startMenuAutoCloseRegistered = false;
+var cookieGame = { running: false, started: false, score: 0, streak: 0, endsAt: 0, timer: null, spawnTimer: null, frame: null, cookies: [] };
 
 async function nevergonna() {
   rickCount += 1;
@@ -88,6 +89,31 @@ function hideWindow(windowId) {
   if (windowId === "terminalbox") {
     syncTerminalInput();
   }
+}
+
+function isPhoneViewport() {
+  return window.matchMedia && window.matchMedia("(max-width: 768px)").matches;
+}
+
+function openPhoneApp(appId) {
+  if (!isPhoneViewport()) return;
+  var map = { about: "aboutbox-mobile", projects: "projectsbox-mobile", contact: "contactmebox-mobile" };
+  var app = document.getElementById(map[appId]);
+  if (!app) return;
+  document.querySelectorAll(".phone-window").forEach(function (element) {
+    element.style.display = "none";
+  });
+  app.style.display = "block";
+  document.getElementById("phone-os").classList.add("phone-app-open");
+}
+
+function closePhoneApp() {
+  var shell = document.getElementById("phone-os");
+  if (!shell) return;
+  shell.classList.remove("phone-app-open");
+  shell.querySelectorAll(".phone-window").forEach(function (element) {
+    element.style.display = "none";
+  });
 }
 
 // Just used for games box
@@ -242,12 +268,110 @@ function setupCookiesBanner() {
   var acceptButton = document.getElementById("cookies-banner-accept");
   var rejectButton = document.getElementById("cookies-banner-reject");
 
-  [acceptButton, rejectButton].forEach(function (btn) {
-    if (!btn) {
-      return;
-    }
-    btn.addEventListener("click", dismissCookiesBanner);
+  if (rejectButton) rejectButton.addEventListener("click", dismissCookiesBanner);
+  if (acceptButton) acceptButton.addEventListener("click", function () {
+    dismissCookiesBanner();
+    startCookieGame();
   });
+  var replayButton = document.getElementById("cookie-game-replay");
+  if (replayButton) replayButton.addEventListener("click", startCookieGame);
+}
+
+function cookieGameElements() {
+  return {
+    root: document.getElementById("cookie-game"),
+    score: document.getElementById("cookie-game-score"),
+    time: document.getElementById("cookie-game-time"),
+    streak: document.getElementById("cookie-game-streak"),
+    status: document.getElementById("cookie-game-status"),
+    result: document.getElementById("cookie-game-result"),
+    finalScore: document.getElementById("cookie-game-final-score"),
+    replay: document.getElementById("cookie-game-replay")
+  };
+}
+
+function clearCookieGameCookies() {
+  cookieGame.cookies.forEach(function (cookie) { cookie.remove(); });
+  cookieGame.cookies = [];
+}
+
+function finishCookieGame() {
+  if (!cookieGame.running) return;
+  cookieGame.running = false;
+  clearInterval(cookieGame.timer);
+  clearInterval(cookieGame.spawnTimer);
+  cancelAnimationFrame(cookieGame.frame);
+  clearCookieGameCookies();
+  var el = cookieGameElements();
+  el.finalScore.textContent = cookieGame.score;
+  el.result.hidden = false;
+  el.status.textContent = "Time is up. Final score: " + cookieGame.score + ".";
+}
+
+function updateCookieGameHud() {
+  var el = cookieGameElements();
+  var remaining = cookieGame.started ? Math.max(0, Math.ceil((cookieGame.endsAt - Date.now()) / 1000)) : 60;
+  el.score.textContent = cookieGame.score;
+  el.time.textContent = Math.floor(remaining / 60) + ":" + String(remaining % 60).padStart(2, "0");
+  el.streak.textContent = cookieGame.streak > 1 ? cookieGame.streak + " streak" : "";
+  if (cookieGame.started && remaining === 0) finishCookieGame();
+}
+
+function spawnCookie() {
+  if (!cookieGame.running) return;
+  var el = cookieGameElements(), cookie = document.createElement("button");
+  cookie.type = "button";
+  cookie.className = "cookie-game__cookie clickable";
+  cookie.setAttribute("aria-label", "Catch cookie");
+  cookie.innerHTML = '<img src="images/cookie.png" alt="">';
+  cookie.style.left = (4 + Math.random() * 92) + "vw";
+  cookie.style.setProperty("--cookie-duration", (4 + Math.random() * 2.5) + "s");
+  cookie.style.setProperty("--cookie-size", (38 + Math.random() * 16) + "px");
+  cookie.addEventListener("click", function () {
+    if (!cookieGame.running) return;
+    cookieGame.score += 1;
+    cookieGame.streak += 1;
+    var feedback = document.createElement("span");
+    feedback.className = "cookie-game__feedback";
+    feedback.textContent = "+1";
+    cookie.appendChild(feedback);
+    el.status.textContent = "Cookie caught. Score " + cookieGame.score + ".";
+    setTimeout(function () { feedback.remove(); cookie.remove(); }, 500);
+    cookieGame.cookies = cookieGame.cookies.filter(function (item) { return item !== cookie; });
+    updateCookieGameHud();
+  });
+  cookie.addEventListener("animationend", function () {
+    cookieGame.streak = 0;
+    cookie.remove();
+    cookieGame.cookies = cookieGame.cookies.filter(function (item) { return item !== cookie; });
+  });
+  el.root.appendChild(cookie);
+  cookieGame.cookies.push(cookie);
+}
+
+function startCookieGame() {
+  var el = cookieGameElements();
+  if (!el.root) return;
+  clearInterval(cookieGame.timer);
+  clearInterval(cookieGame.spawnTimer);
+  cancelAnimationFrame(cookieGame.frame);
+  clearCookieGameCookies();
+  cookieGame = { running: true, started: false, score: 0, streak: 0, endsAt: 0, timer: null, spawnTimer: null, frame: null, cookies: [] };
+  el.root.hidden = false;
+  el.root.setAttribute("aria-hidden", "false");
+  el.result.hidden = true;
+  el.status.textContent = "Catch the cookie to start the one minute timer.";
+  spawnCookie();
+  var firstCookie = cookieGame.cookies[0];
+  firstCookie.addEventListener("click", function beginTimer() {
+    if (cookieGame.started) return;
+    cookieGame.started = true;
+    cookieGame.endsAt = Date.now() + 60000;
+    cookieGame.timer = setInterval(updateCookieGameHud, 250);
+    cookieGame.spawnTimer = setInterval(spawnCookie, 850);
+    updateCookieGameHud();
+  }, { once: true });
+  updateCookieGameHud();
 }
 
 function startMenu() {
@@ -262,6 +386,8 @@ function getCurrentTime() {
   var now = new Date();
   var time = now.getHours() + ":" + now.getMinutes().toString().padStart(2, 0);
   document.getElementById('clock').innerHTML = time;
+  var phoneClock = document.getElementById('phone-clock');
+  if (phoneClock) phoneClock.textContent = time;
 }
 
 function bringToFront(windowId) {
@@ -305,6 +431,41 @@ function renderSiteContent() {
   }
 }
 
+function themeLabelKey(theme, compact) {
+  var prefix = compact ? 'taskbar.' : 'startMenu.';
+  if (theme === 'dark') {
+    return prefix + 'themeDark';
+  }
+  if (theme === 'system') {
+    return prefix + 'themeSystem';
+  }
+  return prefix + 'themeLight';
+}
+
+function syncThemeUI() {
+  if (!window.pcTheme || !window.i18n) {
+    return;
+  }
+
+  var theme = window.pcTheme.getTheme();
+  var compactLabel = window.i18n.t(themeLabelKey(theme, true));
+  var fullLabel = window.i18n.t(themeLabelKey(theme, false));
+  var tray = document.getElementById('theme-toggle');
+  var startLabel = document.getElementById('startmenu-theme-label');
+  var mobile = document.getElementById('theme-toggle-mobile');
+
+  if (tray) {
+    tray.textContent = compactLabel;
+    tray.setAttribute('aria-label', fullLabel);
+  }
+  if (startLabel) {
+    startLabel.textContent = fullLabel;
+  }
+  if (mobile) {
+    mobile.textContent = fullLabel;
+  }
+}
+
 function updateI18nUI() {
   if (!window.i18n) return;
 
@@ -328,11 +489,17 @@ function updateI18nUI() {
   if (langToggle) {
     langToggle.textContent = window.i18n.getLocale().toUpperCase();
   }
+  const phoneLangToggle = document.getElementById('phone-lang-toggle');
+  if (phoneLangToggle) {
+    phoneLangToggle.textContent = window.i18n.getLocale().toUpperCase();
+  }
 
   renderSiteContent();
+  syncThemeUI();
 }
 
 window.addEventListener('localeChanged', updateI18nUI);
+window.addEventListener('themeChanged', syncThemeUI);
 
 document.addEventListener("DOMContentLoaded", function onReady() {
   if (window.WindowManager) {

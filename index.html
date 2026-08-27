@@ -5,6 +5,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<title>Miquel's PC</title>
 	<!-- <link rel="icon" href="images/tablogo.png"> -->
+	<script>
+		(function () {
+			try {
+				var theme = localStorage.getItem('pc-theme');
+				if (theme === 'dark' || theme === 'light' || theme === 'system') {
+					document.documentElement.setAttribute('data-pc-theme', theme);
+				}
+			} catch (e) {}
+		})();
+	</script>
+	<link rel="stylesheet" href="css/pc-ui.css">
+	<link rel="stylesheet" href="styles/pc-ui-aliases.css">
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="styles/base.css">
 	<link rel="stylesheet" href="styles/windows.css">
@@ -14,6 +26,7 @@
 	<link href="css/css2.css" rel="stylesheet">
 	<script type="text/javascript" src="content/site-data.js"></script>
 	<script type="text/javascript" src="scripts/core/i18n.js"></script>
+	<script type="text/javascript" src="scripts/core/theme.js"></script>
 	<script type="text/javascript" src="scripts/core/utils.js"></script>
 	<script type="text/javascript" src="scripts/core/processRegistry.js"></script>
 	<script type="text/javascript" src="scripts/core/windowManager.js"></script>
@@ -42,12 +55,26 @@
 						<strong>Cookie notice:</strong> looks like this page has no cookies because the developer was too hungry.
 					</div>
 					<div class="cookies-banner__actions">
-						<button id="cookies-banner-accept" class="cookies-banner__btn clickable" type="button" aria-label="Dismiss notice; there are no cookies to request">Ask for cookies</button>
-						<button id="cookies-banner-reject" class="cookies-banner__btn clickable" type="button" aria-label="Dismiss notice; there are no cookies to reject">I don't like cookies</button>
+						<button id="cookies-banner-accept" class="pc-button cookies-banner__btn clickable" type="button" aria-label="Dismiss notice; there are no cookies to request">Ask for cookies</button>
+						<button id="cookies-banner-reject" class="pc-button cookies-banner__btn clickable" type="button" aria-label="Dismiss notice; there are no cookies to reject">I don't like cookies</button>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="cookie-game" class="cookie-game" hidden aria-hidden="true">
+		<div class="cookie-game__hud pc-window" role="status" aria-live="polite">
+			<strong>Cookie catch</strong>
+			<span>Score: <b id="cookie-game-score">0</b></span>
+			<span>Time: <b id="cookie-game-time">1:00</b></span>
+			<span id="cookie-game-streak"></span>
+		</div>
+		<div id="cookie-game-result" class="cookie-game__result pc-window" hidden>
+			<strong>Time's up!</strong>
+			<span>You caught <b id="cookie-game-final-score">0</b> cookies.</span>
+			<button id="cookie-game-replay" class="pc-button clickable" type="button">Play again</button>
+		</div>
+		<div id="cookie-game-status" class="sr-only" aria-live="polite"></div>
 	</div>
 
 	
@@ -86,19 +113,19 @@
 				<div class="topbarButton clickable" onclick="hideWindow('projectsbox')">X</div></div></div>	
 				
 				<div class="content" id="projects-desktop-content">
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable" style="color: black;"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
+					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
 					&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
 
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable" style="color: black;"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
+					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
 					&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
 
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable" style="color: black;"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
+					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
 					&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
 
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable" style="color: black;"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
+					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
 					&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
 
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable" style="color: black;"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <div class="gamelink clickable" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
+					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <div class="gamelink clickable" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
 					&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021) <br> <br>
 
 					Check more at my <strong> <a href="https://miquelt9.github.io/portfolio/posts/" class="clickable"> portfolio</a></strong>!
@@ -219,6 +246,9 @@
 				<a href="#" onclick="nevergonna(); return false;"><div class="startmenuItem clickable">
 					&MediumSpace; <span data-i18n="startMenu.comingSoon">Something coming soon...</span>
 				</div></a>
+				<a href="#" onclick="window.pcTheme.toggleTheme(); return false;"><div class="startmenuItem clickable">
+					&MediumSpace; <span id="startmenu-theme-label">Display: Day</span>
+				</div></a>
 			</div>
 
 			<div class="taskbar" id="taskbar">
@@ -232,6 +262,7 @@
 				<div class="taskbarWindow clickable" id="cvboxTaskbar" onclick="toggle('cvbox')" data-i18n="taskbar.cv">CV&VeryThinSpace;📄</div>
 				<div class="taskbar-tray">
 					<div class="clock clickable" onclick="window.i18n.toggleLocale()" id="lang-toggle">EN</div>
+					<div class="clock clickable" onclick="window.pcTheme.toggleTheme()" id="theme-toggle" role="button" aria-label="Cycle display theme">Day</div>
 					<div class="clock clickable" onclick="changeBackgroundColor()" id="clock">00:00</div>
 				</div>
 			</div>
@@ -252,12 +283,32 @@
 		</div>
 
 		<div class="mobile_device_480">
+			<header class="phone-statusbar">
+				<span id="phone-clock">00:00</span>
+				<div class="phone-status-actions">
+					<button type="button" class="pc-button clickable" id="phone-lang-toggle" onclick="window.i18n.toggleLocale()">EN</button>
+					<button type="button" class="pc-button clickable" id="theme-toggle-mobile" onclick="window.pcTheme.toggleTheme()">Display: Day</button>
+				</div>
+			</header>
+			<section class="phone-home" id="phone-home">
+				<div class="phone-brand">Miquel's PC</div>
+				<div class="phone-app-grid">
+					<button class="phone-app clickable" onclick="openPhoneApp('about')"><img src="images/about.png" alt=""><span data-i18n="desktop.about">About me</span></button>
+					<button class="phone-app clickable" onclick="openPhoneApp('projects')"><img src="images/projects.png" alt=""><span data-i18n="desktop.projects">Projects</span></button>
+					<button class="phone-app clickable" onclick="openPhoneApp('contact')"><img src="images/contact.png" alt=""><span data-i18n="desktop.contact">Contact</span></button>
+					<button class="phone-app clickable" onclick="openPhoneApp('terminal')"><img src="images/terminal.png" alt=""><span data-i18n="desktop.terminal">Terminal</span></button>
+				</div>
+			</section>
+			<div class="mobile-theme-bar">
+				<button type="button" class="pc-button clickable" id="theme-toggle-mobile" onclick="window.pcTheme.toggleTheme()">Display: Day</button>
+			</div>
 
-			<div class="mainbox" id="aboutbox-mobile" style="display: block;">
+			<div class="phone-app-surface">
+			<div class="mainbox phone-window" id="aboutbox-mobile" style="display: none;">
 				<div class="topbar" id="aboutboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.about">System Properties</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
-				<div class="topbarButton">X</div></div></div>	
+				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				<!-- <div style="text-align: center;"> Not sure if display my photo in the phone so better not to do so I think
 					<br> 
 					<img src="images/meOnPC.png" style="width: 80%; margin-right: auto; margin-left: auto;">
@@ -280,26 +331,26 @@
 
 			</div>
 
-			<div class="mainbox" id="projectsbox-mobile" style="display: block; ">
+			<div class="mainbox phone-window" id="projectsbox-mobile" style="display: none; ">
 				<div class="topbar" id="projectsboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.projects">Projects</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
-				<div class="topbarButton">X</div></div></div>	
+				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				
 				<div class="content" style="text-align: justify;" id="projects-mobile-content">
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable" style="color: black;"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
+						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
 						&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
 	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable" style="color: black;"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
+						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
 						&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
 	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable" style="color: black;"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
+						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
 						&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
 	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable" style="color: black;"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
+						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
 						&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
 	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable" style="color: black;"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <a class="gamelink clickable" href="/apps/spaceshooter/index.html">Try it now!</a>  <br>
+						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <a class="gamelink clickable" href="/apps/spaceshooter/index.html">Try it now!</a>  <br>
 						&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021) <br> <br>
 	
 						Check more at my <strong> <a href="https://miquelt9.github.io/portfolio/posts/" class="clickable"> portfolio</a></strong>!
@@ -308,11 +359,11 @@
 
 			</div>
 
-			<div class="mainbox" id="contactmebox-mobile" style="display: block;">
+			<div class="mainbox phone-window" id="contactmebox-mobile" style="display: none;">
 				<div class="topbar" id="contactmeboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.contact">Contact</span>
 				<div class="buttons"><div class="topbarButton">_</div>
 				<div class="topbarButton">□</div>
-				<div class="topbarButton">X</div></div></div>	
+				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				
 				<div class="content" id="contact-mobile-content">
 					<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br>
@@ -322,6 +373,8 @@
 					<a href="./docs/Miquel_Torner_CV.pdf" target="_blank" rel="noopener noreferrer">Check my CV!</a>
 				</div>
 			</div>
+			</div>
+			<nav class="phone-dock"><button class="pc-button clickable" onclick="closePhoneApp()" data-i18n="taskbar.start">Home</button></nav>
 		</div>
 	</div>
 </body></html>

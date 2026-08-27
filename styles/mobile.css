@@ -1,4 +1,5 @@
 @media screen and (max-width: 768px) {
+  body { overflow: hidden; }
   .cookies-banner {
     right: 8px;
     bottom: 8px;
@@ -19,6 +20,20 @@
   .cookies-banner__btn {
     font-size: 0.68rem;
     padding: 5px 9px;
+  }
+
+  .cookie-game__hud {
+    top: 8px;
+    max-width: calc(100vw - 16px);
+    gap: 8px;
+    padding: 7px 9px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .cookie-game__cookie {
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .desktop_device {
@@ -42,10 +57,39 @@
     width: 100%;
     max-width: 680px;
     margin: 0 auto;
+    height: 100dvh;
+    display: flex !important;
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--pc-surface, #c0c0c0);
+  }
+
+  .phone-statusbar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; }
+  .mobile-theme-bar { display:none; }
+  .phone-status-actions { display:flex; gap:6px; }
+  .phone-status-actions button { font-size:.7rem; padding:4px 6px; }
+  .phone-home { flex:1; overflow:auto; padding:18px 12px; }
+  .phone-brand { text-align:center; font-weight:bold; font-size:1.15rem; margin-bottom:22px; }
+  .phone-app-grid { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:22px 10px; }
+  .phone-app { border:0; background:transparent; font:inherit; color:inherit; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; }
+  .phone-app img { width:56px; height:56px; object-fit:contain; image-rendering:auto; }
+  .phone-app span { font-size:.75rem; overflow-wrap:anywhere; text-align:center; }
+  .phone-app-surface { display:none; flex:1; min-height:0; overflow:hidden; }
+  .phone-app-open .phone-home { display:none; }
+  .phone-app-open .phone-app-surface { display:block; }
+  .phone-window { height:100% !important; margin:0 !important; width:100% !important; overflow:hidden; }
+  .phone-window .content { height:calc(100% - 38px); overflow:auto; }
+  .phone-dock { display:flex; justify-content:center; padding:8px 8px max(8px, env(safe-area-inset-bottom)); }
+  .phone-dock button { min-width:90px; }
+
+  .mobile-theme-bar {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 12px 10px;
   }
 
   .mobile_device_480 .mainbox {
-    display: block !important;
+    display: none !important;
     position: static !important;
     left: auto !important;
     right: auto !important;
@@ -60,6 +104,7 @@
     overflow: hidden;
     box-sizing: border-box;
   }
+  .phone-app-open .phone-window[style*="display: block"] { display:block !important; }
 
   .mobile_device_480 .topbar {
     font-size: 0.95rem !important;

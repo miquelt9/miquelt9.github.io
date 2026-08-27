@@ -1,9 +1,9 @@
 body {
-	background: rgb(146, 246, 251);
+	background: var(--pc-desktop-bg);
 	/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 	max-width: 100%;
 	overflow-x: hidden;
-	font-family: 'Source Code Pro', monospace;
+	font-family: var(--pc-font-family);
 	font-weight: 400;
 	/* overflow: hidden; */
 }
@@ -17,9 +17,6 @@ body {
 	align-items: flex-start;
 	gap: 12px;
 	padding: 14px 16px;
-	background: #f3f3f3;
-	border: 2px solid #141414;
-	color: #111111;
 	z-index: 9997;
 }
 
@@ -74,22 +71,93 @@ body {
 }
 
 .cookies-banner__btn {
-	font: inherit;
 	font-size: 0.72rem;
 	line-height: 1.2;
 	padding: 6px 11px;
-	border: 1px solid #7e7e7e;
-	background: #ffffff;
-	color: #111111;
+}
+
+.cookie-game {
+	position: fixed;
+	inset: 0;
+	z-index: 9996;
+	pointer-events: none;
+	overflow: hidden;
+}
+
+.cookie-game__hud,
+.cookie-game__result {
+	position: fixed;
+	top: 14px;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 14px;
+	align-items: center;
+	padding: 8px 12px;
+	font-size: 0.8rem;
+	pointer-events: auto;
+}
+
+.cookie-game__result {
+	top: 50%;
+	flex-direction: column;
+	font-size: 1rem;
+}
+
+.cookie-game__cookie {
+	position: absolute;
+	top: -70px;
+	left: 0;
+	width: var(--cookie-size);
+	height: var(--cookie-size);
+	padding: 0;
+	border: 0;
+	background: transparent;
+	pointer-events: auto;
 	cursor: pointer;
+	animation: cookie-game-fall var(--cookie-duration) linear forwards;
 }
 
-.cookies-banner__btn:hover {
-	background: #ececec;
+.cookie-game__cookie img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
 }
 
-.cookies-banner__btn:active {
-	background: #dcdcdc;
+.cookie-game__feedback {
+	position: absolute;
+	left: calc(100% + 5px);
+	top: 0;
+	color: #168a35;
+	font-weight: 700;
+	animation: cookie-game-feedback 500ms ease-out forwards;
+	pointer-events: none;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+@keyframes cookie-game-fall {
+	to { transform: translateY(calc(100vh + 100px)) rotate(360deg); }
+}
+
+@keyframes cookie-game-feedback {
+	to { opacity: 0; transform: translateY(-24px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.cookie-game__cookie { animation-duration: 8s; }
+	.cookie-game__feedback { animation-duration: 700ms; }
 }
 
 a {
@@ -97,7 +165,6 @@ a {
 }
 
 .gamelink {	
-	color: #0907ec;
 	padding: 0.2rem 1rem;
 	text-align: center;
 	text-decoration: underline;
@@ -109,17 +176,14 @@ a {
 }
 
 .gamelink:active {
-	color: red;
 	display: inline-block;	
 }
 
 .gamelink:visited {
 	cursor: none;
-	color: #572191;
 }
 
 .windowslink {	
-	color: #0907ec;
 	padding: 0.2rem 1rem;
 	text-align: center;
 	text-decoration: none;
@@ -132,13 +196,11 @@ a {
 }
 
 .windowslink:active {
-	color: red;
 	display: inline-block;	
 }
 
 .windowslink:visited {
 	cursor: none;
-	color: #572191;
 }
 
 .rick {
@@ -411,19 +473,11 @@ a {
 	max-width: 100vw;
 	max-height: 100%;
 	margin: 0px;
-	background-color: rgb(146, 246, 251);
 }
 
 .mainbox {
 	display: none;
 	position: absolute;
-	background-color: #EEF2F5;
-	padding: 4px;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
-	box-shadow: 2px 2px #010101;
 	max-width: 70%;
 	min-width: 20%;
 	z-index: 1;
@@ -434,18 +488,10 @@ a {
 .terminalbox {
 	display: none;
 	position: absolute;
-	background-color: #171421;
-	padding: 4px;
-	border-bottom: solid 2px #5E5C64;
-	border-right: solid 2px #5E5C64;
-	border-top: solid 2px #5E5C64;
-	border-left: solid 2px #5E5C64;
-	box-shadow: 2px 2px #010101;
 	max-width: 50%;
 	min-height: 40%;
 	min-width: 40%;
 	max-lines: 20;
-	color: white;
 	font-size: 1.1rem;
     flex-direction: column;
 	flex-shrink: 1;
@@ -458,13 +504,6 @@ a {
 .cvbox {
 	display: block;
 	position: absolute;
-	background-color: #EEF2F5;
-	padding: 4px;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
-	box-shadow: 2px 2px #010101;
 	min-width: 40%;
 	min-height: 40%;
 	z-index: 1;
@@ -473,30 +512,23 @@ a {
 }
 
 div.terminalbox a:link {
-	color: white;
+	color: var(--pc-terminal-text);
 	text-decoration: underline;
 }
 
 div.terminalbox a:visited {
-	color: white;
+	color: var(--pc-terminal-text);
 	text-decoration: underline;
 }
 
 div.terminalbox a:active {
-	color: #0907ec;
+	color: var(--pc-link);
 	text-decoration: underline;
 }
 
 .gamebox {
 	display: none;
 	position: absolute;
-	background-color: #171421;
-	padding: 4px;
-	border-bottom: solid 2px #5E5C64;
-	border-right: solid 2px #5E5C64;
-	border-top: solid 2px #5E5C64;
-	border-left: solid 2px #5E5C64;
-	box-shadow: 2px 2px #010101;
 	width: fit-content;
 	height: fit-content;
 	resize: both;
@@ -528,19 +560,15 @@ div.terminalbox a:active {
 .topbar {
 	display: flex;
 	flex-direction: row;
-	background: rgb(106, 166, 240);
 	padding: 5px;
 	font-size: 1.5rem;
-	color: white;
 }
 
 .terminaltopbar {
 	display: flex;
 	flex-direction: row;
-	background: #2C2C2C;
 	padding: 5px;
 	font-size: 1.7rem;
-	color: white;
 }
 
 .buttons {
@@ -555,29 +583,15 @@ div.terminalbox a:active {
 }
 
 .topbarButton {
-	background-color: #EEF2F5;
 	padding: 4px;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
-	box-shadow: 2px 2px #010101;
 	width: 16px;
 	font-size: 1rem;
-	color: black;
 }
 
 .terminaltopbarButton {
-	background-color: #2C2C2C;
 	padding: 4px;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 1px #FEFFFF;
-	border-left: solid 1px #FEFFFF;
-	box-shadow: 2px 2px #010101;
 	width: 16px;
 	font-size: 1rem;
-	color: whitesmoke;
 }
 
 .icon {
@@ -588,11 +602,6 @@ div.terminalbox a:active {
 
 .taskbar {
 	position: absolute;
-	background-color: #EEF2F5;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
 	bottom: 0;
 	left: 0;
 	width: 99.8%;
@@ -603,10 +612,6 @@ div.terminalbox a:active {
 }
 
 .startButton {
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
 	padding: 4px;
 	cursor: none;
 }
@@ -618,48 +623,35 @@ div.terminalbox a:active {
 
 .startmenu {
 	display: none;
-	background-color: #EEF2F5;
-	height: 9vw;
+	height: auto;
 	width: 20%;
-	bottom: 0;
+	bottom: calc(2vw + 4px);
 	left: 0;
 	position: absolute;
+	z-index: 50;
 } 
 
 .startmenuItem {
-	background-color: #EEF2F5;
 	width: auto;
 	margin: 2px;
 	line-height: 3vw;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
 	align-items: center;
 	padding-left: 4px;
 	cursor: none;
 }
 
 .startmenuItem:hover {
-	background-color: rgb(181, 181, 181);
+	background-color: var(--pc-chrome-dark);
 }
 
 .taskbarWindow {
 	display: none;
-	background-color: #ffffff;
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
+	background-color: var(--pc-window-body-bg);
 	padding: 4px;
 	cursor: none;
 }
 
 .clock {
-	border-bottom: solid 2px #808080;
-	border-right: solid 2px #808080;
-	border-top: solid 2px #FEFFFF;
-	border-left: solid 2px #FEFFFF;
 	padding-left: 5px;
 	padding-right: 5px;
 	cursor: none;
@@ -774,11 +766,11 @@ div.terminalbox a:active {
 	.desktop_device {display: none;}
 
 	body {
-		background: rgb(146, 246, 251);
+		background: var(--pc-desktop-bg);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 		max-width: 100%;
 		overflow-x: auto;
-		font-family: 'Source Code Pro', monospace;
+		font-family: var(--pc-font-family);
 		font-weight: 400;
 		/* overflow: hidden; */
 	}
@@ -790,11 +782,11 @@ div.terminalbox a:active {
 	.desktop_device {display: none;}
 
 	body {
-		background: rgb(146, 246, 251);
+		background: var(--pc-desktop-bg);
 		/* background: linear-gradient(180deg, rgba(177,255,255,1) 0%, rgba(145,255,149,1) 70%, rgba(176,255,251,1) 100%); */
 		max-width: 100%;
 		overflow-x: auto;
-		font-family: 'Source Code Pro', monospace;
+		font-family: var(--pc-font-family);
 		font-weight: 400;
 		/* overflow: hidden; */
 	}
@@ -811,9 +803,7 @@ div.terminalbox a:active {
 	.topbar {
 		display: flex;
 		flex-direction: row;
-		background: rgb(106, 166, 240);
 		font-size: 0%;
-		color: white;
 	}
 }
 
