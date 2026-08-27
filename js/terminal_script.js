@@ -876,7 +876,11 @@ errorBoxContent =   '<div class="topbar" id="mainboxheader">SystemError'+
 
 function createErrorBox(x, y) {
     var elem = document.createElement('div');
-    elem.style.cssText = 'position: absolute; background-color: #EEF2F5; padding: 4px; border-bottom: solid 2px #808080; border-right: solid 2px #808080; border-top: solid 2px #FEFFFF; border-left: solid 2px #FEFFFF; box-shadow: 2px 2px #010101; min-width: 18%; min-height: 13%; z-index: 100;';
+    elem.className = 'pc-window';
+    elem.style.position = 'absolute';
+    elem.style.minWidth = '18%';
+    elem.style.minHeight = '13%';
+    elem.style.zIndex = '100';
     elem.style.left = x + "vw";
     elem.style.bottom = y + "vh";
 

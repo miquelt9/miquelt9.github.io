@@ -1,18 +1,10 @@
-.terminalbox {
-  background-color: #171421;
-}
-
-.terminaltopbar {
-  background: #2c2c2c;
-}
-
 .cursor::before {
   content: "|";
 }
 
 .cursor {
   display: inline-block;
-  color: #f3f3f3;
+  color: var(--pc-terminal-text);
   animation: terminal-caret-blink 1s steps(1, end) infinite;
 }
 

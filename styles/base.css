@@ -1,8 +1,8 @@
 body {
-  background: rgb(146, 246, 251);
+  background: var(--pc-desktop-bg);
   max-width: 100%;
   overflow-x: hidden;
-  font-family: "Source Code Pro", monospace;
+  font-family: var(--pc-font-family);
   font-weight: 400;
 }
 

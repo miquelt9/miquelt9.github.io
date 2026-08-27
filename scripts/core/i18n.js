@@ -29,7 +29,10 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
-        cv: 'CV 📄'
+        cv: 'CV 📄',
+        themeLight: 'Day',
+        themeDark: 'Night',
+        themeSystem: 'Auto'
       },
       desktop: {
         about: 'About me',
@@ -48,7 +51,10 @@
       },
       startMenu: {
         niceDay: 'Have a nice day!',
-        comingSoon: 'Something coming soon...'
+        comingSoon: 'Something coming soon...',
+        themeLight: 'Display: Day',
+        themeDark: 'Display: Night',
+        themeSystem: 'Display: System'
       },
       goose: {
         notepad: 'Goose "Not-epad"',
@@ -86,7 +92,10 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
-        cv: 'CV 📄'
+        cv: 'CV 📄',
+        themeLight: 'Dia',
+        themeDark: 'Nit',
+        themeSystem: 'Auto'
       },
       desktop: {
         about: 'Sobre mi',
@@ -105,7 +114,10 @@
       },
       startMenu: {
         niceDay: 'Que tinguis un bon dia!',
-        comingSoon: 'Properament...'
+        comingSoon: 'Properament...',
+        themeLight: 'Pantalla: Dia',
+        themeDark: 'Pantalla: Nit',
+        themeSystem: 'Pantalla: Sistema'
       },
       goose: {
         notepad: 'Oca "Not-epad"',

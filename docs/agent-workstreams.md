@@ -18,8 +18,9 @@ This repo is now organized so multiple agents can work mostly independently by a
   - Scope: terminal commands, terminal data adapters, terminal-only UX
 
 - `styles/`
-  - Files: `styles/base.css`, `styles/windows.css`, `styles/terminal.css`, `styles/mobile.css`, `styles/games.css`
-  - Scope: concern-based styling
+  - Files: `styles/base.css`, `styles/windows.css`, `styles/terminal.css`, `styles/mobile.css`, `styles/games.css`, `styles/pc-ui-aliases.css`
+  - Scope: concern-based styling and pc-ui class aliases
+  - Vendored design system: `css/pc-ui.css` (do not edit by hand; run `scripts/sync-pc-ui.sh`)
 
 - `apps/`
   - Files: `apps/spaceshooter/index.html`, `apps/snake/index.html`

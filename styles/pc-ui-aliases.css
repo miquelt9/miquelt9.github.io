@@ -1,0 +1,141 @@
+/* Map existing site class names onto @miquelt9/pc-ui tokens and primitives.
+ * Layout, drag, and z-index stay in css/style.css.
+ */
+
+body {
+  background: var(--pc-desktop-bg);
+  font-family: var(--pc-font-family);
+  color: var(--pc-text-main);
+}
+
+.the_background {
+  background-color: var(--pc-desktop-bg);
+}
+
+.content,
+.taskbarWindow,
+.startButton,
+.desktopicon {
+  color: var(--pc-text-main);
+}
+
+.content {
+  background-color: var(--pc-window-body-bg);
+}
+
+.content a {
+  color: var(--pc-link);
+}
+
+.content a.content-title-link {
+  color: var(--pc-text-main);
+}
+
+.startmenu a,
+.startmenuItem {
+  color: var(--pc-text-main);
+  text-decoration: none;
+}
+
+.mainbox,
+.cvbox {
+  background-color: var(--pc-chrome-bg);
+  padding: 4px;
+  border-top: solid 2px var(--pc-bevel-light);
+  border-left: solid 2px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 2px 2px 0 var(--pc-bevel-shadow);
+}
+
+.terminalbox,
+.gamebox {
+  background-color: var(--pc-terminal-bg);
+  padding: 4px;
+  border-top: solid 2px var(--pc-bevel-dark);
+  border-left: solid 2px var(--pc-bevel-dark);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 2px 2px 0 var(--pc-bevel-shadow);
+  color: var(--pc-terminal-text);
+}
+
+.topbar {
+  background: var(--pc-titlebar-bg);
+  color: var(--pc-titlebar-text);
+}
+
+.terminaltopbar {
+  background: var(--pc-terminal-titlebar);
+  color: var(--pc-terminal-text);
+}
+
+.topbarButton {
+  background-color: var(--pc-chrome-bg);
+  border-top: solid 2px var(--pc-bevel-light);
+  border-left: solid 2px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 1px 1px 0 var(--pc-bevel-shadow);
+  color: var(--pc-text-main);
+}
+
+.terminaltopbarButton {
+  background-color: var(--pc-terminal-titlebar);
+  border-top: solid 1px var(--pc-bevel-light);
+  border-left: solid 1px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 1px 1px 0 var(--pc-bevel-shadow);
+  color: var(--pc-terminal-text);
+}
+
+.taskbar,
+.startmenu,
+.startmenuItem {
+  background-color: var(--pc-chrome-bg);
+}
+
+.taskbar,
+.startButton,
+.startmenuItem,
+.taskbarWindow {
+  border-top: solid 2px var(--pc-bevel-light);
+  border-left: solid 2px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+}
+
+.clock {
+  border-top: solid 2px var(--pc-bevel-dark);
+  border-left: solid 2px var(--pc-bevel-dark);
+  border-bottom: solid 2px var(--pc-bevel-light);
+  border-right: solid 2px var(--pc-bevel-light);
+  color: var(--pc-text-main);
+  white-space: nowrap;
+}
+
+.gamelink,
+.windowslink {
+  color: var(--pc-link);
+}
+
+.gamelink:visited,
+.windowslink:visited {
+  color: var(--pc-link-visited);
+}
+
+.gamelink:active,
+.windowslink:active {
+  color: var(--pc-link-active);
+}
+
+.cookies-banner {
+  background: var(--pc-chrome-bg);
+  color: var(--pc-text-main);
+  border-top: solid 2px var(--pc-bevel-light);
+  border-left: solid 2px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 2px 2px 0 var(--pc-bevel-shadow);
+}
