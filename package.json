@@ -1,0 +1,13 @@
+{
+  "name": "miquel-pc",
+  "private": true,
+  "description": "Playwright smoke tests for the static portfolio site",
+  "scripts": {
+    "test": "npm run test:unit && npm run test:smoke",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:smoke": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}
