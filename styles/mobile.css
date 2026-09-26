@@ -70,6 +70,22 @@
   .phone-dock { display:flex; justify-content:center; padding:8px 8px max(8px, env(safe-area-inset-bottom)); }
   .phone-dock button { min-width:90px; }
 
+  /* Same start menu as desktop, placed above the dock. Parent .desktop_device
+     is display:none here, so the menu node lives outside that shell. */
+  .startmenu {
+    position: fixed;
+    left: max(8px, calc((100vw - 680px) / 2));
+    bottom: calc(64px + env(safe-area-inset-bottom));
+    width: min(280px, calc(100vw - 16px));
+    z-index: 80;
+    font-size: 1rem;
+  }
+
+  .startmenuItem {
+    line-height: 2.25rem;
+    font-size: 1rem;
+  }
+
   .mobile-theme-bar {
     display: flex;
     justify-content: flex-end;

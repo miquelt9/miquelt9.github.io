@@ -250,21 +250,6 @@
 
 			</div>
 
-			<div class="startmenu clickable" id="startbutton" style="display: none;">
-				<a class="clickable" href="images/frog_meme.jpg" target="_blank" rel="noopener noreferrer"><div class="startmenuItem clickable">
-					&MediumSpace; <span data-i18n="startMenu.niceDay">Have a nice day!</span>
-				</div></a>
-				<!-- <a target="_blank" onclick="showGoose('goose1')"><div class="startmenuItem">
-					&MediumSpace; Something coming soon...
-				</div></a> -->
-				<a href="#" onclick="nevergonna(); return false;"><div class="startmenuItem clickable">
-					&MediumSpace; <span data-i18n="startMenu.comingSoon">Something coming soon...</span>
-				</div></a>
-				<a href="#" onclick="window.pcTheme.toggleTheme(); return false;"><div class="startmenuItem clickable">
-					&MediumSpace; <span id="startmenu-theme-label">Display: Day</span>
-				</div></a>
-			</div>
-
 			<div class="taskbar" id="taskbar">
 				<div class="startButton clickable" onclick="startMenu()" id="startmenu-btn" data-i18n="taskbar.start"> <img src="images/start.png"> Start </div>
 				<div class="taskbarWindow clickable" id="aboutboxTaskbar" onclick="toggle('aboutbox')" style="display: none;" data-i18n="taskbar.properties">Properties</div>
@@ -281,6 +266,22 @@
 				</div>
 			</div>
 		</div>
+
+			<div class="startmenu clickable" id="startbutton" style="display: none;">
+				<a class="clickable" href="images/frog_meme.jpg" target="_blank" rel="noopener noreferrer"><div class="startmenuItem clickable">
+					&MediumSpace; <span data-i18n="startMenu.niceDay">Have a nice day!</span>
+				</div></a>
+				<!-- <a target="_blank" onclick="showGoose('goose1')"><div class="startmenuItem">
+					&MediumSpace; Something coming soon...
+				</div></a> -->
+				<a href="#" onclick="nevergonna(); return false;"><div class="startmenuItem clickable">
+					&MediumSpace; <span data-i18n="startMenu.comingSoon">Something coming soon...</span>
+				</div></a>
+				<a href="#" onclick="window.pcTheme.toggleTheme(); return false;"><div class="startmenuItem clickable">
+					&MediumSpace; <span id="startmenu-theme-label">Display: Day</span>
+				</div></a>
+			</div>
+
 		<div class="mobile_device_380">
 			<!-- Css activates always the 480, to improve -->
 			<!-- <div class="mainbox" id="contactmebox"style="display: block;">				<div class="topbar" id="contactmeboxheader" data-i18n="windows.contact">Contact
@@ -386,7 +387,7 @@
 				</div>
 			</div>
 			</div>
-			<nav class="phone-dock"><button class="pc-button clickable" onclick="closePhoneApp()" data-i18n="taskbar.start">Home</button></nav>
+			<nav class="phone-dock"><button type="button" class="pc-button clickable" id="phone-start-btn" onclick="startMenu()" data-i18n="taskbar.start">Start</button></nav>
 		</div>
 	</div>
 </body></html>
