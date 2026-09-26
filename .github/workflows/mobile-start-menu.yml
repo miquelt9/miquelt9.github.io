@@ -1,0 +1,37 @@
+name: Mobile start menu
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-start-menu-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  playwright:
+    name: Mobile Start menu
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install Playwright
+        run: |
+          if [ ! -f package.json ]; then
+            npm init -y >/dev/null
+          fi
+          npm install --no-save --no-package-lock @playwright/test@1.63.0
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Smoke
+        run: npx playwright test --config=playwright.mobile-start.config.js

@@ -44,7 +44,9 @@
         return;
       }
 
-      if (target.closest("#startbutton") || target.closest("#startmenu-btn")) {
+      // #phone-start-btn is the mobile dock control. It calls startMenu() and
+      // the same click then bubbles here; ignore it so the menu stays open.
+      if (target.closest("#startbutton") || target.closest("#startmenu-btn") || target.closest("#phone-start-btn")) {
         return;
       }
 
