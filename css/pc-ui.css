@@ -74,6 +74,13 @@
   /* Overlay / dialogs */
   --pc-overlay-bg: rgba(0, 0, 0, 0.35);
   --pc-overlay-z: 1000;
+  --pc-modal-width: min(420px, calc(100vw - 32px));
+  --pc-modal-icon-size: 32px;
+
+  /* Toast / Notifications */
+  --pc-toast-z: 1100;
+  --pc-toast-offset-x: var(--pc-space-5, 16px);
+  --pc-toast-offset-y: var(--pc-space-5, 16px);
 }
 
 .pc-theme-dark,
@@ -123,6 +130,11 @@
 
   /* Overlay / dialogs */
   --pc-overlay-bg: rgba(0, 0, 0, 0.55);
+
+  /* Toast / Notifications */
+  --pc-toast-z: 1100;
+  --pc-toast-offset-x: var(--pc-space-5, 16px);
+  --pc-toast-offset-y: var(--pc-space-5, 16px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -173,6 +185,11 @@
 
     /* Overlay / dialogs */
     --pc-overlay-bg: rgba(0, 0, 0, 0.55);
+
+    /* Toast / Notifications */
+    --pc-toast-z: 1100;
+    --pc-toast-offset-x: var(--pc-space-5, 16px);
+    --pc-toast-offset-y: var(--pc-space-5, 16px);
   }
 }
 
@@ -693,7 +710,42 @@
   border-color: var(--pc-color-info);
 }
 
-/* Toast */
+/* Toast & Desktop Notifications */
+.pc-toast-container {
+  position: fixed;
+  z-index: var(--pc-toast-z, 1100);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-3, 8px);
+  pointer-events: none;
+  max-width: calc(100vw - 32px);
+}
+
+.pc-toast-container > * {
+  pointer-events: auto;
+}
+
+.pc-toast-container--bottom-right,
+.pc-toast-container:not([class*="pc-toast-container--"]) {
+  bottom: var(--pc-toast-offset-y, var(--pc-space-5, 16px));
+  right: var(--pc-toast-offset-x, var(--pc-space-5, 16px));
+}
+
+.pc-toast-container--bottom-left {
+  bottom: var(--pc-toast-offset-y, var(--pc-space-5, 16px));
+  left: var(--pc-toast-offset-x, var(--pc-space-5, 16px));
+}
+
+.pc-toast-container--top-right {
+  top: var(--pc-toast-offset-y, var(--pc-space-5, 16px));
+  right: var(--pc-toast-offset-x, var(--pc-space-5, 16px));
+}
+
+.pc-toast-container--top-left {
+  top: var(--pc-toast-offset-y, var(--pc-space-5, 16px));
+  left: var(--pc-toast-offset-x, var(--pc-space-5, 16px));
+}
+
 .pc-toast {
   background-color: var(--pc-chrome-bg);
   padding: 4px;
@@ -718,6 +770,30 @@
   border-bottom: solid 1px var(--pc-bevel-light);
   border-right: solid 1px var(--pc-bevel-light);
   font-size: var(--pc-font-size-sm, 0.875rem);
+}
+
+.pc-toast-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--pc-space-2, 4px);
+}
+
+/* Footer action bar at the bottom of the toast */
+.pc-toast > .pc-toast-actions {
+  padding: var(--pc-space-2, 4px) var(--pc-space-3, 8px);
+  background-color: var(--pc-window-body-bg);
+  border-top: solid 1px var(--pc-bevel-dark);
+  border-left: solid 1px var(--pc-bevel-dark);
+  border-bottom: solid 1px var(--pc-bevel-light);
+  border-right: solid 1px var(--pc-bevel-light);
+}
+
+/* Inline actions inside the message body */
+.pc-toast-body > .pc-toast-actions {
+  margin-top: var(--pc-space-3, 8px);
+  gap: var(--pc-space-3, 8px);
 }
 
 /* Tabs */
@@ -899,6 +975,98 @@
   justify-content: center;
   padding: 16px;
   background: var(--pc-overlay-bg);
+}
+
+/* Modal dialog (centered .pc-window inside .pc-overlay) */
+.pc-window--modal {
+  width: var(--pc-modal-width);
+  max-width: 100%;
+  flex-shrink: 0;
+}
+
+.pc-window--modal > .pc-window-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-space-4, 12px);
+}
+
+.pc-window--modal-warning > .pc-titlebar {
+  background: var(--pc-color-warning);
+  color: var(--pc-text-main);
+}
+
+.pc-window--modal-danger > .pc-titlebar {
+  background: var(--pc-color-error);
+  color: var(--pc-titlebar-text);
+}
+
+.pc-modal-body {
+  font-size: var(--pc-font-size-sm, 0.875rem);
+  line-height: var(--pc-line-height-body, 1.45);
+}
+
+.pc-modal-body > :first-child {
+  margin-top: 0;
+}
+
+.pc-modal-body > :last-child {
+  margin-bottom: 0;
+}
+
+.pc-modal-icon {
+  flex-shrink: 0;
+  width: var(--pc-modal-icon-size);
+  height: var(--pc-modal-icon-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: bold;
+  line-height: 1;
+  border-top: solid 2px var(--pc-bevel-light);
+  border-left: solid 2px var(--pc-bevel-light);
+  border-bottom: solid 2px var(--pc-bevel-dark);
+  border-right: solid 2px var(--pc-bevel-dark);
+  box-shadow: 1px 1px 0 var(--pc-bevel-shadow);
+}
+
+.pc-modal-icon--warning {
+  background-color: var(--pc-color-warning-bg);
+  color: var(--pc-color-warning);
+}
+
+.pc-modal-icon--danger {
+  background-color: var(--pc-color-error-bg);
+  color: var(--pc-color-error);
+}
+
+.pc-window--modal-warning > .pc-window-content,
+.pc-window--modal-danger > .pc-window-content {
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.pc-window--modal-warning > .pc-window-content > .pc-modal-body,
+.pc-window--modal-danger > .pc-window-content > .pc-modal-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.pc-window--modal-warning > .pc-window-content > .pc-modal-actions,
+.pc-window--modal-danger > .pc-window-content > .pc-modal-actions {
+  margin-left: calc(var(--pc-modal-icon-size) + var(--pc-space-4, 12px));
+}
+
+.pc-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--pc-space-3, 8px);
+  margin-top: var(--pc-space-1, 2px);
+}
+
+.pc-window--modal-danger .pc-modal-actions .pc-button--primary {
+  outline-color: var(--pc-color-error);
 }
 
 /* Menu */
