@@ -100,7 +100,7 @@ test.describe('phone shell', () => {
     await expect(page.locator('#about-mobile-content')).toContainText('Miquel');
     await expect(phone).toHaveClass(/phone-app-open/);
 
-    await phone.getByRole('button', { name: 'Start' }).click();
+    await about.locator('.topbarButton.clickable').click();
     await expect(about).toBeHidden();
     await expect(page.locator('#phone-home')).toBeVisible();
   });
