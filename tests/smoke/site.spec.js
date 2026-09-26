@@ -6,19 +6,20 @@ const DESKTOP_EDGE = { width: 769, height: 800 };
 const PHONE = { width: 390, height: 844 };
 const PHONE_EDGE = { width: 768, height: 900 };
 
-async function gotoHome(page) {
-  const response = await page.goto('/', { waitUntil: 'load' });
-  expect(response, 'GET / should return a response').toBeTruthy();
-  expect(response.status(), 'GET / should succeed').toBeLessThan(400);
-  await expect(page).toHaveTitle("Miquel's PC");
-}
-
 async function dismissCookieNotice(page) {
   const reject = page.locator('#cookies-banner-reject');
   if (await reject.isVisible()) {
     await reject.click();
     await expect(page.locator('#cookies-banner')).toBeHidden();
   }
+}
+
+async function gotoHome(page) {
+  const response = await page.goto('/', { waitUntil: 'load' });
+  expect(response, 'GET / should return a response').toBeTruthy();
+  expect(response.status(), 'GET / should succeed').toBeLessThan(400);
+  await expect(page).toHaveTitle("Miquel's PC");
+  await dismissCookieNotice(page);
 }
 
 test.describe('desktop shell', () => {
@@ -42,7 +43,6 @@ test.describe('desktop shell', () => {
 
   test('cycles the display theme from the taskbar', async ({ page }) => {
     await gotoHome(page);
-    await dismissCookieNotice(page);
 
     const themeToggle = page.locator('#theme-toggle');
     await expect(themeToggle).toBeVisible();
