@@ -216,6 +216,17 @@
 
 				</div>
 			</div>
+
+			<div class="gamebox" id="bingobox">
+				<div class="terminaltopbar" id="bingoboxheader"><span data-i18n="windows.bingo">Bingo Musical</span>
+				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('bingobox')">_</div>
+				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton clickable" onclick="closeWindow('bingo')">X</div></div></div>	
+				
+				<div class="gamecontent"  id="bingo"> 
+
+				</div>
+			</div>
 			<!-- <script src="/js/snake.js"></script> -->
 
 
@@ -246,6 +257,7 @@
 			<div class="desktopicon clickable" id="projects" onclick="showWindow('projectsbox')" data-i18n="desktop.projects"><img class="clickable" src="images/projects.png">Projects</div>
 			<div class="desktopicon clickable" id="contactme" onclick="showWindow('contactmebox')" data-i18n="desktop.contact"><img class="clickable" src="images/contact.png">Contact</div>
 			<div class="desktopicon clickable" id="terminal" onclick="showWindow('terminalbox')" data-i18n="desktop.terminal"><img class="clickable" src="images/terminal.png">Terminal</div>
+			<div class="desktopicon clickable" id="bingoicon" onclick="openWindow('bingo')" data-i18n="desktop.bingo"><img class="clickable" src="images/bingo.png" alt="">Bingo Musical</div>
 			<!-- <div class="desktopicon" id="terminal" onclick="showWindow('canbox')" onclick="initcanvas()"><img src="images/terminal.png">Terminal</div> -->
 
 			</div>
@@ -258,6 +270,7 @@
 				<div class="taskbarWindow clickable" id="terminalboxTaskbar" onclick="toggle('terminalbox')" data-i18n="taskbar.terminal">Terminal</div>
 				<div class="taskbarWindow clickable" id="spaceshooterboxTaskbar" onclick="toggle('spaceshooterbox')" data-i18n="taskbar.spaceshooter">SpaceShooter</div>
 				<div class="taskbarWindow clickable" id="snakeboxTaskbar" onclick="toggle('snakebox')" data-i18n="taskbar.snake">Snake 🐍</div>
+				<div class="taskbarWindow clickable" id="bingoboxTaskbar" onclick="toggle('bingobox')" data-i18n="taskbar.bingo">Bingo Musical</div>
 				<div class="taskbarWindow clickable" id="cvboxTaskbar" onclick="toggle('cvbox')" data-i18n="taskbar.cv">CV&VeryThinSpace;📄</div>
 				<div class="taskbar-tray">
 					<div class="clock clickable" onclick="window.i18n.toggleLocale()" id="lang-toggle">EN</div>

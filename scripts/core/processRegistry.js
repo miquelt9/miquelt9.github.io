@@ -49,7 +49,7 @@
     } else if (processName === "clock" || processName === "startmenu") {
       document.getElementById(processName).remove();
     } else if (processName === "icons") {
-      var icons = ["aboutme", "projects", "contactme", "terminal"];
+      var icons = ["aboutme", "projects", "contactme", "terminal", "bingoicon"];
       for (var i = 0; i < icons.length; i++) {
         document.getElementById(icons[i]).remove();
       }
@@ -57,7 +57,7 @@
       globalScope.hideWindow("terminalbox");
       document.getElementById("terminalcontent").innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
       globalScope.start();
-    } else if (processName === "spaceshooter" || processName === "snake") {
+    } else if (processName === "spaceshooter" || processName === "snake" || processName === "bingo") {
       globalScope.closeWindow(processName);
     } else if (processName === "snaketerm") {
       if (typeof globalScope.stopTerminalSnakeGame === "function") {

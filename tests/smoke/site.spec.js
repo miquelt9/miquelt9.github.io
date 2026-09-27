@@ -58,6 +58,52 @@ test.describe('desktop shell', () => {
     await expect(themeToggle).toHaveText('Night');
   });
 
+  test('opens Bingo Musical from the desktop icon and tears the iframe down on close', async ({ page }) => {
+    await gotoHome(page);
+
+    const icon = page.locator('#bingoicon');
+    const box = page.locator('#bingobox');
+    const taskbar = page.locator('#bingoboxTaskbar');
+    const frame = page.locator('#bingogame');
+
+    await expect(icon).toBeVisible();
+    await expect(icon).toContainText('Bingo Musical');
+    await expect(box).toBeHidden();
+    await expect(taskbar).toBeHidden();
+
+    await icon.click();
+    await expect(box).toBeVisible();
+    await expect(taskbar).toBeVisible();
+    await expect(taskbar).toContainText('Bingo Musical');
+    await expect(frame).toHaveCount(1);
+    await expect(frame).toHaveAttribute('src', '/bingo-musical/');
+    await expect(frame).toHaveAttribute('allow', 'autoplay; fullscreen');
+    await expect(frame).toHaveAttribute('allowfullscreen', 'true');
+    await expect(frame).toHaveAttribute('width', '1280px');
+    await expect(frame).toHaveAttribute('height', '780px');
+
+    await box.locator('.terminaltopbarButton', { hasText: '□' }).click();
+    await expect(box).toHaveAttribute('data-is-maximized', 'true');
+    await box.locator('.terminaltopbarButton', { hasText: '□' }).click();
+    await expect(box).toHaveAttribute('data-is-maximized', 'false');
+
+    await box.locator('.terminaltopbarButton', { hasText: '_' }).click();
+    await expect(box).toBeHidden();
+    await expect(frame).toHaveCount(1);
+    await taskbar.click();
+    await expect(box).toBeVisible();
+
+    await box.locator('.terminaltopbarButton', { hasText: 'X' }).click();
+    await expect(box).toBeHidden();
+    await expect(taskbar).toBeHidden();
+    await expect(frame).toHaveCount(0);
+
+    await icon.click();
+    await expect(box).toBeVisible();
+    await expect(page.locator('#bingogame')).toHaveCount(1);
+    await expect(page.locator('#bingogame')).toHaveAttribute('src', '/bingo-musical/');
+  });
+
   test('falls back to light when the stored theme is invalid', async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('pc-theme', 'nope');
@@ -124,5 +170,6 @@ test.describe('phone breakpoint', () => {
     await expect(page.locator('.desktop_device')).toBeHidden();
     await expect(page.locator('#phone-home')).toBeVisible();
     await expect(page.locator('#phone-os').getByRole('button', { name: 'About me' })).toBeVisible();
+    await expect(page.locator('#bingoicon')).toBeHidden();
   });
 });

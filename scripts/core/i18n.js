@@ -29,6 +29,7 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
+        bingo: 'Bingo Musical',
         cv: 'CV 📄',
         themeLight: 'Day',
         themeDark: 'Night',
@@ -38,7 +39,8 @@
         about: 'About me',
         projects: 'Projects',
         contact: 'Contact',
-        terminal: 'Terminal'
+        terminal: 'Terminal',
+        bingo: 'Bingo Musical'
       },
       windows: {
         about: 'System Properties',
@@ -47,6 +49,7 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake',
+        bingo: 'Bingo Musical',
         cv: 'Curriculum Vitae'
       },
       startMenu: {
@@ -92,6 +95,7 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
+        bingo: 'Bingo Musical',
         cv: 'CV 📄',
         themeLight: 'Dia',
         themeDark: 'Nit',
@@ -101,7 +105,8 @@
         about: 'Sobre mi',
         projects: 'Projectes',
         contact: 'Contacte',
-        terminal: 'Terminal'
+        terminal: 'Terminal',
+        bingo: 'Bingo Musical'
       },
       windows: {
         about: 'Propietats del Sistema',
@@ -110,6 +115,7 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake',
+        bingo: 'Bingo Musical',
         cv: 'Currículum Vitae'
       },
       startMenu: {
