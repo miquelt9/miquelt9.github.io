@@ -135,6 +135,51 @@
     window.WindowManager.bringToFront(windowId);
   }
 
+  function armKeyboardClick(element) {
+    if (!element || element.dataset.keyboardClick === "true") {
+      return;
+    }
+    var tag = element.tagName;
+    if (tag === "BUTTON" || tag === "A" || tag === "INPUT" || tag === "TEXTAREA") {
+      return;
+    }
+    if (!element.getAttribute("role")) {
+      element.setAttribute("role", "button");
+    }
+    if (!element.hasAttribute("tabindex")) {
+      element.setAttribute("tabindex", "0");
+    }
+    element.dataset.keyboardClick = "true";
+    element.addEventListener("keydown", function onKeyboardClick(event) {
+      if (event.key !== "Enter" && event.key !== " " && event.key !== "Spacebar") {
+        return;
+      }
+      if (event.repeat) {
+        return;
+      }
+      event.preventDefault();
+      element.click();
+    });
+  }
+
+  function enableDesktopKeyboard() {
+    var nodes = document.querySelectorAll([
+      ".desktopicon",
+      "#startmenu-btn",
+      ".taskbarWindow",
+      ".desktop_device .topbarButton.clickable",
+      ".desktop_device .terminaltopbarButton.clickable",
+      "#lang-toggle",
+      "#theme-toggle",
+      "#clock"
+    ].join(","));
+    for (var i = 0; i < nodes.length; i++) {
+      armKeyboardClick(nodes[i]);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", enableDesktopKeyboard);
+
   globalScope.processNameForWindow = processNameForWindow;
   globalScope.isTerminalVisible = isTerminalVisible;
   globalScope.syncTerminalInput = syncTerminalInput;

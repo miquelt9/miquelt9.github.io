@@ -53,8 +53,7 @@
 
   .phone-statusbar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; }
   .mobile-theme-bar { display:none; }
-  .phone-status-actions { display:flex; gap:6px; }
-  #theme-toggle-mobile { display:none; }
+  .phone-status-actions { display:flex; gap:6px; align-items:center; }
   .phone-status-actions button { font-size:.7rem; padding:4px 6px; }
   .phone-home { flex:1; overflow:auto; padding:18px 12px; }
   .phone-brand { text-align:center; font-weight:bold; font-size:1.15rem; margin-bottom:22px; }
