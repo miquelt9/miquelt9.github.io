@@ -58,50 +58,24 @@ test.describe('desktop shell', () => {
     await expect(themeToggle).toHaveText('Night');
   });
 
-  test('opens Bingo Musical from the desktop icon and tears the iframe down on close', async ({ page }) => {
+  test('opens Bingo Musical in a new browser tab from the desktop icon', async ({ page }) => {
     await gotoHome(page);
 
     const icon = page.locator('#bingoicon');
-    const box = page.locator('#bingobox');
-    const taskbar = page.locator('#bingoboxTaskbar');
-    const frame = page.locator('#bingogame');
-
     await expect(icon).toBeVisible();
     await expect(icon).toContainText('Bingo Musical');
-    await expect(box).toBeHidden();
-    await expect(taskbar).toBeHidden();
+    await expect(icon).toHaveAttribute('href', 'https://miquelt9.github.io/bingo-musical/');
+    await expect(icon).toHaveAttribute('target', '_blank');
+    await expect(icon).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(page.locator('#bingobox, #bingogame, #bingoboxTaskbar')).toHaveCount(0);
 
+    const popupPromise = page.waitForEvent('popup');
     await icon.click();
-    await expect(box).toBeVisible();
-    await expect(taskbar).toBeVisible();
-    await expect(taskbar).toContainText('Bingo Musical');
-    await expect(frame).toHaveCount(1);
-    await expect(frame).toHaveAttribute('src', '/bingo-musical/');
-    await expect(frame).toHaveAttribute('allow', 'autoplay; fullscreen');
-    await expect(frame).toHaveAttribute('allowfullscreen', 'true');
-    await expect(frame).toHaveAttribute('width', '1280px');
-    await expect(frame).toHaveAttribute('height', '780px');
-
-    await box.locator('.terminaltopbarButton', { hasText: '□' }).click();
-    await expect(box).toHaveAttribute('data-is-maximized', 'true');
-    await box.locator('.terminaltopbarButton', { hasText: '□' }).click();
-    await expect(box).toHaveAttribute('data-is-maximized', 'false');
-
-    await box.locator('.terminaltopbarButton', { hasText: '_' }).click();
-    await expect(box).toBeHidden();
-    await expect(frame).toHaveCount(1);
-    await taskbar.click();
-    await expect(box).toBeVisible();
-
-    await box.locator('.terminaltopbarButton', { hasText: 'X' }).click();
-    await expect(box).toBeHidden();
-    await expect(taskbar).toBeHidden();
-    await expect(frame).toHaveCount(0);
-
-    await icon.click();
-    await expect(box).toBeVisible();
-    await expect(page.locator('#bingogame')).toHaveCount(1);
-    await expect(page.locator('#bingogame')).toHaveAttribute('src', '/bingo-musical/');
+    const popup = await popupPromise;
+    await popup.waitForURL(/https:\/\/miquelt9\.github\.io\/bingo-musical\/?/);
+    await expect(page.locator('.desktop_device')).toBeVisible();
+    await expect(icon).toBeVisible();
+    await popup.close();
   });
 
   test('falls back to light when the stored theme is invalid', async ({ page }) => {

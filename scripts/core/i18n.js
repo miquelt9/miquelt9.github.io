@@ -29,7 +29,6 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
-        bingo: 'Bingo Musical',
         cv: 'CV 📄',
         themeLight: 'Day',
         themeDark: 'Night',
@@ -49,7 +48,6 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake',
-        bingo: 'Bingo Musical',
         cv: 'Curriculum Vitae'
       },
       startMenu: {
@@ -95,7 +93,6 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake 🐍',
-        bingo: 'Bingo Musical',
         cv: 'CV 📄',
         themeLight: 'Dia',
         themeDark: 'Nit',
@@ -115,7 +112,6 @@
         terminal: 'Terminal',
         spaceshooter: 'SpaceShooter',
         snake: 'Snake',
-        bingo: 'Bingo Musical',
         cv: 'Currículum Vitae'
       },
       startMenu: {

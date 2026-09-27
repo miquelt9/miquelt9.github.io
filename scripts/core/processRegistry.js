@@ -57,7 +57,7 @@
       globalScope.hideWindow("terminalbox");
       document.getElementById("terminalcontent").innerHTML = '<pre id="term-contents">~$ <span class="cursor"></span></pre>';
       globalScope.start();
-    } else if (processName === "spaceshooter" || processName === "snake" || processName === "bingo") {
+    } else if (processName === "spaceshooter" || processName === "snake") {
       globalScope.closeWindow(processName);
     } else if (processName === "snaketerm") {
       if (typeof globalScope.stopTerminalSnakeGame === "function") {

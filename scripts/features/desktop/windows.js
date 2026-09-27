@@ -103,23 +103,6 @@
       snakeFrame.width = "840px";
       snakeFrame.src = "/apps/snake/index.html";
     }
-
-    if (windowId === "bingo") {
-      document.getElementById(windowId).innerHTML = "";
-      var bingoFrame = document.createElement("iframe");
-      document.getElementById(windowId).appendChild(bingoFrame);
-      bingoFrame.id = windowId + "game";
-      bingoFrame.allow = "autoplay; fullscreen";
-      bingoFrame.style = "border:0px #000000 none;";
-      bingoFrame.setAttribute("mozallowfullscreen", "true");
-      bingoFrame.setAttribute("msallowfullscreen", "true");
-      bingoFrame.setAttribute("allowfullscreen", "true");
-      bingoFrame.setAttribute("webkitallowfullscreen", "true");
-      bingoFrame.frameborder = "0";
-      bingoFrame.height = "780px";
-      bingoFrame.width = "1280px";
-      bingoFrame.src = "/bingo-musical/";
-    }
   }
 
   function minimise(windowId) {
