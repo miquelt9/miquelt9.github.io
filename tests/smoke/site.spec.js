@@ -67,7 +67,7 @@ test.describe('desktop shell', () => {
     await expect(icon).toHaveAttribute('href', 'https://miquelt9.github.io/bingo-musical/');
     await expect(icon).toHaveAttribute('target', '_blank');
     await expect(icon).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(icon.locator('img')).toHaveAttribute('src', 'images/skills.png');
+    await expect(icon.locator('img')).toHaveAttribute('src', 'images/bingo.png');
     await expect(page.locator('#bingobox, #bingogame, #bingoboxTaskbar')).toHaveCount(0);
 
     const popupPromise = page.waitForEvent('popup');
@@ -135,7 +135,7 @@ test.describe('phone shell', () => {
     await expect(link).toHaveAttribute('href', 'https://miquelt9.github.io/bingo-musical/');
     await expect(link).toHaveAttribute('target', '_blank');
     await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link.locator('img')).toHaveAttribute('src', 'images/skills.png');
+    await expect(link.locator('img')).toHaveAttribute('src', 'images/bingo.png');
     await expect(page.locator('#phone-os')).not.toHaveClass(/phone-app-open/);
     await expect(page.locator('#bingobox, #bingogame, #bingoboxTaskbar')).toHaveCount(0);
 
