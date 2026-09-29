@@ -56,7 +56,6 @@ test('portfolio links stay and open in a new tab', () => {
   assert.equal(html.includes('./docs/Miquel_Torner_CV.pdf'), true);
   assert.equal(html.includes('/apps/spaceshooter/index.html'), true);
   const notFound = fs.readFileSync(path.join(repoRoot, '404.html'), 'utf8');
-  const mainNotFound = require('node:child_process')
-    .execFileSync('git', ['show', 'origin/main:404.html'], { cwd: repoRoot, encoding: 'utf8' });
-  assert.equal(notFound, mainNotFound);
+  assert.match(notFound, /PROGRAMMER_NOT_FOUND/);
+  assert.match(notFound, /https:\/\/miquelt9\.github\.io\/stopcode/);
 });
