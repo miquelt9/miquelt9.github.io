@@ -85,16 +85,19 @@ test.describe('desktop shell', () => {
     await expect(page.locator('#startbutton')).toBeVisible();
   });
 
-  test('project and contact copy no longer link to missing portfolio pages', async ({ page }) => {
+  test('project and contact portfolio links stay and open in a new tab', async ({ page }) => {
     await gotoHome(page);
-    await expect(page.locator('a[href*="miquelt9.github.io/portfolio"]')).toHaveCount(0);
 
     await page.locator('#projects').click();
     const projects = page.locator('#projects-desktop-content');
     await expect(projects).toBeVisible();
-    await expect(projects).toContainText('Otaniemi tracker bot');
-    await expect(projects).toContainText('SpaceShooter');
-    await expect(projects).not.toContainText('portfolio');
+    const title = projects.locator('a', { hasText: 'Otaniemi tracker bot' });
+    await expect(title).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/');
+    await expect(title).toHaveAttribute('target', '_blank');
+    await expect(title).toHaveAttribute('rel', 'noopener noreferrer');
+    const footer = projects.locator('a', { hasText: 'portfolio' });
+    await expect(footer).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio/posts/');
+    await expect(footer).toHaveAttribute('target', '_blank');
     await expect(projects.locator('a[href="https://github.com/miquelt9/otaniemitrackerbot"]')).toBeVisible();
     await expect(projects.locator('a[href="https://devpost.com/software/plushistics"]')).toBeVisible();
     await expect(projects.locator('a[href="https://t.me/otaniemitrackerbot"]')).toBeVisible();
@@ -103,8 +106,11 @@ test.describe('desktop shell', () => {
 
     await page.locator('#contactme').click();
     const contact = page.locator('#contact-desktop-content');
+    const portfolio = contact.locator('a', { hasText: 'Portfolio' });
+    await expect(portfolio).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio');
+    await expect(portfolio).toHaveAttribute('target', '_blank');
+    await expect(portfolio).toHaveAttribute('rel', 'noopener noreferrer');
     await expect(contact.locator('a[href="https://github.com/miquelt9"]')).toBeVisible();
-    await expect(contact.locator('a[href*="portfolio"]')).toHaveCount(0);
     await expect(contact.getByText('Check my CV!')).toBeVisible();
   });
 
@@ -177,14 +183,20 @@ test.describe('phone shell', () => {
 
     await page.locator('#phone-os').getByRole('button', { name: 'Projects' }).click();
     const projects = page.locator('#projects-mobile-content');
-    await expect(projects.locator('a[href*="miquelt9.github.io/portfolio"]')).toHaveCount(0);
+    const title = projects.locator('a', { hasText: 'Falcon Explorer' });
+    await expect(title).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio/posts/college/falconexplorer/');
+    await expect(title).toHaveAttribute('target', '_blank');
+    await expect(title).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(projects.locator('a', { hasText: 'portfolio' })).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio/posts/');
     await expect(projects.locator('a[href="https://github.com/miquelt9/PROP-FIB"]')).toBeVisible();
     await expect(projects.locator('a[href="/apps/spaceshooter/index.html"]')).toBeVisible();
     await page.locator('#projectsbox-mobile .topbarButton.clickable').click();
 
     await page.locator('#phone-os').getByRole('button', { name: 'Contact' }).click();
     const contact = page.locator('#contact-mobile-content');
-    await expect(contact.locator('a[href*="portfolio"]')).toHaveCount(0);
+    const portfolio = contact.locator('a', { hasText: 'Portfolio' });
+    await expect(portfolio).toHaveAttribute('href', 'https://miquelt9.github.io/portfolio');
+    await expect(portfolio).toHaveAttribute('target', '_blank');
     await expect(contact.locator('a[href="./docs/Miquel_Torner_CV.pdf"]')).toBeVisible();
   });
 });
