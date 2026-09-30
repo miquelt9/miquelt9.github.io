@@ -60,6 +60,7 @@
   .phone-brand { text-align:center; font-weight:bold; font-size:1.15rem; margin-bottom:22px; }
   .phone-app-grid { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:22px 10px; }
   .phone-app { border:0; background:transparent; font:inherit; color:inherit; display:flex; flex-direction:column; align-items:center; gap:6px; min-width:0; }
+  #phone-bingo { gap: 11px; }
   .phone-app img { width:56px; height:56px; object-fit:contain; image-rendering:auto; }
   .phone-app span { font-size:.75rem; overflow-wrap:anywhere; text-align:center; }
   .phone-app-surface { display:none; flex:1; min-height:0; overflow:hidden; }
