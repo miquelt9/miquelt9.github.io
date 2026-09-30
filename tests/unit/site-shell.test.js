@@ -1,8 +1,12 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
 const test = require('node:test');
 const { PHONE_MAX_WIDTH_PX, nextTheme, shellForWidth } = require('../helpers/site-shell');
+
+const repoRoot = path.join(__dirname, '..', '..');
 
 test('shellForWidth treats the 768px breakpoint as the phone shell', () => {
   assert.equal(shellForWidth(0), 'phone');
@@ -32,4 +36,26 @@ test('nextTheme maps unknown values to light, matching theme.js toggle', () => {
   assert.equal(nextTheme(''), 'light');
   assert.equal(nextTheme(null), 'light');
   assert.equal(nextTheme(undefined), 'light');
+});
+
+test('portfolio links stay and open in a new tab', () => {
+  const html = fs.readFileSync(path.join(repoRoot, 'index.html'), 'utf8');
+  const siteData = fs.readFileSync(path.join(repoRoot, 'content', 'site-data.js'), 'utf8');
+  const portfolioAnchors = html.match(/<a\b[^>]*href="https:\/\/miquelt9\.github\.io\/portfolio[^"]*"[^>]*>/g) || [];
+  assert.ok(portfolioAnchors.length >= 14);
+  for (const anchor of portfolioAnchors) {
+    assert.match(anchor, /target="_blank"/);
+    assert.match(anchor, /rel="noopener noreferrer"/);
+  }
+  assert.match(siteData, /href: "https:\/\/miquelt9\.github\.io\/portfolio\/"/);
+  assert.match(siteData, /href: "https:\/\/miquelt9\.github\.io\/portfolio\/posts"/);
+  assert.match(siteData, /posts: "https:\/\/miquelt9\.github\.io\/portfolio\/posts"/);
+  assert.equal((html.match(/id="theme-toggle-mobile"/g) || []).length, 1);
+  assert.equal(html.includes('https://github.com/miquelt9/otaniemitrackerbot'), true);
+  assert.equal(html.includes('https://devpost.com/software/spaceshooter-5hi4of'), true);
+  assert.equal(html.includes('./docs/Miquel_Torner_CV.pdf'), true);
+  assert.equal(html.includes('/apps/spaceshooter/index.html'), true);
+  const notFound = fs.readFileSync(path.join(repoRoot, '404.html'), 'utf8');
+  assert.match(notFound, /PROGRAMMER_NOT_FOUND/);
+  assert.match(notFound, /https:\/\/miquelt9\.github\.io\/stopcode/);
 });
