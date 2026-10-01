@@ -38,7 +38,8 @@
         about: 'About me',
         projects: 'Projects',
         contact: 'Contact',
-        terminal: 'Terminal'
+        terminal: 'Terminal',
+        bingo: 'Bingo Musical'
       },
       windows: {
         about: 'System Properties',
@@ -101,7 +102,8 @@
         about: 'Sobre mi',
         projects: 'Projectes',
         contact: 'Contacte',
-        terminal: 'Terminal'
+        terminal: 'Terminal',
+        bingo: 'Bingo Musical'
       },
       windows: {
         about: 'Propietats del Sistema',

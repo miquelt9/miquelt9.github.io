@@ -645,6 +645,12 @@ div.terminalbox a:active {
 	width: auto;
 }
 
+/* The Bingo ball fills its canvas, so the shared icon stack leaves it
+   against the label. This matches the air under the other desktop icons. */
+#bingoicon {
+	gap: 6px;
+}
+
 .windowContainer {
 	background: rgb(175,211,255);
 	background: linear-gradient(90deg, rgba(175,211,255,1) 0%, rgba(255,255,255,1) 16%);

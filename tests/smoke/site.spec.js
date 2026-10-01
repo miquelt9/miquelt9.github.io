@@ -114,6 +114,27 @@ test.describe('desktop shell', () => {
     await expect(contact.getByText('Check my CV!')).toBeVisible();
   });
 
+  test('opens Bingo Musical in a new browser tab from the desktop icon', async ({ page }) => {
+    await gotoHome(page);
+
+    const icon = page.locator('#bingoicon');
+    await expect(icon).toBeVisible();
+    await expect(icon).toContainText('Bingo Musical');
+    await expect(icon).toHaveAttribute('href', 'https://miquelt9.github.io/bingo-musical/');
+    await expect(icon).toHaveAttribute('target', '_blank');
+    await expect(icon).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(icon.locator('img')).toHaveAttribute('src', 'images/bingo.png');
+    await expect(page.locator('#bingobox, #bingogame, #bingoboxTaskbar')).toHaveCount(0);
+
+    const popupPromise = page.waitForEvent('popup');
+    await icon.click();
+    const popup = await popupPromise;
+    await popup.waitForURL(/https:\/\/miquelt9\.github\.io\/bingo-musical\/?/);
+    await expect(page.locator('.desktop_device')).toBeVisible();
+    await expect(icon).toBeVisible();
+    await popup.close();
+  });
+
   test('falls back to light when the stored theme is invalid', async ({ page }) => {
     await page.addInitScript(() => {
       localStorage.setItem('pc-theme', 'nope');
@@ -159,6 +180,29 @@ test.describe('phone shell', () => {
     await about.locator('.topbarButton.clickable').click();
     await expect(about).toBeHidden();
     await expect(page.locator('#phone-home')).toBeVisible();
+  });
+
+  test('opens Bingo Musical in a new tab from the phone home screen', async ({ page }) => {
+    await gotoHome(page);
+
+    const link = page.locator('#phone-bingo');
+    await expect(link).toBeVisible();
+    await expect(link).toContainText('Bingo Musical');
+    await expect(link).toHaveAttribute('href', 'https://miquelt9.github.io/bingo-musical/');
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+    await expect(link.locator('img')).toHaveAttribute('src', 'images/bingo.png');
+    await expect(page.locator('#phone-os')).not.toHaveClass(/phone-app-open/);
+    await expect(page.locator('#bingobox, #bingogame, #bingoboxTaskbar')).toHaveCount(0);
+
+    const popupPromise = page.waitForEvent('popup');
+    await link.click();
+    const popup = await popupPromise;
+    await popup.waitForURL(/https:\/\/miquelt9\.github\.io\/bingo-musical\/?/);
+    await expect(page).toHaveURL(/\/$/);
+    await expect(page.locator('#phone-home')).toBeVisible();
+    await expect(page.locator('#phone-os')).not.toHaveClass(/phone-app-open/);
+    await popup.close();
   });
 
   test('uses the system theme on phone viewports even when a theme is stored', async ({ page }) => {
@@ -211,5 +255,7 @@ test.describe('phone breakpoint', () => {
     await expect(page.locator('.desktop_device')).toBeHidden();
     await expect(page.locator('#phone-home')).toBeVisible();
     await expect(page.locator('#phone-os').getByRole('button', { name: 'About me' })).toBeVisible();
+    await expect(page.locator('#bingoicon')).toBeHidden();
+    await expect(page.locator('#phone-bingo')).toBeVisible();
   });
 });

@@ -49,7 +49,7 @@
     } else if (processName === "clock" || processName === "startmenu") {
       document.getElementById(processName).remove();
     } else if (processName === "icons") {
-      var icons = ["aboutme", "projects", "contactme", "terminal"];
+      var icons = ["aboutme", "projects", "contactme", "terminal", "bingoicon"];
       for (var i = 0; i < icons.length; i++) {
         document.getElementById(icons[i]).remove();
       }
