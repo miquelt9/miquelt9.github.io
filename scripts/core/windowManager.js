@@ -69,7 +69,7 @@
       element.ondblclick = toggleMaximizedFromEvent;
     }
 
-    if (maximizeButton) {
+    if (maximizeButton && maximizeButton.getAttribute("aria-hidden") !== "true") {
       maximizeButton.onclick = function toggleFromButton(event) {
         if (event) {
           event.stopPropagation();

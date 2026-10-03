@@ -7,15 +7,37 @@
     if (phoneClock) phoneClock.textContent = time;
   }
 
+  function translated(path) {
+    var value = window.i18n.t(path);
+    return value === path ? "" : value;
+  }
+
+  function renderProjects(shell) {
+    var projects = window.SITE_DATA.projects || [];
+    var blocks = projects.map(function (project) {
+      var links = (project.links || []).map(function (link) {
+        return ' &nbsp; <a class="clickable" href="' + link.href + '"><u class="clickable">' + link.label + '</u></a>';
+      }).join("");
+      var play = "";
+      if (project.play) {
+        var playLabel = translated("content.playNow");
+        if (shell === "desktop" && project.play.desktopOnclick) {
+          play = ' <div class="gamelink clickable" onclick="' + project.play.desktopOnclick + '">' + playLabel + '</div>';
+        } else if (project.play.mobileHref) {
+          play = ' <a class="gamelink clickable" href="' + project.play.mobileHref + '">' + playLabel + '</a>';
+        }
+      }
+      var summary = translated("content.projectSummary." + project.id);
+      var summaryHtml = summary ? "<br>&nbsp; " + summary : "";
+      return '• <strong><a href="' + project.href + '" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">' + project.title + '</a></strong>' + links + play + summaryHtml;
+    });
+    return blocks.join("<br><br>") + "<br><br>" + translated("content.projectsFooter");
+  }
+
   function renderSiteContent() {
     if (!window.SITE_DATA || !window.i18n) {
       return;
     }
-
-    const locale = window.i18n.getLocale();
-    const content = window.SITE_DATA.content[locale];
-
-    if (!content) return;
 
     var aboutDesktop = document.getElementById("about-desktop-content");
     var aboutMobile = document.getElementById("about-mobile-content");
@@ -23,24 +45,28 @@
     var projectsMobile = document.getElementById("projects-mobile-content");
     var contactDesktop = document.getElementById("contact-desktop-content");
     var contactMobile = document.getElementById("contact-mobile-content");
+    var projectsHtml = {
+      desktop: renderProjects("desktop"),
+      mobile: renderProjects("mobile"),
+    };
 
     if (aboutDesktop) {
-      aboutDesktop.innerHTML = content.aboutDesktop;
+      aboutDesktop.innerHTML = translated("content.aboutDesktop");
     }
     if (aboutMobile) {
-      aboutMobile.innerHTML = content.aboutMobile;
+      aboutMobile.innerHTML = translated("content.aboutMobile");
     }
     if (projectsDesktop) {
-      projectsDesktop.innerHTML = content.projectsDesktop;
+      projectsDesktop.innerHTML = projectsHtml.desktop;
     }
     if (projectsMobile) {
-      projectsMobile.innerHTML = content.projectsMobile;
+      projectsMobile.innerHTML = projectsHtml.mobile;
     }
     if (contactDesktop) {
-      contactDesktop.innerHTML = content.contactDesktop;
+      contactDesktop.innerHTML = translated("content.contactDesktop");
     }
     if (contactMobile) {
-      contactMobile.innerHTML = content.contactMobile;
+      contactMobile.innerHTML = translated("content.contactMobile");
     }
   }
 
