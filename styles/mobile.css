@@ -48,7 +48,7 @@
     display: flex !important;
     flex-direction: column;
     overflow: hidden;
-    background: var(--pc-surface, #c0c0c0);
+    background: var(--pc-desktop-bg);
   }
 
   .phone-statusbar { display:flex; justify-content:space-between; align-items:center; gap:8px; padding: max(6px, env(safe-area-inset-top)) 8px 6px; }
