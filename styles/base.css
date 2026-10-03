@@ -1,6 +1,14 @@
+html {
+  background: var(--pc-desktop-bg);
+  min-height: 100%;
+}
+
 body {
   background: var(--pc-desktop-bg);
+  margin: 0;
   max-width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   overflow-x: hidden;
   font-family: var(--pc-font-family);
   font-weight: 400;

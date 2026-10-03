@@ -869,7 +869,7 @@ function start() {
 
 errorBoxContent =   '<div class="topbar" id="mainboxheader">SystemError'+
                     '<div class="buttons"><div class="topbarButton">_</div>'+
-                    '<div class="topbarButton">□</div>'+
+                    '<div class="topbarButton" aria-hidden="true">□</div>'+
                     '<div class="topbarButton"">X</div></div></div>	'+
                     '<div class="content">An unexpected error ocurred!</div>';
 

@@ -98,7 +98,7 @@
 			<div class="mainbox" id="aboutbox" style="display: none;">
 				<div class="topbar" id="aboutboxheader"><span data-i18n="windows.about">System Properties</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('aboutbox')">_</div>
-				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('aboutbox')">X</div></div></div>	
 				
 				<div class="content" id="about-desktop-content">
@@ -123,35 +123,17 @@
 			<div class="mainbox" id="projectsbox" style="display: none;">
 				<div class="topbar" id="projectsboxheader"><span data-i18n="windows.projects">Projects</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('projectsbox')">_</div>
-				<div class="topbarButton  clickable" >□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('projectsbox')">X</div></div></div>	
 				
-				<div class="content" id="projects-desktop-content">
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
-					&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
-
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
-					&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
-
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
-					&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
-
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
-					&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
-
-					• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <div class="gamelink clickable" onclick="openWindow('spaceshooter')">Try it now!</div>  <br>
-					&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021) <br> <br>
-
-					Check more at my <strong> <a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer"> portfolio</a></strong>!
-
-				</div>
+				<div class="content" id="projects-desktop-content"></div>
 
 			</div>
 
 			<div class="mainbox" id="contactmebox" style="display: none;">
 				<div class="topbar" id="contactmeboxheader"><span data-i18n="windows.contact">Contact</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('contactmebox')">_</div>
-				<div class="topbarButton clickable" >□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('contactmebox')">X</div></div></div>	
 				
 				<div class="content" id="contact-desktop-content">
@@ -167,7 +149,7 @@
 			<div class="terminalbox" id="terminalbox">
 				<div class="terminaltopbar" id="terminalboxheader"><span data-i18n="windows.terminal">>.</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('terminalbox')">_</div>
-				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton" aria-hidden="true">□</div>
 				<div class="terminaltopbarButton clickable" onclick="hideWindow('terminalbox')">X</div></div></div>	
 				
 				<div class="terminalcontent" id="terminalcontent">
@@ -196,7 +178,7 @@
 			<div class="gamebox" id="spaceshooterbox">
 				<div class="terminaltopbar" id="spaceshooterboxheader"><span data-i18n="windows.spaceshooter">SpaceShooter</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('spaceshooterbox')">_</div>
-				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton" aria-hidden="true">□</div>
 				<div class="terminaltopbarButton clickable" onclick="closeWindow('spaceshooter')">X</div></div></div>	
 				
 				<div class="gamecontent"  id="spaceshooter"> 
@@ -209,7 +191,7 @@
 			<div class="gamebox" id="snakebox">
 				<div class="terminaltopbar" id="snakeboxheader"><span data-i18n="windows.snake">Snake 🐍 (WIP :P)</span>
 				<div class="buttons"><div class="terminaltopbarButton clickable" onclick="minimise('snakebox')">_</div>
-				<div class="terminaltopbarButton clickable">□</div>
+				<div class="terminaltopbarButton" aria-hidden="true">□</div>
 				<div class="terminaltopbarButton clickable" onclick="closeWindow('snake')">X</div></div></div>	
 				
 				<div class="gamecontent"  id="snake"> 
@@ -222,7 +204,7 @@
 			<div class="cvbox" id="cvbox" style="display: none;">
 				<div class="topbar" id="cvboxheader"><span data-i18n="windows.cv">&nbsp;CV&VeryThinSpace;📄</span>
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('cvbox')">_</div>
-				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('cvbox')">X</div></div></div>	
 				<iframe id="iframepdf" style="width: 1280px; height: 780px" title="CV"></iframe>
 			</div>
@@ -231,7 +213,7 @@
 			<div class="cvbox" id="canbox" style="display: none;" width="400" height="400">
 				<div class="topbar" id="canboxheader">&nbsp;CANVAS!
 				<div class="buttons"><div class="topbarButton clickable" onclick="minimise('canbox')">_</div>
-				<div class="topbarButton clickable">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="hideWindow('canbox')">X</div></div></div>	
 				<!-- <canvas id="can" width="700" height="200" style="position:absolute;top:15%;left:5%;border:2px solid;"></canvas> -->
 
@@ -287,7 +269,7 @@
 			<!-- Css activates always the 480, to improve -->
 			<!-- <div class="mainbox" id="contactmebox"style="display: block;">				<div class="topbar" id="contactmeboxheader" data-i18n="windows.contact">Contact
 				<div class="buttons"><div class="topbarButton" onclick="minimise('contactmebox')">_</div>
-				<div class="topbarButton">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton" onclick="hideWindow('contactmebox')">X</div></div></div>
 				
 				<div class="content" id="about-mobile-content">
@@ -319,7 +301,7 @@
 			<div class="mainbox phone-window" id="aboutbox-mobile" style="display: none;">
 				<div class="topbar" id="aboutboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.about">System Properties</span>
 				<div class="buttons"><div class="topbarButton">_</div>
-				<div class="topbarButton">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				<!-- <div style="text-align: center;"> Not sure if display my photo in the phone so better not to do so I think
 					<br> 
@@ -346,35 +328,17 @@
 			<div class="mainbox phone-window" id="projectsbox-mobile" style="display: none; ">
 				<div class="topbar" id="projectsboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.projects">Projects</span>
 				<div class="buttons"><div class="topbarButton">_</div>
-				<div class="topbarButton">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				
-				<div class="content" style="text-align: justify;" id="projects-mobile-content">
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Otaniemi tracker bot</a></strong>       &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u> </a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"> <u class="clickable">Telegram</u> </a> <br>
-						&nbsp; A Telegram bot that tracks the buy/sell group  (Erasmus+ 2023)  <br> <br>
-	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Plushistics</a></strong>               &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"> <u class="clickable">Devpost</u> </a> <br>
-						&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)  <br> <br>
-	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Falcon Explorer</a></strong>           &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"> <u class="clickable">Github</u> </a> <br>
-						&nbsp;  A file explorer program with a file editor on it (Course Project 2022)  <br> <br>
-	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> Chip-Chips</a></strong>                 &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"> <u class="clickable">Devpost</u> </a> <br>
-						&nbsp;  An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)  <br> <br>
-	
-						• <strong> <a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer"> SpaceShooter</a></strong>              &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"> <u class="clickable">Devpost</u>&nbsp; </a> <a class="gamelink clickable" href="/apps/spaceshooter/index.html">Try it now!</a>  <br>
-						&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021) <br> <br>
-	
-						Check more at my <strong> <a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer"> portfolio</a></strong>!
-	
-					</div>
+				<div class="content" style="text-align: justify;" id="projects-mobile-content"></div>
 
 			</div>
 
 			<div class="mainbox phone-window" id="contactmebox-mobile" style="display: none;">
 				<div class="topbar" id="contactmeboxheader-mobile" style="font-size: 1rem;"><span data-i18n="windows.contact">Contact</span>
 				<div class="buttons"><div class="topbarButton">_</div>
-				<div class="topbarButton">□</div>
+				<div class="topbarButton" aria-hidden="true">□</div>
 				<div class="topbarButton clickable" onclick="closePhoneApp()">X</div></div></div>	
 				
 				<div class="content" id="contact-mobile-content">

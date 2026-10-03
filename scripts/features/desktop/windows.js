@@ -136,7 +136,7 @@
   }
 
   function armKeyboardClick(element) {
-    if (!element || element.dataset.keyboardClick === "true") {
+    if (!element || element.dataset.keyboardClick === "true" || element.getAttribute("aria-hidden") === "true") {
       return;
     }
     var tag = element.tagName;

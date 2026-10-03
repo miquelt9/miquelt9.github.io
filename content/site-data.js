@@ -1,9 +1,4 @@
 (function initSiteData(globalScope) {
-  const LOCALES = {
-    EN: 'en',
-    CA: 'ca'
-  };
-
   globalScope.SITE_DATA = {
     terminal: {
       files: {
@@ -33,36 +28,59 @@
         locales: ["English", "Catalan"],
       },
     },
-    content: {
-      [LOCALES.EN]: {
-        aboutDesktop:
-          '<div class="properties"><img src="images/meOnPC.png"><div class="txt">System: <br>&nbsp; Miquel Torner Viñals <br><br>Registered to: <br>&nbsp; Barcelona School of Informatics, Polytechnic University of Catalonia <br>&nbsp; Bachelor\'s degree in Informatics Engineering (major in computing)<br><br>Hi, I\'m Miquel! I love programming, cooking, hiking and traveling. <br>Thanks for checking out my website :)</div></div>',
-        aboutMobile:
-          '<div class="properties" style="padding: 10px; text-align: justify;">System: <br>&nbsp; Miquel Torner Viñals <br>&nbsp;<br>Registered to: <br>&nbsp; · FIB, Polytechnic University of Catalonia <br>&nbsp; · Bachelor\'s degree in Informatics Engineering (major in computing)<br><br>&nbsp;<br>Hi, I\'m Miquel! I love programming, cooking, hiking and traveling. <br>Thanks for checking out my website! <br>&nbsp;<br>(Use a desktop/laptop for the full interactive experience)</div>',
-        projectsDesktop:
-          '• <strong><a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Otaniemi tracker bot</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u></a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"><u class="clickable">Telegram</u></a> <br>&nbsp; A Telegram bot that tracks the buy/sell group (Erasmus+ 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Plushistics</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"><u class="clickable">Devpost</u></a><br>&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Falcon Explorer</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"><u class="clickable">Github</u></a><br>&nbsp; A file explorer program with a file editor on it (Course Project 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Chip-Chips</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"><u class="clickable">Devpost</u></a><br>&nbsp; An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">SpaceShooter</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"><u class="clickable">Devpost</u></a> <div class="gamelink clickable" onclick="openWindow(\'spaceshooter\')">Try it now!</div><br>&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021)<br><br>Check more at my <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfolio</a></strong>!',
-        projectsMobile:
-          '• <strong><a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Otaniemi tracker bot</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u></a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"><u class="clickable">Telegram</u></a> <br>&nbsp; A Telegram bot that tracks the buy/sell group (Erasmus+ 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Plushistics</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"><u class="clickable">Devpost</u></a><br>&nbsp; A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Falcon Explorer</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"><u class="clickable">Github</u></a><br>&nbsp; A file explorer program with a file editor on it (Course Project 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Chip-Chips</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"><u class="clickable">Devpost</u></a><br>&nbsp; An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">SpaceShooter</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"><u class="clickable">Devpost</u></a> <a class="gamelink clickable" href="/apps/spaceshooter/index.html">Try it now!</a><br>&nbsp; A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021)<br><br>Check more at my <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfolio</a></strong>!',
-        contactDesktop:
-          '<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfolio </a> <br><a class="windowslink clickable" onclick="showWindow(\'cvbox\')" style="padding-left: 0%;">Check my CV!</a>',
-        contactMobile:
-          '<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfolio </a> <br><a href="./docs/Miquel_Torner_CV.pdf" target="_blank" rel="noopener noreferrer">Check my CV!</a>',
+    projects: [
+      {
+        id: "otaniemi",
+        title: "Otaniemi tracker bot",
+        href: "https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/",
+        links: [
+          { label: "Github", href: "https://github.com/miquelt9/otaniemitrackerbot" },
+          { label: "Telegram", href: "https://t.me/otaniemitrackerbot" },
+        ],
       },
-      [LOCALES.CA]: {
-        aboutDesktop:
-          '<div class="properties"><img src="images/meOnPC.png"><div class="txt">Sistema: <br>&nbsp; Miquel Torner Viñals <br><br>Registrat a: <br>&nbsp; Facultat d\'Informàtica de Barcelona, Universitat Politècnica de Catalunya <br>&nbsp; Grau en Enginyeria Informàtica (especialitat en computació)<br><br>Hola, sóc en Miquel! M\'encanta la programació, cuinar, fer senderisme i viatjar. <br>Gràcies per visitar la meva web :)</div></div>',
-        aboutMobile:
-          '<div class="properties" style="padding: 10px; text-align: justify;">Sistema: <br>&nbsp; Miquel Torner Viñals <br>&nbsp;<br>Registrat a: <br>&nbsp; · FIB, Universitat Politècnica de Catalunya <br>&nbsp; · Grau en Enginyeria Informàtica (especialitat en computació)<br><br>&nbsp;<br>Hola, sóc en Miquel! M\'encanta la programació, cuinar, fer senderisme i viatjar. <br>Gràcies per visitar la meva web! <br>&nbsp;<br>(Fes servir un ordinador per a l\'experiència interactiva completa)</div>',
-        projectsDesktop:
-          '• <strong><a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Otaniemi tracker bot</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u></a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"><u class="clickable">Telegram</u></a> <br>&nbsp; Un bot de Telegram que rastreja el grup de compra/venda (Erasmus+ 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Plushistics</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"><u class="clickable">Devpost</u></a><br>&nbsp; Un simulador interactiu 2D que utilitza algorismes de planificació per optimitzar rutes (RoyalHackaway 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Falcon Explorer</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"><u class="clickable">Github</u></a><br>&nbsp; Un programa explorador de fitxers amb un editor de fitxers (Projecte de curs 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Chip-Chips</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"><u class="clickable">Devpost</u></a><br>&nbsp; Un algorisme que minimitza la longitud mitjana de les cadenes que connecten pins en un xip (DatathonFME 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">SpaceShooter</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"><u class="clickable">Devpost</u></a> <div class="gamelink clickable" onclick="openWindow(\'spaceshooter\')">Prova-ho ara!</div><br>&nbsp; Un joc 2D per a un sol jugador basat en l\'arcade Asteroids utilitzant Unity (HackUPC 2021)<br><br>Mira més al meu <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfoli</a></strong>!',
-        projectsMobile:
-          '• <strong><a href="https://miquelt9.github.io/portfolio/posts/personal/otaniemi-tracker-bot/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Otaniemi tracker bot</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/otaniemitrackerbot"><u class="clickable">Github</u></a> &nbsp; <a class="clickable" href="https://t.me/otaniemitrackerbot"><u class="clickable">Telegram</u></a> <br>&nbsp; Un bot de Telegram que rastreja el grup de compra/venda (Erasmus+ 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Plushistics</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/plushistics"><u class="clickable">Devpost</u></a><br>&nbsp; Un simulador interactiu 2D que utilitza algorismes de planificació per optimitzar rutes (RoyalHackaway 2023)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/college/falconexplorer/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Falcon Explorer</a></strong> &nbsp; <a class="clickable" href="https://github.com/miquelt9/PROP-FIB"><u class="clickable">Github</u></a><br>&nbsp; Un programa explorador de fitxers amb un editor de fitxers (Projecte de curs 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">Chip-Chips</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/chip-chips"><u class="clickable">Devpost</u></a><br>&nbsp; Un algorisme que minimitza la longitud mitjana de les cadenes que connecten pins en un xip (DatathonFME 2022)<br><br>• <strong><a href="https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/" class="clickable content-title-link" target="_blank" rel="noopener noreferrer">SpaceShooter</a></strong> &nbsp; <a class="clickable" href="https://devpost.com/software/spaceshooter-5hi4of"><u class="clickable">Devpost</u></a> <a class="gamelink clickable" href="/apps/spaceshooter/index.html">Prova-ho ara!</a><br>&nbsp; Un joc 2D per a un sol jugador basat en l\'arcade Asteroids utilitzant Unity (HackUPC 2021)<br><br>Mira més al meu <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfoli</a></strong>!',
-        contactDesktop:
-          '<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfoli </a> <br><a class="windowslink clickable" onclick="showWindow(\'cvbox\')" style="padding-left: 0%;">Mira el meu CV!</a>',
-        contactMobile:
-          '<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfoli </a> <br><a href="./docs/Miquel_Torner_CV.pdf" target="_blank" rel="noopener noreferrer">Mira el meu CV!</a>',
-      }
-    },
+      {
+        id: "plushistics",
+        title: "Plushistics",
+        href: "https://miquelt9.github.io/portfolio/posts/competitions/royalhackawayv6/",
+        links: [
+          { label: "Devpost", href: "https://devpost.com/software/plushistics" },
+        ],
+      },
+      {
+        id: "falcon",
+        title: "Falcon Explorer",
+        href: "https://miquelt9.github.io/portfolio/posts/college/falconexplorer/",
+        links: [
+          { label: "Github", href: "https://github.com/miquelt9/PROP-FIB" },
+        ],
+      },
+      {
+        id: "chipchips",
+        title: "Chip-Chips",
+        href: "https://miquelt9.github.io/portfolio/posts/competitions/funcions-numerables/",
+        links: [
+          { label: "Devpost", href: "https://devpost.com/software/chip-chips" },
+        ],
+      },
+      {
+        id: "spaceshooter",
+        title: "SpaceShooter",
+        href: "https://miquelt9.github.io/portfolio/posts/competitions/hackupc2021/",
+        links: [
+          { label: "Devpost", href: "https://devpost.com/software/spaceshooter-5hi4of" },
+        ],
+        play: {
+          desktopOnclick: "openWindow('spaceshooter')",
+          mobileHref: "/apps/spaceshooter/index.html",
+        },
+      },
+      {
+        id: "bingo",
+        title: "Bingo Musical",
+        href: "https://miquelt9.github.io/bingo-musical/",
+        links: [],
+      },
+    ],
   };
 })(window);
 

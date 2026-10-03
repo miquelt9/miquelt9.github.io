@@ -82,6 +82,26 @@
       },
       redirects: {
         spaceshooter: 'Redirecting to SpaceShooter...'
+      },
+      content: {
+        aboutDesktop:
+          '<div class="properties"><img src="images/meOnPC.png"><div class="txt">System: <br>&nbsp; Miquel Torner Viñals <br><br>Registered to: <br>&nbsp; Barcelona School of Informatics, Polytechnic University of Catalonia <br>&nbsp; Bachelor\'s degree in Informatics Engineering (major in computing)<br><br>Hi, I\'m Miquel! I love programming, cooking, hiking and traveling. <br>Thanks for checking out my website :)</div></div>',
+        aboutMobile:
+          '<div class="properties" style="padding: 10px; text-align: justify;">System: <br>&nbsp; Miquel Torner Viñals <br>&nbsp;<br>Registered to: <br>&nbsp; · FIB, Polytechnic University of Catalonia <br>&nbsp; · Bachelor\'s degree in Informatics Engineering (major in computing)<br><br>&nbsp;<br>Hi, I\'m Miquel! I love programming, cooking, hiking and traveling. <br>Thanks for checking out my website! <br>&nbsp;<br>(Use a desktop/laptop for the full interactive experience)</div>',
+        contactDesktop:
+          '<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfolio </a> <br><a class="windowslink clickable" onclick="showWindow(\'cvbox\')" style="padding-left: 0%;">Check my CV!</a>',
+        contactMobile:
+          '<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfolio </a> <br><a href="./docs/Miquel_Torner_CV.pdf" target="_blank" rel="noopener noreferrer">Check my CV!</a>',
+        projectsFooter:
+          'Check more at my <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfolio</a></strong>!',
+        playNow: 'Try it now!',
+        projectSummary: {
+          otaniemi: 'A Telegram bot that tracks the buy/sell group (Erasmus+ 2023)',
+          plushistics: 'A 2D interactive simulator which uses planning algorithms to optimize routes (RoyalHackaway 2023)',
+          falcon: 'A file explorer program with a file editor on it (Course Project 2022)',
+          chipchips: 'An algorithm that minimizes the average length of chains that connect pins in a chip (DatathonFME 2022)',
+          spaceshooter: 'A 2D single player game based in the arcade Asteroids using Unity (HackUPC 2021)'
+        }
       }
     },
     [LOCALES.CA]: {
@@ -146,6 +166,26 @@
       },
       redirects: {
         spaceshooter: 'Redirigint a SpaceShooter...'
+      },
+      content: {
+        aboutDesktop:
+          '<div class="properties"><img src="images/meOnPC.png"><div class="txt">Sistema: <br>&nbsp; Miquel Torner Viñals <br><br>Registrat a: <br>&nbsp; Facultat d\'Informàtica de Barcelona, Universitat Politècnica de Catalunya <br>&nbsp; Grau en Enginyeria Informàtica (especialitat en computació)<br><br>Hola, sóc en Miquel! M\'encanta la programació, cuinar, fer senderisme i viatjar. <br>Gràcies per visitar la meva web :)</div></div>',
+        aboutMobile:
+          '<div class="properties" style="padding: 10px; text-align: justify;">Sistema: <br>&nbsp; Miquel Torner Viñals <br>&nbsp;<br>Registrat a: <br>&nbsp; · FIB, Universitat Politècnica de Catalunya <br>&nbsp; · Grau en Enginyeria Informàtica (especialitat en computació)<br><br>&nbsp;<br>Hola, sóc en Miquel! M\'encanta la programació, cuinar, fer senderisme i viatjar. <br>Gràcies per visitar la meva web! <br>&nbsp;<br>(Fes servir un ordinador per a l\'experiència interactiva completa)</div>',
+        contactDesktop:
+          '<a class="clickable" href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a class="clickable" href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a class="clickable" href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfoli </a> <br><a class="windowslink clickable" onclick="showWindow(\'cvbox\')" style="padding-left: 0%;">Mira el meu CV!</a>',
+        contactMobile:
+          '<a href="mailto:miqueltorner9@gmail.com"> miqueltorner9@gmail.com </a> <br><a href="https://www.linkedin.com/in/miqueltv/"> LinkedIn </a> <br><a href="https://github.com/miquelt9"> GitHub </a> <br><a class="clickable" href="https://miquelt9.github.io/portfolio" target="_blank" rel="noopener noreferrer"> Portfoli </a> <br><a href="./docs/Miquel_Torner_CV.pdf" target="_blank" rel="noopener noreferrer">Mira el meu CV!</a>',
+        projectsFooter:
+          'Mira més al meu <strong><a href="https://miquelt9.github.io/portfolio/posts/" class="clickable" target="_blank" rel="noopener noreferrer">portfoli</a></strong>!',
+        playNow: 'Prova-ho ara!',
+        projectSummary: {
+          otaniemi: 'Un bot de Telegram que rastreja el grup de compra/venda (Erasmus+ 2023)',
+          plushistics: 'Un simulador interactiu 2D que utilitza algorismes de planificació per optimitzar rutes (RoyalHackaway 2023)',
+          falcon: 'Un programa explorador de fitxers amb un editor de fitxers (Projecte de curs 2022)',
+          chipchips: 'Un algorisme que minimitza la longitud mitjana de les cadenes que connecten pins en un xip (DatathonFME 2022)',
+          spaceshooter: 'Un joc 2D per a un sol jugador basat en l\'arcade Asteroids utilitzant Unity (HackUPC 2021)'
+        }
       }
     }
   };
